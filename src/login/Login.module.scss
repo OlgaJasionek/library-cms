@@ -1,0 +1,44 @@
+@import "../scss/main.scss";
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    margin: 10px;
+    width: 500px;
+    height: 75%;
+
+    .header {
+      font-weight: bold;
+    }
+
+    .bookIcon {
+      margin: 10px;
+      font-size: 2rem;
+      color: $mainColor;
+    }
+
+    .quote {
+      margin: 10px;
+      font-style: italic;
+      font-size: 0.8rem;
+      text-align: center;
+      color: rgb(61, 61, 61);
+    }
+
+    .form {
+      display: flex;
+      flex-direction: column;
+      margin: 30px 20px;
+      width: 100%;
+    }
+  }
+}
