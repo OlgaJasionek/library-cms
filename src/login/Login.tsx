@@ -2,6 +2,7 @@ import ImportContactsIcon from "@mui/icons-material/ImportContacts";
 import Button from "@mui/material/Button";
 import { useForm } from "react-hook-form";
 import classnames from "classnames";
+import axios from "axios";
 
 import TextInput from "../common/components/TextInput";
 
@@ -15,7 +16,14 @@ type FormValues = {
 const Login = () => {
   const { handleSubmit, control } = useForm<FormValues>();
 
-  const onSubmit = () => console.log("valid");
+  const onSubmit = async (body: FormValues) => {
+    try {
+      const resp = await axios.post("http://vps-9be06b3a.vps.ovh.net/api/auth/login", body);
+      console.log(resp);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   return (
     <div className={styles.container}>
