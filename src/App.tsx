@@ -1,11 +1,16 @@
 import React from "react";
+import { Route, Routes } from "react-router-dom";
+import Cockpit from "./Cockpit/Cockpit";
 
 import Login from "./login/Login";
 
 function App() {
   return (
     <div>
-      <Login />
+      <Routes>
+        <Route path="/login" element={<Login />}></Route>
+        <Route path="/" element={<Cockpit />}></Route>
+      </Routes>
     </div>
   );
 }
