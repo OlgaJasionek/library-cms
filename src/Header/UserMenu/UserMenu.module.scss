@@ -1,0 +1,39 @@
+@import "../../scss/main.scss";
+
+.menu {
+  width: 300px;
+}
+
+.avatar {
+  display: flex;
+  align-items: center;
+  height: 78px;
+  padding: 16px;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  padding: 7px 16px;
+  font-size: 1rem;
+}
+
+.link {
+  cursor: pointer;
+  text-decoration: none;
+  color: black;
+}
+
+.link:hover {
+  background-color: $linkHoverColor;
+}
+
+.itemLabel {
+  margin-left: 16px;
+  text-align: center;
+}
+
+.separator {
+  margin: 8px 0;
+  color: $separatorColor;
+}
