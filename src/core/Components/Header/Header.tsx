@@ -1,15 +1,18 @@
 import { useState } from "react";
-import { Notifications, Menu } from "@mui/icons-material";
-import { Avatar, Badge } from "@mui/material";
+import * as Icons from "@mui/icons-material";
+import { Avatar, Badge, Popover } from "@mui/material";
 import jwtDecode from "jwt-decode";
 
 import UserMenu from "./UserMenu/UserMenu";
-import Popover from "../common/components/Popover/Popover";
-import { DecodedToken } from "../common/types/jwt";
+import { DecodedToken } from "../../../common/types/jwt";
 
 import styles from "./Header.module.scss";
 
-const Header = () => {
+type Props = {
+  onOpenSidebar: () => void;
+};
+
+const Header = ({ onOpenSidebar }: Props) => {
   const [menuPopoverAnchorEl, setMenuPopoverAnchorEl] = useState<HTMLElement | null>(null);
 
   const isMenuPopoverOpen = !!menuPopoverAnchorEl;
@@ -27,13 +30,13 @@ const Header = () => {
   return (
     <div>
       <div className={styles.header}>
-        <div className={styles.burgerMenu}>
-          <Menu sx={{ fontSize: 30 }} className={styles.icon} />
+        <div className={styles.burgerMenu} onClick={() => onOpenSidebar()}>
+          <Icons.Menu className={styles.icon} />
         </div>
         <div className="wrapper d-flex align-items-center">
           <div className={styles.notifications}>
             <Badge badgeContent={2} color="primary">
-              <Notifications sx={{ fontSize: 30 }} className={styles.icon} />
+              <Icons.Notifications className={styles.icon} />
             </Badge>
           </div>
           <Avatar className={styles.avatar} onClick={handleAvatarClick} />

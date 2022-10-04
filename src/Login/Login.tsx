@@ -2,12 +2,12 @@ import { useState } from "react";
 import axios, { AxiosError } from "axios";
 import { useForm } from "react-hook-form";
 import classnames from "classnames";
-import ImportContactsIcon from "@mui/icons-material/ImportContacts";
 import { LoadingButton } from "@mui/lab";
 import { useNavigate } from "react-router-dom";
 
 import TextInput from "../common/components/TextInput/TextInput";
 import Snackbar from "../common/components/Snackbar/Snackbar";
+import Logo from "../common/components/Logo/Logo";
 
 import styles from "./Login.module.scss";
 
@@ -47,7 +47,7 @@ const Login = () => {
   return (
     <div className={styles.container}>
       <div className={classnames(styles.wrapper, "shadow p-3 mb-5 bg-body rounded")}>
-        <ImportContactsIcon className={styles.bookIcon} />
+        <Logo />
         <h2 className={styles.header}>Zaloguj się</h2>
         <p className={styles.quote}>
           "Czytanie książek to najpiękniejsza zabawa, jaką sobie ludzkość wymyśliła "
