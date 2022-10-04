@@ -1,9 +1,9 @@
 import { Logout, Person, Settings, AlternateEmail } from "@mui/icons-material";
 import { Avatar } from "@mui/material";
 
-import { UserInfo } from "../../common/types/user";
-import { userRoleTranslations } from "../../common/utils/translations";
-import { getFullName } from "../../common/utils/full-name";
+import { getFullName } from "../../../../common/utils/full-name";
+import { userRoleTranslations } from "../../../../common/utils/translations";
+import { UserInfo } from "../../../../common/types/user";
 
 import styles from "./UserMenu.module.scss";
 import classNames from "classnames";

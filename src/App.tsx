@@ -2,7 +2,7 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import Cockpit from "./Cockpit/Cockpit";
 
-import Login from "./login/Login";
+import Login from "./Login/Login";
 
 function App() {
   return (

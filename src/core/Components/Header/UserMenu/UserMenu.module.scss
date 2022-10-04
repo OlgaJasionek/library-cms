@@ -1,4 +1,4 @@
-@import "../../scss/main.scss";
+@import "../../../../scss/main.scss";
 
 .menu {
   width: 300px;
@@ -25,7 +25,7 @@
 }
 
 .link:hover {
-  background-color: $linkHoverColor;
+  background-color: $link-hover-color;
 }
 
 .itemLabel {
@@ -35,5 +35,5 @@
 
 .separator {
   margin: 8px 0;
-  color: $separatorColor;
+  color: $separator-color;
 }
