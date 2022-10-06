@@ -1,7 +1,7 @@
-import { UserInfo } from "./user";
+import { BaseUserInfo } from "./user";
 
 export type DecodedToken = {
   exp: number;
   iat: number;
-  user: UserInfo;
+  user: BaseUserInfo;
 };

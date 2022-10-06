@@ -6,10 +6,10 @@ import Login from "./Login/Login";
 
 function App() {
   return (
-    <div>
+    <div className="h-100">
       <Routes>
         <Route path="/login" element={<Login />}></Route>
-        <Route path="/" element={<Cockpit />}></Route>
+        <Route path="*" element={<Cockpit />}></Route>
       </Routes>
     </div>
   );

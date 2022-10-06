@@ -1,4 +1,4 @@
-export type UserInfo = {
+export type BaseUserInfo = {
   email: string;
   firstName: string;
   lastName: string;
@@ -8,4 +8,10 @@ export type UserInfo = {
 export enum UserRole {
   Librarian = "LIBRARIAN",
   Reader = "READER",
+}
+
+export interface FullUserInfo extends BaseUserInfo {
+  createdAt: string;
+  pesel: number;
+  phoneNumber: number;
 }
