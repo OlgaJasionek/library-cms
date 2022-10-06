@@ -1,7 +1,9 @@
 import { useState } from "react";
+import { Route, Routes } from "react-router-dom";
 
 import Header from "../core/Components/Header/Header";
-import SideBar from "../SideBar/SideBar";
+import Profile from "../UserAccount/Profile/Profile";
+import SideBar from "../core/Components/SideBar/SideBar";
 
 import styles from "./Cockpit.module.scss";
 
@@ -15,13 +17,20 @@ const Cockpit = () => {
   return (
     <div className={styles.cockpit}>
       <Header onOpenSidebar={() => setOpenSideBar(true)} />
-      <div className="d-flex p-relative">
+      <div className={styles.cockpitBody}>
         <SideBar openSideBar={openSideBar} onCloseSideBar={closeSideBarHandler} />
-        <div className={styles.cockpitBody}>
-          <div className="container"></div>
+        <div className={styles.cockpitItem}>
+          <div className="container">
+            <div className="row">
+              <Routes>
+                <Route path="/profile" element={<Profile />}></Route>
+              </Routes>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   );
 };
+
 export default Cockpit;

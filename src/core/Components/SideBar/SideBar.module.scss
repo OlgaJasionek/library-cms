@@ -1,4 +1,4 @@
-@import "../scss/main.scss";
+@import "../../../scss/main.scss";
 
 .sidebar {
   position: fixed;
@@ -26,7 +26,6 @@
 }
 
 .separator {
-  color: $separator-color;
   padding: 2px;
   margin: 0;
 }
