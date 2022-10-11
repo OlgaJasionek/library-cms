@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios, { AxiosError } from "axios";
+import { AxiosError } from "axios";
 import { useForm } from "react-hook-form";
 import classnames from "classnames";
 import { LoadingButton } from "@mui/lab";
@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import TextInput from "../common/components/TextInput/TextInput";
 import Snackbar from "../common/components/Snackbar/Snackbar";
 import Logo from "../common/components/Logo/Logo";
+import http from "../core/Components/api/http";
 
 import styles from "./Login.module.scss";
 
@@ -26,7 +27,7 @@ const Login = () => {
   const onSubmit = async (body: FormValues) => {
     try {
       setLoading(true);
-      const resp = await axios.post("http://vps-9be06b3a.vps.ovh.net/api/auth/login", body);
+      const resp = await http.post("auth/login", body);
       const token = resp.data.token;
       localStorage.setItem("token", token);
       navigate("/");
@@ -39,9 +40,9 @@ const Login = () => {
     setLoading(false);
   };
 
-  const handleClose = () => {
-    setOpenSnackbar(false);
+  const handleCloseSnackbar = () => {
     setError(null);
+    setOpenSnackbar(false);
   };
 
   return (
@@ -77,10 +78,11 @@ const Login = () => {
           <LoadingButton type="submit" variant="contained" loading={loading} role="progressbar">
             Zaloguj się
           </LoadingButton>
-          <Snackbar open={openSnackbar} error={error} handleClose={handleClose} color="error" />
+          <Snackbar open={openSnackbar} text={error} handleClose={handleCloseSnackbar} color="error" />
         </form>
       </div>
     </div>
   );
 };
+
 export default Login;

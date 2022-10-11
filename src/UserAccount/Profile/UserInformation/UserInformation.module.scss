@@ -1,23 +1,8 @@
 @import "../../../scss/main.scss";
 
-.header {
-  background-color: white;
-  margin: 20px 20px 0px 20px;
-  padding: 30px;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-  border: solid 1px $border-gray-color;
-  box-shadow: rgb(100 116 139 / 6%) 0px 1px 1px, rgb(100 116 139 / 10%) 0px 1px 2px;
-}
-
-.items {
-  background-color: white;
-  margin: 0 20px 20px 20px;
-  padding: 15px;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
-  border: solid 1px $border-gray-color;
-  box-shadow: rgb(100 116 139 / 6%) 0px 1px 1px, rgb(100 116 139 / 10%) 0px 1px 2px;
+.item {
+  display: flex;
+  align-items: center;
 }
 
 .icon {
