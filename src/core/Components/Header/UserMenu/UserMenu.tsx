@@ -37,11 +37,11 @@ const UserMenu = ({ user }: Props) => {
           <Icons.Contacts fontSize="small" />
           <span className={styles.itemLabel}> {userRoleTranslations[user.role]}</span>
         </div>
-        <a onClick={() => navigate("/profile")} className={classNames(styles.item, styles.link)}>
+        <a onClick={() => navigate("user-account/profile")} className={classNames(styles.item, styles.link)}>
           <Icons.Person fontSize="small" />
           <span className={styles.itemLabel}>Profil</span>
         </a>
-        <a className={classNames(styles.item, styles.link)}>
+        <a onClick={() => navigate("user-account/settings")} className={classNames(styles.item, styles.link)}>
           <Icons.Settings fontSize="small" />
           <span className={styles.itemLabel}>Ustawienia</span>
         </a>

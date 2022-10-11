@@ -3,11 +3,11 @@ import { Alert, AlertColor, Snackbar as MuiSnackbar } from "@mui/material";
 type Props = {
   open: boolean;
   handleClose: () => void;
-  error: string | null | undefined;
+  text: string | null | undefined;
   color: AlertColor;
 };
 
-const Snackbar = ({ open, handleClose, error, color }: Props) => {
+const Snackbar = ({ open, handleClose, text, color }: Props) => {
   return (
     <MuiSnackbar
       anchorOrigin={{ vertical: "top", horizontal: "right" }}
@@ -16,7 +16,7 @@ const Snackbar = ({ open, handleClose, error, color }: Props) => {
       onClose={handleClose}
     >
       <Alert onClose={handleClose} severity={color} sx={{ width: "100%" }}>
-        {error}
+        {text}
       </Alert>
     </MuiSnackbar>
   );

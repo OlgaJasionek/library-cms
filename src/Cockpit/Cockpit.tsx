@@ -4,8 +4,10 @@ import { Route, Routes } from "react-router-dom";
 import Header from "../core/Components/Header/Header";
 import Profile from "../UserAccount/Profile/Profile";
 import SideBar from "../core/Components/SideBar/SideBar";
+import Settings from "../UserAccount/Settings/Settings";
 
 import styles from "./Cockpit.module.scss";
+import UserAccount from "../UserAccount/UserAccount";
 
 const Cockpit = () => {
   const [openSideBar, setOpenSideBar] = useState(false);
@@ -21,11 +23,9 @@ const Cockpit = () => {
         <SideBar openSideBar={openSideBar} onCloseSideBar={closeSideBarHandler} />
         <div className={styles.cockpitItem}>
           <div className="container">
-            <div className="row">
-              <Routes>
-                <Route path="/profile" element={<Profile />}></Route>
-              </Routes>
-            </div>
+            <Routes>
+              <Route path="/user-account/*" element={<UserAccount />}></Route>
+            </Routes>
           </div>
         </div>
       </div>
