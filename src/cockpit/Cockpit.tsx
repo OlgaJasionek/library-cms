@@ -4,7 +4,7 @@ import { Route, Routes } from "react-router-dom";
 import Header from "../core/components/Header/Header";
 import SideBar from "../core/components/SideBar/SideBar";
 import Users from "../users/Users";
-import UserAccount from "../userAccount/UserAccount";
+import UserAccount from "../user-account/UserAccount";
 
 import styles from "./Cockpit.module.scss";
 

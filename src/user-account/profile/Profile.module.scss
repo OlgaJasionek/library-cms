@@ -1,0 +1,20 @@
+@import "../../scss/main.scss";
+
+.avatar {
+  margin: 10px;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  text-align: left;
+  font-weight: 500;
+}
+
+.role {
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  color: $label-gray-color;
+}

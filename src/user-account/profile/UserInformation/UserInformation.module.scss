@@ -1,0 +1,22 @@
+@import "../../../scss/main.scss";
+
+.item {
+  display: flex;
+  align-items: center;
+}
+
+.icon {
+  color: $icon-color;
+  text-align: center;
+  margin: 15px;
+}
+
+.label {
+  color: $label-gray-color;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+}
+
+.separator {
+  margin: 0;
+}

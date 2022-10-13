@@ -3,12 +3,12 @@ import { Box, IconButton } from "@mui/material";
 
 import styles from "./Actions.module.scss";
 
-interface TablePaginationActionsProps {
+type TablePaginationActionsProps = {
   count: number;
   page: number;
   rowsPerPage: number;
   onPageChange: (event: React.MouseEvent<HTMLButtonElement>, newPage: number) => void;
-}
+};
 
 const TablePaginationActions = (props: TablePaginationActionsProps) => {
   const { count, page, rowsPerPage, onPageChange } = props;

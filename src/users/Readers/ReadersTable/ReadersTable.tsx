@@ -56,7 +56,7 @@ const ReadersTable = () => {
 
   return (
     <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="readers pagination table">
+      <Table aria-label="readers pagination table">
         <TableHead>
           <TableRow>
             <TableCell>Nazwa</TableCell>
