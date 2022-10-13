@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 
-import Settings from "./Settings/Settings";
-import Profile from "./Profile/Profile";
+import Settings from "./settings/Settings";
+import Profile from "./profile/Profile";
 
 const UserAccount = () => {
   return (

@@ -1,8 +1,8 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import Cockpit from "./Cockpit/Cockpit";
+import Cockpit from "./cockpit/Cockpit";
 
-import Login from "./Login/Login";
+import Login from "./login/Login";
 
 function App() {
   return (

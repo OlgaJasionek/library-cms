@@ -5,7 +5,7 @@ import classNames from "classnames";
 
 import { getFullName } from "../../../../common/utils/full-name";
 import { userRoleTranslations } from "../../../../common/utils/translations";
-import { BaseUserInfo } from "../../../../common/types/user";
+import { BaseUserInfo } from "../../../../users/users.types";
 
 import styles from "./UserMenu.module.scss";
 

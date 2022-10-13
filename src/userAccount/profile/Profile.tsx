@@ -1,13 +1,12 @@
 import { Avatar } from "@mui/material";
-import axios from "axios";
 import { useEffect, useState } from "react";
 
-import { FullUserInfo } from "../../common/types/user";
+import { FullUserInfo } from "../../users/users.types";
 import { getFullName } from "../../common/utils/full-name";
 import { userRoleTranslations } from "../../common/utils/translations";
 import UserInformation from "./UserInformation/UserInformation";
 import Loader from "../../common/components/Loader/Loader";
-import http from "../../core/Components/api/http";
+import http from "../../core/api/http";
 
 import styles from "./Profile.module.scss";
 
@@ -34,14 +33,13 @@ const Profile = () => {
 
   return (
     <div>
-      <div className="d-flex">
+      <div className="d-flex m-2">
         <Avatar className={styles.avatar} />
         <div className={styles.info}>
           <span className={styles.role}>{userRoleTranslations[userData.role]}</span>
           <span>{getFullName(userData)}</span>
         </div>
       </div>
-      <hr className={styles.separator} />
       <div className="row">
         <UserInformation user={userData} />
         <div className="col-sm-12 col-lg-8"></div>
