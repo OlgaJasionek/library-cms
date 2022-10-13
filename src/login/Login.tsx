@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import TextInput from "../common/components/TextInput/TextInput";
 import Snackbar from "../common/components/Snackbar/Snackbar";
 import Logo from "../common/components/Logo/Logo";
-import http from "../core/Components/api/http";
+import http from "../core/api/http";
 
 import styles from "./Login.module.scss";
 

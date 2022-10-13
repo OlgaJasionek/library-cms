@@ -1,13 +1,12 @@
 import { useState } from "react";
 import { Route, Routes } from "react-router-dom";
 
-import Header from "../core/Components/Header/Header";
-import Profile from "../UserAccount/Profile/Profile";
-import SideBar from "../core/Components/SideBar/SideBar";
-import Settings from "../UserAccount/Settings/Settings";
+import Header from "../core/components/Header/Header";
+import SideBar from "../core/components/SideBar/SideBar";
+import Users from "../users/Users";
+import UserAccount from "../userAccount/UserAccount";
 
 import styles from "./Cockpit.module.scss";
-import UserAccount from "../UserAccount/UserAccount";
 
 const Cockpit = () => {
   const [openSideBar, setOpenSideBar] = useState(false);
@@ -25,6 +24,7 @@ const Cockpit = () => {
           <div className="container">
             <Routes>
               <Route path="/user-account/*" element={<UserAccount />}></Route>
+              <Route path="/users/*" element={<Users />}></Route>
             </Routes>
           </div>
         </div>

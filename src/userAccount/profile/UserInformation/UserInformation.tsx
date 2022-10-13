@@ -1,7 +1,7 @@
 import * as Icons from "@mui/icons-material";
 
 import Card from "../../../common/components/Card/Card";
-import { FullUserInfo } from "../../../common/types/user";
+import { FullUserInfo } from "../../../users/users.types";
 import { transformDate } from "../../../common/utils/transform-date";
 
 import styles from "./UserInformation.module.scss";

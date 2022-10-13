@@ -1,4 +1,4 @@
-import { BaseUserInfo } from "./user";
+import { BaseUserInfo } from "../../users/users.types";
 
 export type DecodedToken = {
   exp: number;

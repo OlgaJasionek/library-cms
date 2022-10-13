@@ -6,13 +6,14 @@ import Logo from "../../../common/components/Logo/Logo";
 import { useClickOutside } from "../../../common/hooks/use-click-outside";
 
 import styles from "./SideBar.module.scss";
+import { useNavigate } from "react-router-dom";
 
 const links = [
-  { id: 1, name: "Czytelnicy", icon: <Icons.Group />, chosen: false },
-  { id: 2, name: "Czasopisma", icon: <Icons.Book />, chosen: false },
-  { id: 3, name: "Audiobook", icon: <Icons.Headset />, chosen: false },
-  { id: 4, name: "Książki", icon: <Icons.MenuBook />, chosen: false },
-  { id: 5, name: "Zamówienia", icon: <Icons.LocalGroceryStore />, chosen: false },
+  { id: 1, name: "Czytelnicy", icon: <Icons.Group />, chosen: false, path: "/users/readers" },
+  { id: 2, name: "Czasopisma", icon: <Icons.Book />, chosen: false, path: "/" },
+  { id: 3, name: "Audiobook", icon: <Icons.Headset />, chosen: false, path: "/" },
+  { id: 4, name: "Książki", icon: <Icons.MenuBook />, chosen: false, path: "/" },
+  { id: 5, name: "Zamówienia", icon: <Icons.LocalGroceryStore />, chosen: false, path: "/" },
 ];
 
 type Props = {
@@ -23,16 +24,18 @@ type Props = {
 const SideBar = ({ openSideBar, onCloseSideBar }: Props) => {
   const [sideBarItems, setSideBarItems] = useState(links);
   const sideBarRef = useRef<HTMLDivElement | null>(null);
+  const navigate = useNavigate();
 
   useClickOutside(sideBarRef, () => onCloseSideBar());
 
-  const chosenHandler = (id: number) => {
+  const chooseHandler = (id: number, path: string) => {
     const chosenItems = sideBarItems.map((item) => ({
       ...item,
       chosen: item.id === id,
     }));
 
     setSideBarItems(chosenItems);
+    navigate(path);
   };
 
   return (
@@ -41,7 +44,7 @@ const SideBar = ({ openSideBar, onCloseSideBar }: Props) => {
       <hr className={styles.separator} />
       <ul className={styles.list}>
         {sideBarItems.map((link) => (
-          <li key={link.id} onClick={() => chosenHandler(link.id)}>
+          <li key={link.id} onClick={() => chooseHandler(link.id, link.path)}>
             <a
               className={classnames(styles.link, {
                 [styles.active]: link.chosen,

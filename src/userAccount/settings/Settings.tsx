@@ -6,7 +6,6 @@ const Settings = () => {
   return (
     <div>
       <h2 className={styles.header}>Ustawienia</h2>
-      <hr className="separator" />
       <ChangePassword />
     </div>
   );

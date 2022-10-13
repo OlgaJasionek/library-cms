@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import Snackbar from "../../../common/components/Snackbar/Snackbar";
 
 import TextInput from "../../../common/components/TextInput/TextInput";
-import http from "../../../core/Components/api/http";
+import http from "../../../core/api/http";
 
 import styles from "./ChangePasswordDialog.module.scss";
 
