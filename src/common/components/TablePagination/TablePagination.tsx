@@ -1,4 +1,5 @@
 import { TableFooter, TablePagination as Pagination, TableRow } from "@mui/material";
+
 import TablePaginationActions from "./Actions/Actions.module";
 
 type Props = {
