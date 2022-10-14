@@ -11,11 +11,11 @@ import {
   Paper,
 } from "@mui/material";
 
-import http from "../../../core/api/http";
 import Loader from "../../../common/components/Loader/Loader";
 import { getFullName } from "../../../common/utils/full-name";
 import { Readers } from "../readers.types";
 import TablePagination from "../../../common/components/TablePagination/TablePagination";
+import { getReadersData } from "../../users.api";
 
 const ReadersTable = () => {
   const [initialLoading, setInitialLoading] = useState<boolean>(true);
@@ -38,17 +38,10 @@ const ReadersTable = () => {
 
   const getData = async () => {
     try {
-      const resp = await http.get("users/readers", {
-        params: {
-          page: page + 1,
-          perPage: rowsPerPage,
-        },
-      });
-      setReaders(resp.data.items);
-      setTotalRows(resp.data.total);
-    } catch (err) {
-      console.log(err); //TODO: DO OMÓWIENIA OBSŁUGA BŁĘDÓW
-    }
+      const resp = await getReadersData({ page, rowsPerPage });
+      setReaders(resp.items);
+      setTotalRows(resp.total);
+    } catch (err) {}
     setInitialLoading(false);
   };
 

@@ -1,12 +1,11 @@
 import { LoadingButton } from "@mui/lab";
 import { Dialog, DialogActions, DialogContent, DialogTitle } from "@mui/material";
-import { AxiosError } from "axios";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import Snackbar from "../../../common/components/Snackbar/Snackbar";
 
 import TextInput from "../../../common/components/TextInput/TextInput";
-import http from "../../../core/api/http";
+import { editUserPassword } from "../../../users/users.api";
 
 import styles from "./ChangePasswordDialog.module.scss";
 
@@ -24,27 +23,19 @@ const ChangePasswordDialog = ({ open, onClose }: Props) => {
   const { handleSubmit, control } = useForm<FormValues>();
   const [loading, setLoading] = useState<boolean>(false);
   const [openSuccessSnackbar, setOpenSuccesSnackbar] = useState<boolean>(false);
-  const [error, setError] = useState<string | null | undefined>(null);
-  const [openErrorSnackbar, setOpenErrorSnackbar] = useState<boolean>(false);
 
   const SubmitHandler = async (body: FormValues) => {
     try {
       setLoading(true);
-      await http.post("users/change-password", body);
+      await editUserPassword(body);
       setOpenSuccesSnackbar(true);
       onClose();
-    } catch (err) {
-      const errorText = (err as AxiosError<{ message: string }>).response?.data.message;
-      setError(errorText);
-      setOpenErrorSnackbar(true);
-    }
+    } catch (err) {}
     setLoading(false);
   };
 
-  const handleCloseSnackbar = () => {
-    setError(null);
+  const handleCloseSuccessSnackbar = () => {
     setOpenSuccesSnackbar(false);
-    setOpenErrorSnackbar(false);
   };
 
   return (
@@ -84,11 +75,10 @@ const ChangePasswordDialog = ({ open, onClose }: Props) => {
           </form>
         </DialogContent>
       </Dialog>
-      <Snackbar open={openErrorSnackbar} text={error} handleClose={handleCloseSnackbar} color="error" />
       <Snackbar
         open={openSuccessSnackbar}
         text={"Hasło zostało zmienione"}
-        handleClose={handleCloseSnackbar}
+        handleClose={handleCloseSuccessSnackbar}
         color="success"
       />
     </div>

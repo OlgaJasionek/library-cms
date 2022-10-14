@@ -6,9 +6,9 @@ import { getFullName } from "../../common/utils/full-name";
 import { userRoleTranslations } from "../../common/utils/translations";
 import UserInformation from "./UserInformation/UserInformation";
 import Loader from "../../common/components/Loader/Loader";
-import http from "../../core/api/http";
 
 import styles from "./Profile.module.scss";
+import { getCurrentUserData } from "../../users/users.api";
 
 const Profile = () => {
   const [userData, setUserData] = useState<FullUserInfo | null>(null);
@@ -19,12 +19,10 @@ const Profile = () => {
 
   const getData = async () => {
     try {
-      const resp = await http.get("users/me");
-      const data = resp.data.user;
-      setUserData(data);
-    } catch (err) {
-      console.log(err); //TODO: DO OMÓWIENIA OBSŁUGA BŁĘDÓW
-    }
+      const resp = await getCurrentUserData();
+      const dataUser = resp.user;
+      setUserData(dataUser);
+    } catch (err) {}
   };
 
   if (!userData) {
