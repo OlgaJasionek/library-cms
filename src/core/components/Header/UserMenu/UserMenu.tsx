@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import classNames from "classnames";
 
 import { getFullName } from "../../../../common/utils/full-name";
-import { userRoleTranslations } from "../../../../common/utils/translations";
 import { BaseUserInfo } from "../../../../users/users.types";
 
 import styles from "./UserMenu.module.scss";
@@ -23,27 +22,21 @@ const UserMenu = ({ user }: Props) => {
       <div className={styles.menu}>
         <div className={styles.avatar}>
           <Avatar />
-          <span className={styles.itemLabel}>{getFullName(user)}</span>
+          <div className={styles.userInfo}>
+            <span>{getFullName(user)}</span>
+            <span className={styles.email}>{user.email}</span>
+          </div>
         </div>
         <hr className={styles.separator} />
-        <div className={styles.item}>
-          <Icons.AlternateEmail fontSize="small" />
-          <span className={styles.itemLabel}>{user.email}</span>
-        </div>
-        <div className={styles.item}>
-          <Icons.Contacts fontSize="small" />
-          <span className={styles.itemLabel}> {userRoleTranslations[user.role]}</span>
-        </div>
-        <Link to="user-account/profile" className={classNames(styles.item, styles.link)}>
+        <Link to="user-account/profile" className={styles.link}>
           <Icons.Person fontSize="small" />
           <span className={styles.itemLabel}>Profil</span>
         </Link>
-        <Link to="user-account/settings" className={classNames(styles.item, styles.link)}>
+        <Link to="user-account/settings" className={styles.link}>
           <Icons.Settings fontSize="small" />
           <span className={styles.itemLabel}>Ustawienia</span>
         </Link>
-        <hr className={styles.separator} />
-        <Link to="/login" onClick={logOutHandler} className={classNames(styles.item, styles.link)}>
+        <Link to="/login" onClick={logOutHandler} className={styles.link}>
           <Icons.Logout fontSize="small" />
           <span className={styles.itemLabel}> Wyloguj</span>
         </Link>

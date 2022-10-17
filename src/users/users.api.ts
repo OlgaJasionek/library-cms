@@ -1,6 +1,6 @@
 import http from "../core/api/http";
 import { Readers } from "./Readers/readers.types";
-import { FullUserInfo } from "./users.types";
+import { FullUserInfo, NewUserInfo } from "./users.types";
 
 export const getCurrentUserData = (): Promise<{ user: FullUserInfo }> =>
   http.get("users/me").then((res) => res.data);
@@ -18,5 +18,14 @@ export const getReadersData = (params: {
         page: params.page + 1,
         perPage: params.rowsPerPage,
       },
+    })
+    .then((res) => res.data);
+
+export const addNewReader = (body: NewUserInfo): Promise<{ password: string }> =>
+  http
+    .post("/users", {
+      ...body,
+      pesel: parseInt(body.pesel),
+      phoneNumber: parseInt(body.phoneNumber),
     })
     .then((res) => res.data);
