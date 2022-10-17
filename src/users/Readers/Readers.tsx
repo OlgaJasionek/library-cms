@@ -1,13 +1,13 @@
 import { Route, Routes } from "react-router-dom";
 
 import ReadersTable from "./ReadersTable/ReadersTable";
-import AddReaderForm from "./AddReaderForm/AddReaderForm";
+import AddReader from "./AddReader/AddReader";
 
 const Readers = () => {
   return (
     <div>
       <Routes>
-        <Route path="/add" element={<AddReaderForm />} />
+        <Route path="/add" element={<AddReader />} />
         <Route path="/" element={<ReadersTable />}></Route>
       </Routes>
     </div>
