@@ -1,12 +1,13 @@
+import { CustomControlRules } from "../../types/form";
 import styles from "./ValidationMessage.module.scss";
 
 type Prop = {
-  error: { type?: string } | undefined;
-  rules: { [key: string]: boolean | number | RegExp };
-  name: string;
+  error: { type?: string; message?: string } | undefined;
+  rules: CustomControlRules;
+  label: string;
 };
 
-const ValidateMesage = ({ error, rules, name }: Prop) => {
+const ValidateMesage = ({ error, rules, label }: Prop) => {
   const errorMessage: () => string | null | undefined = () => {
     if (error) {
       switch (error.type) {
@@ -14,10 +15,12 @@ const ValidateMesage = ({ error, rules, name }: Prop) => {
           return "To pole jest wymagane";
         case "minLength":
           return `To pole musi posiadać minimum ${rules.minLength} znaków`;
+        case "maxLength":
+          return `To pole może posiadać maksymalnie ${rules.maxLength} znaków`;
         case "pattern":
-          return `Niewłaściwy ${name}`;
+          return `Niewłaściwy ${label}`;
         default:
-          return null;
+          return error?.message;
       }
     }
   };
