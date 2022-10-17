@@ -1,17 +1,15 @@
-import { Button } from "@mui/material";
+import { Route, Routes } from "react-router-dom";
 
 import ReadersTable from "./ReadersTable/ReadersTable";
-
-import styles from "./Readers.module.scss";
+import AddReaderForm from "./AddReaderForm/AddReaderForm";
 
 const Readers = () => {
   return (
     <div>
-      <div className={styles.header}>
-        <h2>Czytelnicy</h2>
-        <Button variant="contained">Dodaj czytelnika</Button>
-      </div>
-      <ReadersTable />
+      <Routes>
+        <Route path="/add" element={<AddReaderForm />} />
+        <Route path="/" element={<ReadersTable />}></Route>
+      </Routes>
     </div>
   );
 };

@@ -6,9 +6,10 @@ import { useNavigate } from "react-router-dom";
 
 import TextInput from "../common/components/TextInput/TextInput";
 import Logo from "../common/components/Logo/Logo";
+import { emailValidator } from "../common/utils/validators";
+import { login } from "./login.api";
 
 import styles from "./Login.module.scss";
-import { login } from "./login.api";
 
 type FormValues = {
   email: string;
@@ -47,7 +48,7 @@ const Login = () => {
               control={control}
               rules={{
                 required: true,
-                pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                validate: { email: emailValidator },
               }}
               label="Adres Email"
               type="text"

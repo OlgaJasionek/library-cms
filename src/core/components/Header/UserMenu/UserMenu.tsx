@@ -1,6 +1,6 @@
 import * as Icons from "@mui/icons-material";
 import { Avatar } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import classNames from "classnames";
 
 import { getFullName } from "../../../../common/utils/full-name";
@@ -14,10 +14,7 @@ type Props = {
 };
 
 const UserMenu = ({ user }: Props) => {
-  const navigate = useNavigate();
-
   const logOutHandler = () => {
-    navigate("/login");
     localStorage.removeItem("token");
   };
 
@@ -37,19 +34,19 @@ const UserMenu = ({ user }: Props) => {
           <Icons.Contacts fontSize="small" />
           <span className={styles.itemLabel}> {userRoleTranslations[user.role]}</span>
         </div>
-        <a onClick={() => navigate("user-account/profile")} className={classNames(styles.item, styles.link)}>
+        <Link to="user-account/profile" className={classNames(styles.item, styles.link)}>
           <Icons.Person fontSize="small" />
           <span className={styles.itemLabel}>Profil</span>
-        </a>
-        <a onClick={() => navigate("user-account/settings")} className={classNames(styles.item, styles.link)}>
+        </Link>
+        <Link to="user-account/settings" className={classNames(styles.item, styles.link)}>
           <Icons.Settings fontSize="small" />
           <span className={styles.itemLabel}>Ustawienia</span>
-        </a>
+        </Link>
         <hr className={styles.separator} />
-        <a onClick={logOutHandler} className={classNames(styles.item, styles.link)}>
+        <Link to="/login" onClick={logOutHandler} className={classNames(styles.item, styles.link)}>
           <Icons.Logout fontSize="small" />
           <span className={styles.itemLabel}> Wyloguj</span>
-        </a>
+        </Link>
         <hr className={styles.separator} />
       </div>
     </div>

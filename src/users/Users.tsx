@@ -5,7 +5,7 @@ import Readers from "./Readers/Readers";
 const Users = () => {
   return (
     <Routes>
-      <Route path="/readers" element={<Readers />}></Route>
+      <Route path="/readers/*" element={<Readers />}></Route>
     </Routes>
   );
 };

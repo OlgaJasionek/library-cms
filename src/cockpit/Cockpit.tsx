@@ -21,7 +21,7 @@ const Cockpit = () => {
       <div className={styles.cockpitBody}>
         <SideBar openSideBar={openSideBar} onCloseSideBar={closeSideBarHandler} />
         <div className={styles.cockpitItem}>
-          <div className="container">
+          <div className="container pb-5">
             <Routes>
               <Route path="/user-account/*" element={<UserAccount />}></Route>
               <Route path="/users/*" element={<Users />}></Route>
