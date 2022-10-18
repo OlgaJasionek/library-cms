@@ -1,3 +1,4 @@
+import { PaginationParams } from "../common/types/pagination-params";
 import http from "../core/api/http";
 import { Readers } from "./Readers/readers.types";
 import { FullUserInfo, NewUserInfo } from "./users.types";
@@ -8,10 +9,7 @@ export const getCurrentUserData = (): Promise<{ user: FullUserInfo }> =>
 export const editUserPassword = (body: { newPassword: string; repeatedNewPassword: string }): Promise<void> =>
   http.post("users/change-password", body).then((res) => res.data);
 
-export const getReadersData = (params: {
-  page: number;
-  rowsPerPage: number;
-}): Promise<{ items: Readers[]; total: number }> =>
+export const getReadersData = (params: PaginationParams): Promise<{ items: Readers[]; total: number }> =>
   http
     .get("users/readers", {
       params: {

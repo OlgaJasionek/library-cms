@@ -20,11 +20,16 @@ function App() {
         const errorText = err.response?.data.message;
 
         setError(errorText);
-        setOpenErrorSnackbar(true);
 
         if (err.response?.status === 401) {
           navigate("/login");
         }
+
+        if (err.response?.status === 500) {
+          setError("Wystąpił niezidentyfikowany błąd serwera");
+        }
+
+        setOpenErrorSnackbar(true);
 
         return Promise.reject(err);
       }

@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import {
   Table,
@@ -17,29 +18,20 @@ import { getFullName } from "../../../common/utils/full-name";
 import { Readers } from "../readers.types";
 import TablePagination from "../../../common/components/TablePagination/TablePagination";
 import { getReadersData } from "../../users.api";
+import { usePagination } from "../../../common/hooks/use-pagination";
 
 import styles from "./ReadersTable.module.scss";
-import { useNavigate } from "react-router-dom";
 
 const ReadersTable = () => {
   const [initialLoading, setInitialLoading] = useState<boolean>(true);
-  const [page, setPage] = useState<number>(0);
-  const [rowsPerPage, setRowsPerPage] = useState<number>(5);
-  const [totalRows, setTotalRows] = useState<number>(0);
+  const { page, rowsPerPage, totalRows, setRowsPerPage, setPage, setTotalRows } = usePagination();
+
   const [readers, setReaders] = useState<Readers[]>([]);
   const navigate = useNavigate();
 
   useEffect(() => {
     getData();
   }, [page, rowsPerPage]);
-
-  const changePageHandler = (value: number) => {
-    setPage(value);
-  };
-
-  const changePerPageHandler = (value: number) => {
-    setRowsPerPage(value);
-  };
 
   const getData = async () => {
     try {
@@ -98,8 +90,8 @@ const ReadersTable = () => {
             page={page}
             rowsPerPage={rowsPerPage}
             totalRows={totalRows}
-            onPageChange={changePageHandler}
-            onPerPageChange={changePerPageHandler}
+            onPageChange={setPage}
+            onPerPageChange={setRowsPerPage}
           />
         </Table>
       </TableContainer>

@@ -5,6 +5,7 @@ import Header from "../core/components/Header/Header";
 import SideBar from "../core/components/SideBar/SideBar";
 import Users from "../users/Users";
 import UserAccount from "../user-account/UserAccount";
+import Assests from "../assets/Assets";
 
 import styles from "./Cockpit.module.scss";
 
@@ -25,6 +26,7 @@ const Cockpit = () => {
             <Routes>
               <Route path="/user-account/*" element={<UserAccount />}></Route>
               <Route path="/users/*" element={<Users />}></Route>
+              <Route path="/assets/*" element={<Assests />}></Route>
             </Routes>
           </div>
         </div>
