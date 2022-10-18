@@ -10,10 +10,7 @@ import { useNavigate } from "react-router-dom";
 
 const links = [
   { id: 1, name: "Czytelnicy", icon: <Icons.Group />, chosen: false, path: "/users/readers" },
-  { id: 2, name: "Czasopisma", icon: <Icons.Book />, chosen: false, path: "/" },
-  { id: 3, name: "Audiobook", icon: <Icons.Headset />, chosen: false, path: "/" },
-  { id: 4, name: "Książki", icon: <Icons.MenuBook />, chosen: false, path: "/" },
-  { id: 5, name: "Zamówienia", icon: <Icons.LocalGroceryStore />, chosen: false, path: "/" },
+  { id: 2, name: "Kategorie", icon: <Icons.Book />, chosen: false, path: "/assets/categories" },
 ];
 
 type Props = {
