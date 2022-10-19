@@ -3,3 +3,7 @@ export type AssetCategory = {
   id: string;
   name: string;
 };
+
+export type AddAssetCategoryValue = {
+  name: string;
+};
