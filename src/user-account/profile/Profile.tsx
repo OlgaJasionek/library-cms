@@ -31,7 +31,7 @@ const Profile = () => {
 
   return (
     <div>
-      <div className="d-flex m-2">
+      <div className="d-flex m-3">
         <Avatar className={styles.avatar} />
         <div className={styles.info}>
           <span className={styles.role}>{userRoleTranslations[userData.role]}</span>

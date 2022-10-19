@@ -14,12 +14,17 @@ export const usePagination = (): PaginationValues => {
   const [rowsPerPage, setRowsPerPage] = useState<number>(5);
   const [totalRows, setTotalRows] = useState<number>(0);
 
+  const _setRowsPerPage = (value: number) => {
+    setPage(0);
+    setRowsPerPage(value);
+  };
+
   return {
     page,
     rowsPerPage,
     totalRows,
     setPage,
-    setRowsPerPage,
+    setRowsPerPage: _setRowsPerPage,
     setTotalRows,
   };
 };

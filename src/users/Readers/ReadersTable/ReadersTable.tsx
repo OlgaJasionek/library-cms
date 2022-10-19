@@ -48,7 +48,7 @@ const ReadersTable = () => {
     <>
       <div className={styles.header}>
         <h2>Czytelnicy</h2>
-        <Button variant="contained" onClick={() => navigate("/users/readers/add")}>
+        <Button variant="contained" onClick={() => navigate("add")}>
           Dodaj czytelnika
         </Button>
       </div>
