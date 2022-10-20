@@ -14,24 +14,25 @@ import {
 import * as Icons from "@mui/icons-material";
 
 import TablePagination from "../../../common/components/TablePagination/TablePagination";
-import { getAssetsCategoriesData } from "../../assets.api";
-import { AssetsCategory } from "../../assets.types";
+import { getAssetsAuthorsData } from "../../assets.api";
+import { AssetsAuthor } from "../../assets.types";
 import Loader from "../../../common/components/Loader/Loader";
 import { usePagination } from "../../../common/hooks/use-pagination";
-import AddAssetCategoryDialog from "../AddCategory/AddCategoryDialog";
+import AddAssetsAuthorDialog from "../AddAuthor/AddAuthor";
+import { getFullName } from "../../../common/utils/full-name";
 
-const AssetsCategoriesTable = () => {
+const AssetsAuthorsTable = () => {
   const [initialLoading, setInitialLoading] = useState(true);
-  const [categories, setCategories] = useState<AssetsCategory[]>([]);
+  const [authors, setAuthors] = useState<AssetsAuthor[]>([]);
   const { page, rowsPerPage, totalRows, setPage, setRowsPerPage, setTotalRows } = usePagination();
-  const [openAddCategoryDialog, setOpenAddCategoryDialog] = useState<boolean>(false);
+  const [openAddAuthorDialog, setOpenAddAuthorDialog] = useState<boolean>(false);
 
-  const openAddCategoryDialogHandler = () => {
-    setOpenAddCategoryDialog(true);
+  const openAddAuthorDialogHandler = () => {
+    setOpenAddAuthorDialog(true);
   };
 
-  const closeAddCategoryDialogHandler = () => {
-    setOpenAddCategoryDialog(false);
+  const closeAddAuthorDialogHandler = () => {
+    setOpenAddAuthorDialog(false);
   };
 
   useEffect(() => {
@@ -40,8 +41,8 @@ const AssetsCategoriesTable = () => {
 
   const getData = async () => {
     try {
-      const resp = await getAssetsCategoriesData({ page, rowsPerPage });
-      setCategories(resp.items);
+      const resp = await getAssetsAuthorsData({ page, rowsPerPage });
+      setAuthors(resp.items);
       setTotalRows(resp.total);
     } catch (err) {}
     setInitialLoading(false);
@@ -57,14 +58,14 @@ const AssetsCategoriesTable = () => {
 
   return (
     <div className="container--md">
-      <div className="page-header-with-button ">
-        <h2>Kategorie przedmiotów</h2>
-        <Button variant="contained" onClick={openAddCategoryDialogHandler}>
-          Dodaj kategorię
+      <div className="page-header-with-button">
+        <h2>Autorzy</h2>
+        <Button variant="contained" onClick={openAddAuthorDialogHandler}>
+          Dodaj autora
         </Button>
       </div>
       <TableContainer component={Paper}>
-        <Table aria-label="categories pagination table">
+        <Table aria-label="authors pagination table">
           <TableHead>
             <TableRow>
               <TableCell>Nazwa</TableCell>
@@ -73,10 +74,10 @@ const AssetsCategoriesTable = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {categories.map((category) => (
-              <TableRow key={category.id}>
-                <TableCell component="th">{category.name}</TableCell>
-                <TableCell align="right">{category.assetsCount}</TableCell>
+            {authors.map((author) => (
+              <TableRow key={author.id}>
+                <TableCell component="th">{getFullName(author)}</TableCell>
+                <TableCell align="right">{author.assetsCount}</TableCell>
                 <TableCell align="right" scope="row">
                   <Tooltip title="Edytuj">
                     <IconButton>
@@ -101,13 +102,13 @@ const AssetsCategoriesTable = () => {
           />
         </Table>
       </TableContainer>
-      <AddAssetCategoryDialog
-        open={openAddCategoryDialog}
-        onClose={closeAddCategoryDialogHandler}
+      <AddAssetsAuthorDialog
+        open={openAddAuthorDialog}
+        onClose={closeAddAuthorDialogHandler}
         onSave={saveHandler}
       />
     </div>
   );
 };
 
-export default AssetsCategoriesTable;
+export default AssetsAuthorsTable;

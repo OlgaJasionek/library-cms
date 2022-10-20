@@ -27,3 +27,10 @@ a:hover {
 .separator {
   color: $separator-color;
 }
+
+.page-header-with-button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 40px 0;
+}
