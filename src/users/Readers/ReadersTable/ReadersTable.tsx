@@ -20,8 +20,6 @@ import TablePagination from "../../../common/components/TablePagination/TablePag
 import { getReadersData } from "../../users.api";
 import { usePagination } from "../../../common/hooks/use-pagination";
 
-import styles from "./ReadersTable.module.scss";
-
 const ReadersTable = () => {
   const [initialLoading, setInitialLoading] = useState<boolean>(true);
   const { page, rowsPerPage, totalRows, setRowsPerPage, setPage, setTotalRows } = usePagination();
@@ -46,7 +44,7 @@ const ReadersTable = () => {
 
   return (
     <>
-      <div className={styles.header}>
+      <div className="page-header-with-button ">
         <h2>Czytelnicy</h2>
         <Button variant="contained" onClick={() => navigate("add")}>
           Dodaj czytelnika

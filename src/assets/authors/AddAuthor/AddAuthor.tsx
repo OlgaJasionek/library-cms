@@ -2,11 +2,11 @@ import { LoadingButton } from "@mui/lab";
 import { Dialog, DialogActions, DialogContent, DialogTitle } from "@mui/material";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import Snackbar from "../../../common/components/Snackbar/Snackbar";
 
+import Snackbar from "../../../common/components/Snackbar/Snackbar";
 import TextInput from "../../../common/components/TextInput/TextInput";
-import { addAssetsCategory } from "../../assets.api";
-import { AddAssetsCategoryValues } from "../../assets.types";
+import { addAssetsAuthor } from "../../assets.api";
+import { AddAssetsAuthorValues } from "../../assets.types";
 
 type Props = {
   open: boolean;
@@ -14,8 +14,8 @@ type Props = {
   onSave: () => void;
 };
 
-const AddAssetCategoryDialog = ({ open, onClose, onSave }: Props) => {
-  const { handleSubmit, control } = useForm<AddAssetsCategoryValues>();
+const AddAssetsAuthorDialog = ({ open, onClose, onSave }: Props) => {
+  const { handleSubmit, control } = useForm<AddAssetsAuthorValues>();
   const [loading, setLoading] = useState<boolean>(false);
   const [openSuccessSnackbar, setOpenSuccessSnackbar] = useState<boolean>(false);
 
@@ -23,13 +23,13 @@ const AddAssetCategoryDialog = ({ open, onClose, onSave }: Props) => {
     setOpenSuccessSnackbar(false);
   };
 
-  const onSubmit = async (body: AddAssetsCategoryValues) => {
+  const onSubmit = async (body: AddAssetsAuthorValues) => {
     try {
       setLoading(true);
-      await addAssetsCategory(body);
+      await addAssetsAuthor(body);
       onClose();
-      setOpenSuccessSnackbar(true);
       onSave();
+      setOpenSuccessSnackbar(true);
     } catch (err) {}
     setLoading(false);
   };
@@ -41,7 +41,22 @@ const AddAssetCategoryDialog = ({ open, onClose, onSave }: Props) => {
         <DialogContent>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="mt-2 mb-2">
-              <TextInput name="name" control={control} rules={{ required: true }} label="Nazwa" type="text" />
+              <TextInput
+                name="firstName"
+                control={control}
+                rules={{ required: true }}
+                label="Imię"
+                type="text"
+              />
+            </div>
+            <div className="mt-2 mb-2">
+              <TextInput
+                name="lastName"
+                control={control}
+                rules={{ required: true }}
+                label="Nazwisko"
+                type="text"
+              />
             </div>
             <DialogActions>
               <LoadingButton onClick={onClose} loading={loading} loadingIndicator="Anuluj">
@@ -55,7 +70,7 @@ const AddAssetCategoryDialog = ({ open, onClose, onSave }: Props) => {
         </DialogContent>
       </Dialog>
       <Snackbar
-        text="Pomyślnie dodano nową kategorię"
+        text="Pomyślnie dodano nowego autora"
         color="success"
         open={openSuccessSnackbar}
         handleClose={closeSuccessSnackbarHandler}
@@ -64,4 +79,4 @@ const AddAssetCategoryDialog = ({ open, onClose, onSave }: Props) => {
   );
 };
 
-export default AddAssetCategoryDialog;
+export default AddAssetsAuthorDialog;

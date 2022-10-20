@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 const links = [
   { id: 1, name: "Czytelnicy", icon: <Icons.Group />, chosen: false, path: "/users/readers" },
   { id: 2, name: "Kategorie", icon: <Icons.Book />, chosen: false, path: "/assets/categories" },
+  { id: 3, name: "Autorzy", icon: <Icons.FolderShared />, chosen: false, path: "/assets/authors" },
 ];
 
 type Props = {
