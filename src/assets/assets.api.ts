@@ -1,6 +1,12 @@
 import { PaginationParams } from "../common/types/pagination-params";
 import http from "../core/api/http";
-import { AddAssetsCategoryValues, AddAssetsAuthorValues, AssetsAuthor, AssetsCategory } from "./assets.types";
+import {
+  AddAssetsCategoryValues,
+  AddAssetsAuthorValues,
+  AssetsAuthor,
+  AssetsCategory,
+  Asset,
+} from "./assets.types";
 
 export const getAssetsCategoriesData = (
   params: PaginationParams
@@ -31,3 +37,13 @@ export const getAssetsAuthorsData = (
 
 export const addAssetsAuthor = (body: AddAssetsAuthorValues): Promise<void> =>
   http.post("asset-authors", body).then((res) => res.data);
+
+export const getAssetsListData = (params: PaginationParams): Promise<{ items: Asset[]; total: number }> =>
+  http
+    .get("assets", {
+      params: {
+        page: params.page + 1,
+        perPage: params.rowsPerPage,
+      },
+    })
+    .then((res) => res.data);

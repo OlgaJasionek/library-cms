@@ -12,6 +12,7 @@ const links = [
   { id: 1, name: "Czytelnicy", icon: <Icons.Group />, chosen: false, path: "/users/readers" },
   { id: 2, name: "Kategorie", icon: <Icons.Book />, chosen: false, path: "/assets/categories" },
   { id: 3, name: "Autorzy", icon: <Icons.FolderShared />, chosen: false, path: "/assets/authors" },
+  { id: 4, name: "Katalog Książek", icon: <Icons.MenuBook />, chosen: false, path: "/assets/list" },
 ];
 
 type Props = {
