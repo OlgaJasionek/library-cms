@@ -15,3 +15,11 @@ export const emailValidator = (value: string): boolean | string => {
 
   return "Niewłaściwy adres email";
 };
+
+export const linkValidator = (value: string): boolean | string => {
+  if (value.includes("http://") || value.includes("https://")) {
+    return true;
+  }
+
+  return "Link musi posiadać prefix http:// lub https://";
+};

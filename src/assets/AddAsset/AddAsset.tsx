@@ -3,6 +3,7 @@ import { Button } from "@mui/material";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
+import AdditionalData from "./AdditionalData/AdditionalData";
 
 import BasicData from "./BasicData/BasicData";
 
@@ -30,6 +31,9 @@ const AddAsset = () => {
       </div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <BasicData control={control} />
+        <div className="mt-4">
+          <AdditionalData control={control} />
+        </div>
         <div className="d-flex justify-content-end mt-2">
           <Button
             className="m-2"
