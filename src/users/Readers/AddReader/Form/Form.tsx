@@ -1,12 +1,10 @@
 import { useForm } from "react-hook-form";
 import { Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 import TextInput from "../../../../common/components/TextInput/TextInput";
 import { emailValidator, exactLengthValidator } from "../../../../common/utils/validators";
-import { useNavigate } from "react-router-dom";
 import { NewUserInfo } from "../../../users.types";
-
-import styles from "./Form.module.scss";
 
 type Props = {
   onSave: (body: NewUserInfo) => Promise<void>;
@@ -20,48 +18,35 @@ const AddReaderForm = ({ onSave }: Props) => {
     <>
       <form onSubmit={handleSubmit(onSave)}>
         <div>
-          <div className={styles.input}>
-            <TextInput
-              name="firstName"
-              control={control}
-              rules={{ required: true }}
-              label="Imię"
-              type="text"
-            />
+          <div className="form-field">
+            <TextInput name="firstName" control={control} rules={{ required: true }} label="Imię" />
           </div>
-          <div className={styles.input}>
-            <TextInput
-              name="lastName"
-              control={control}
-              rules={{ required: true }}
-              label="Nazwisko"
-              type="text"
-            />
+          <div className="form-field">
+            <TextInput name="lastName" control={control} rules={{ required: true }} label="Nazwisko" />
           </div>
-          <div className={styles.input}>
+          <div className="form-field">
             <TextInput
               name="email"
               control={control}
               rules={{ required: true, validate: { email: emailValidator } }}
               label="Email"
-              type="text"
             />
           </div>
-          <div className={styles.input}>
+          <div className="form-field">
             <TextInput
               name="pesel"
               control={control}
               rules={{
                 required: true,
                 validate: {
-                  exactLength: exactLengthValidator(12),
+                  exactLength: exactLengthValidator(11),
                 },
               }}
               label="PESEL"
               type="number"
             />
           </div>
-          <div className={styles.input}>
+          <div className="form-field">
             <TextInput
               name="phoneNumber"
               control={control}

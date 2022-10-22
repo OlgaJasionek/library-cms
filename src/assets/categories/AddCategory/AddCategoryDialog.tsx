@@ -40,8 +40,8 @@ const AddAssetCategoryDialog = ({ open, onClose, onSave }: Props) => {
         <DialogTitle id="alert-dialog-title">Dodaj nową kategorię</DialogTitle>
         <DialogContent>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="mt-2 mb-2">
-              <TextInput name="name" control={control} rules={{ required: true }} label="Nazwa" type="text" />
+            <div className="form-field">
+              <TextInput name="name" control={control} rules={{ required: true }} label="Nazwa" />
             </div>
             <DialogActions>
               <LoadingButton onClick={onClose} loading={loading} loadingIndicator="Anuluj">
