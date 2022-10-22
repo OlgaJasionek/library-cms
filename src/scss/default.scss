@@ -17,6 +17,7 @@ body {
 a {
   text-decoration: none;
   transition: all 0.5s;
+  color: $dark-gray-color;
 }
 
 a:hover {
@@ -32,5 +33,9 @@ a:hover {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 40px 0;
+}
+
+.page-header-with-link {
   padding: 40px 0;
 }

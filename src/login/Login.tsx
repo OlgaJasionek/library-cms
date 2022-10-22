@@ -51,7 +51,6 @@ const Login = () => {
                 validate: { email: emailValidator },
               }}
               label="Adres Email"
-              type="text"
             />
           </div>
           <div className="form-field">

@@ -37,26 +37,14 @@ const AddAssetsAuthorDialog = ({ open, onClose, onSave }: Props) => {
   return (
     <>
       <Dialog open={open} fullWidth maxWidth="sm" onClose={onClose} aria-labelledby="alert-dialog-title">
-        <DialogTitle id="alert-dialog-title">Dodaj nową kategorię</DialogTitle>
+        <DialogTitle id="alert-dialog-title">Dodaj nowego autora</DialogTitle>
         <DialogContent>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="mt-2 mb-2">
-              <TextInput
-                name="firstName"
-                control={control}
-                rules={{ required: true }}
-                label="Imię"
-                type="text"
-              />
+            <div className="form-field">
+              <TextInput name="firstName" control={control} rules={{ required: true }} label="Imię" />
             </div>
-            <div className="mt-2 mb-2">
-              <TextInput
-                name="lastName"
-                control={control}
-                rules={{ required: true }}
-                label="Nazwisko"
-                type="text"
-              />
+            <div className="form-field">
+              <TextInput name="lastName" control={control} rules={{ required: true }} label="Nazwisko" />
             </div>
             <DialogActions>
               <LoadingButton onClick={onClose} loading={loading} loadingIndicator="Anuluj">
