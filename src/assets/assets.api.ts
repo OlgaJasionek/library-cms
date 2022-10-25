@@ -1,4 +1,5 @@
 import { PaginationParams } from "../common/types/pagination-params";
+import { SelectOption } from "../common/types/select-option";
 import http from "../core/api/http";
 import {
   AddAssetsCategoryValues,
@@ -47,3 +48,5 @@ export const getAssetsListData = (params: PaginationParams): Promise<{ items: As
       },
     })
     .then((res) => res.data);
+
+export const getAllAssetsAuthors = (): Promise<{ data: SelectOption[] }> => http.get("/asset-authors/all");

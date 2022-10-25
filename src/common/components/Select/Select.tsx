@@ -2,10 +2,11 @@ import { FormControl, InputLabel, MenuItem, Select as MuiSelect } from "@mui/mat
 import { useController } from "react-hook-form";
 
 import { BaseCustomControlProps } from "../../types/form";
+import { SelectOption } from "../../types/select-option";
 import ValidateMesage from "../ValidationMessage/ValidateMessage";
 
 type Props = {
-  values: Array<{ value: string | number; label: string }>;
+  values: Array<SelectOption>;
 } & BaseCustomControlProps;
 
 const Select = ({ name, label, values, control, rules }: Props) => {

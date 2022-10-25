@@ -1,16 +1,32 @@
+import { useEffect, useState } from "react";
 import { Control } from "react-hook-form";
 
 import Card from "../../../common/components/Card/Card";
 import Select from "../../../common/components/Select/Select";
 import TextInput from "../../../common/components/TextInput/TextInput";
+import { SelectOption } from "../../../common/types/select-option";
 import { assetsTypesValues } from "../../../common/utils/ditionaries";
 import { exactLengthValidator } from "../../../common/utils/validators";
+import { getAllAssetsAuthors } from "../../assets.api";
 
 type Props = {
   control: Control<any> | undefined;
 };
 
 const BasicData = ({ control }: Props) => {
+  const [assetsAuthors, setAssetsAuthors] = useState<SelectOption[]>([]);
+
+  useEffect(() => {
+    getAssetsAuthors();
+  }, []);
+
+  const getAssetsAuthors = async () => {
+    try {
+      const resp = await getAllAssetsAuthors();
+      setAssetsAuthors(resp.data);
+    } catch (err) {}
+  };
+
   return (
     <Card>
       <div className="row">
@@ -30,6 +46,13 @@ const BasicData = ({ control }: Props) => {
           <div className="form-field">
             <TextInput name="title" control={control} rules={{ required: true }} label="Tytuł" />
           </div>
+          <Select
+            control={control}
+            name="asset-author"
+            rules={{ required: true }}
+            label="Autor"
+            values={assetsAuthors}
+          ></Select>
           <div className="form-field">
             <TextInput
               name="isbn"
