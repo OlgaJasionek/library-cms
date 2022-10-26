@@ -50,3 +50,6 @@ export const getAssetsListData = (params: PaginationParams): Promise<{ items: As
     .then((res) => res.data);
 
 export const getAllAssetsAuthors = (): Promise<{ data: SelectOption[] }> => http.get("/asset-authors/all");
+
+export const getAllCategoriesValues = (): Promise<{ data: SelectOption[] }> =>
+  http.get("/asset-categories/all");

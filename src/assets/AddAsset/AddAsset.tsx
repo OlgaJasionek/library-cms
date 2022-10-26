@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import AdditionalData from "./AdditionalData/AdditionalData";
 
 import BasicData from "./BasicData/BasicData";
+import AssetCategoryValue from "./Category/AssetCategory";
 
 const AddAsset = () => {
   const { handleSubmit, control, watch } = useForm();
@@ -31,6 +32,9 @@ const AddAsset = () => {
       </div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <BasicData control={control} />
+        <div className="mt-4">
+          <AssetCategoryValue control={control} />
+        </div>
         <div className="mt-4">
           <AdditionalData control={control} />
         </div>
