@@ -20,7 +20,7 @@ const AssetCategoryValue = ({ control }: Props) => {
   const getCategoriesData = async () => {
     try {
       const resp = await getAllCategoriesValues();
-      setAllAssetCategories(resp.data);
+      setAllAssetCategories(resp);
     } catch (err) {}
   };
 
@@ -34,7 +34,7 @@ const AssetCategoryValue = ({ control }: Props) => {
           <div className="form-field">
             <MultiSelect
               values={allAssetCategories}
-              name={"asset-category"}
+              name="categoryIds"
               control={control}
               rules={{
                 required: true,

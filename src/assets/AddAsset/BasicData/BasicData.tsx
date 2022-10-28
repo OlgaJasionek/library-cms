@@ -23,7 +23,7 @@ const BasicData = ({ control }: Props) => {
   const getAssetsAuthors = async () => {
     try {
       const resp = await getAllAssetsAuthors();
-      setAssetsAuthors(resp.data);
+      setAssetsAuthors(resp);
     } catch (err) {}
   };
 
@@ -37,7 +37,7 @@ const BasicData = ({ control }: Props) => {
           <div className="form-field">
             <Select
               control={control}
-              name="asset-types"
+              name="type"
               rules={{ required: true }}
               label="Typ"
               values={assetsTypesValues}
@@ -48,7 +48,7 @@ const BasicData = ({ control }: Props) => {
           </div>
           <Select
             control={control}
-            name="asset-author"
+            name="authorId"
             rules={{ required: true }}
             label="Autor"
             values={assetsAuthors}

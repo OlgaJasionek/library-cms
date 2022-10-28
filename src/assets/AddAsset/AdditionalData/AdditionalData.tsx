@@ -16,16 +16,11 @@ const AdditionalData = ({ control }: Props) => {
         </div>
         <div className="col-12 col-sm-8">
           <div className="form-field">
-            <TextInput
-              name="publishing-house"
-              control={control}
-              rules={{ required: true }}
-              label="Wydawnictwo"
-            />
+            <TextInput name="publisher" control={control} rules={{ required: true }} label="Wydawnictwo" />
           </div>
           <div className="form-field">
             <TextInput
-              name="year-of-publishment"
+              name="publicationYear"
               control={control}
               rules={{ required: true, validate: { exactLength: exactLengthValidator(4) } }}
               label="Rok wydania"
@@ -34,7 +29,7 @@ const AdditionalData = ({ control }: Props) => {
           </div>
           <div className="text-field">
             <TextInput
-              name="link-to-asset"
+              name="lubimyczytacLink"
               control={control}
               rules={{ required: true, validate: { linkValidator } }}
               label="Link do “Lubimyczytać.pl”"

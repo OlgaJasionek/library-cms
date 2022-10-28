@@ -4,12 +4,13 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import AdditionalData from "./AdditionalData/AdditionalData";
+import AssetCover from "./AssetCover/AssetCover";
 
 import BasicData from "./BasicData/BasicData";
 import AssetCategoryValue from "./Category/AssetCategory";
 
 const AddAsset = () => {
-  const { handleSubmit, control, watch } = useForm();
+  const { handleSubmit, control, watch, setValue } = useForm();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -17,6 +18,10 @@ const AddAsset = () => {
       console.log(values);
     });
   }, []);
+
+  const imageUploadHandler = (id: string) => {
+    setValue("imageId", id);
+  };
 
   const onSubmit = () => {
     console.log("możesz przejść do kolejnego modulu");
@@ -37,6 +42,9 @@ const AddAsset = () => {
         </div>
         <div className="mt-4">
           <AdditionalData control={control} />
+        </div>
+        <div className="mt-4">
+          <AssetCover onImageUpload={imageUploadHandler} />
         </div>
         <div className="d-flex justify-content-end mt-2">
           <Button

@@ -49,7 +49,11 @@ export const getAssetsListData = (params: PaginationParams): Promise<{ items: As
     })
     .then((res) => res.data);
 
-export const getAllAssetsAuthors = (): Promise<{ data: SelectOption[] }> => http.get("/asset-authors/all");
+export const getAllAssetsAuthors = (): Promise<SelectOption[]> =>
+  http.get("/asset-authors/all").then((res) => res.data);
 
-export const getAllCategoriesValues = (): Promise<{ data: SelectOption[] }> =>
-  http.get("/asset-categories/all");
+export const addAssetCover = (formData: FormData): Promise<{ id: string }> =>
+  http.post("assets/upload", formData).then((res) => res.data);
+
+export const getAllCategoriesValues = (): Promise<SelectOption[]> =>
+  http.get("/asset-categories/all").then((res) => res.data);
