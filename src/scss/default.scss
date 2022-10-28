@@ -16,13 +16,12 @@ body {
 
 a {
   text-decoration: none;
-  transition: all 0.5s;
   color: $dark-gray-color;
 }
 
 a:hover {
   color: $main-color;
-  background-color: $link-hover-color;
+  text-decoration: underline;
 }
 
 .separator {
