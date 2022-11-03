@@ -1,30 +1,29 @@
 import { ArrowBack } from "@mui/icons-material";
 import { Button } from "@mui/material";
-import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
+
+import { addAsset } from "../assets.api";
+import { AddAssetFormValues } from "../assets.types";
 import AdditionalData from "./AdditionalData/AdditionalData";
 import AssetCover from "./AssetCover/AssetCover";
-
 import BasicData from "./BasicData/BasicData";
 import AssetCategoryValue from "./Category/AssetCategory";
 
 const AddAsset = () => {
-  const { handleSubmit, control, watch, setValue } = useForm();
+  const { handleSubmit, control, setValue } = useForm<AddAssetFormValues>();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    watch((values) => {
-      console.log(values);
-    });
-  }, []);
 
   const imageUploadHandler = (id: string) => {
     setValue("imageId", id);
   };
 
-  const onSubmit = () => {
-    console.log("możesz przejść do kolejnego modulu");
+  const onSubmit = async (body: AddAssetFormValues) => {
+    try {
+      const resp = await addAsset(body);
+      const assetId = resp.id;
+      navigate(`/assets/${assetId}`);
+    } catch (err) {}
   };
 
   return (
