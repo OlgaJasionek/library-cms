@@ -22,8 +22,8 @@ const AssetsListTable = () => {
   const getData = async () => {
     try {
       const resp = await getAssetsListData({ page, rowsPerPage });
-      setAssetsList(resp.items);
 
+      setAssetsList(resp.items);
       setTotalRows(resp.total);
     } catch (err) {}
     setInitialLoading(false);
@@ -47,7 +47,7 @@ const AssetsListTable = () => {
           {assetsList.map((asset) => (
             <TableRow key={asset.id}>
               <TableCell component="th">
-                <Link to="/assets/id">{asset.title}</Link>
+                <Link to={`/assets/${asset.id}`}>{asset.title}</Link>
               </TableCell>
               <TableCell align="right">{getFullName(asset.author)}</TableCell>
               <TableCell align="right">

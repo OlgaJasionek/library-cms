@@ -7,6 +7,7 @@ import {
   AssetsAuthor,
   AssetsCategory,
   Asset,
+  AddAssetFormValues,
 } from "./assets.types";
 
 export const getAssetsCategoriesData = (
@@ -57,3 +58,8 @@ export const addAssetCover = (formData: FormData): Promise<{ id: string }> =>
 
 export const getAllCategoriesValues = (): Promise<SelectOption[]> =>
   http.get("/asset-categories/all").then((res) => res.data);
+
+export const addAsset = (body: AddAssetFormValues): Promise<{ id: string }> =>
+  http.post("/assets", { ...body, publicationYear: parseInt(body.publicationYear) }).then((res) => res.data);
+
+export const getAssetData = (id: string): Promise<Asset> => http.get(`assets/${id}`).then((res) => res.data);

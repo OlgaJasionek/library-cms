@@ -29,7 +29,9 @@ export type Asset = {
   createdAt: string;
   description: string;
   id: string;
-  imageUrl: string;
+  image: {
+    path: string;
+  };
   isbn: string;
   lubimyczytacLink: string;
   publicationYear: number;
@@ -53,3 +55,16 @@ export enum AssetsTypes {
   Audiobook = "AUDIOBOOK",
   Magazine = "MAGAZINE",
 }
+
+export type AddAssetFormValues = {
+  imageId: string;
+  authorId: string;
+  categoryIds: string[];
+  description: string;
+  isbn: string;
+  lubimyczytacLink: string;
+  publicationYear: string;
+  publisher: string;
+  title: string;
+  type: AssetsTypes;
+};

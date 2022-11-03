@@ -13,7 +13,7 @@ const Assests = () => {
       <Route path="/authors" element={<AssetsAuthors />}></Route>
       <Route path="/list" element={<AssetsList />}></Route>
       <Route path="/add" element={<AddAsset />} />
-      <Route path="/id" element={<AssetDetails />} />
+      <Route path="/:assetId" element={<AssetDetails />} />
     </Routes>
   );
 };
