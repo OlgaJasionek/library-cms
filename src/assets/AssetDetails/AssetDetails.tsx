@@ -11,6 +11,7 @@ import { getFullName } from "../../common/utils/full-name";
 
 import styles from "./AssetDetails.module.scss";
 import { getAssetData } from "../assets.api";
+import CopiesTable from "./CopiesTable/CopiesTable";
 
 const AssetDetails = () => {
   const [assetData, setAssetData] = useState<Asset | undefined>();
@@ -88,6 +89,9 @@ const AssetDetails = () => {
           </div>
         </div>
       </Card>
+      <div className="mt-4">
+        <CopiesTable assetData={assetData} />
+      </div>
     </>
   );
 };

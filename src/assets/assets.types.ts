@@ -39,6 +39,15 @@ export type Asset = {
   title: string;
   type: AssetsTypes;
   updatedAt: string;
+  copies: AssetCopy[];
+};
+
+export type AssetCopy = {
+  canRent: boolean;
+  id: string;
+  inventoryNumber: string;
+  isFreeAccess: boolean;
+  status: string;
 };
 
 export type AddAssetsCategoryValues = {
