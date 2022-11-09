@@ -43,11 +43,15 @@ export type Asset = {
 };
 
 export type AssetCopy = {
+  activeReservationsCount: number;
   canRent: boolean;
+  canReserve: boolean;
   id: string;
   inventoryNumber: string;
   isFreeAccess: boolean;
-  status: string;
+  isRent: boolean;
+  isReserved: boolean;
+  rentExpiredAt: string | null;
 };
 
 export type AddAssetsCategoryValues = {

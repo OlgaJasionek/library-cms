@@ -8,10 +8,10 @@ import { Asset } from "../assets.types";
 import AssetTypeLabel from "../AssetTypeLabel/AssetTypeLabel";
 import Loader from "../../common/components/Loader/Loader";
 import { getFullName } from "../../common/utils/full-name";
+import CopiesTable from "./CopiesTable/CopiesTable";
+import { getAssetData } from "../assets.api";
 
 import styles from "./AssetDetails.module.scss";
-import { getAssetData } from "../assets.api";
-import CopiesTable from "./CopiesTable/CopiesTable";
 
 const AssetDetails = () => {
   const [assetData, setAssetData] = useState<Asset | undefined>();
@@ -78,8 +78,8 @@ const AssetDetails = () => {
                   <dt className={styles.head}>Kategoria:</dt>
                   <dd className={styles.body}>
                     {assetData.categories.map((category) => (
-                      <span className="me-2">
-                        <Chip key={category.id} label={category.name} color="primary" variant="outlined" />
+                      <span key={category.id} className="me-2">
+                        <Chip label={category.name} color="primary" variant="outlined" />
                       </span>
                     ))}
                   </dd>
@@ -90,7 +90,7 @@ const AssetDetails = () => {
         </div>
       </Card>
       <div className="mt-4">
-        <CopiesTable assetData={assetData} />
+        <CopiesTable copies={assetData.copies} />
       </div>
     </>
   );
