@@ -8,6 +8,7 @@ import {
   AssetsCategory,
   Asset,
   AddAssetFormValues,
+  AssetCopy,
 } from "./assets.types";
 
 export const getAssetsCategoriesData = (
@@ -63,3 +64,14 @@ export const addAsset = (body: AddAssetFormValues): Promise<{ id: string }> =>
   http.post("/assets", { ...body, publicationYear: parseInt(body.publicationYear) }).then((res) => res.data);
 
 export const getAssetData = (id: string): Promise<Asset> => http.get(`assets/${id}`).then((res) => res.data);
+
+export const addAssetCopy = (
+  assetId: string,
+  body: { isFreeAccess: boolean }
+): Promise<{ data: AssetCopy }> => http.post(`/assets/${assetId}/copies`, body);
+
+export const rentCopy = (copyId: string): Promise<{ data: AssetCopy }> =>
+  http.post(`/asset-copies/${copyId}/rentals`);
+
+export const reserveCopy = (copyId: string): Promise<{ data: AssetCopy }> =>
+  http.post(`/asset-copies/${copyId}/reservations,`);

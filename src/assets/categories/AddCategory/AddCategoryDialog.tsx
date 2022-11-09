@@ -1,6 +1,6 @@
 import { LoadingButton } from "@mui/lab";
 import { Dialog, DialogActions, DialogContent, DialogTitle } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import Snackbar from "../../../common/components/Snackbar/Snackbar";
 
@@ -15,9 +15,15 @@ type Props = {
 };
 
 const AddAssetCategoryDialog = ({ open, onClose, onSave }: Props) => {
-  const { handleSubmit, control } = useForm<AddAssetsCategoryValues>();
+  const { handleSubmit, control, reset } = useForm<AddAssetsCategoryValues>();
   const [loading, setLoading] = useState<boolean>(false);
   const [openSuccessSnackbar, setOpenSuccessSnackbar] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (!open) {
+      reset();
+    }
+  }, [open]);
 
   const closeSuccessSnackbarHandler = () => {
     setOpenSuccessSnackbar(false);
