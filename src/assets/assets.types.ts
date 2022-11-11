@@ -50,8 +50,9 @@ export type AssetCopy = {
   inventoryNumber: string;
   isFreeAccess: boolean;
   isRent: boolean;
-  isReserved: boolean;
   rentExpiredAt: string | null;
+  isRentByCurrentUser: boolean;
+  isReservedByCurrentUser: boolean;
 };
 
 export type AddAssetsCategoryValues = {

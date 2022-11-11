@@ -74,4 +74,4 @@ export const rentCopy = (copyId: string): Promise<{ data: AssetCopy }> =>
   http.post(`/asset-copies/${copyId}/rentals`);
 
 export const reserveCopy = (copyId: string): Promise<{ data: AssetCopy }> =>
-  http.post(`/asset-copies/${copyId}/reservations,`);
+  http.post(`/asset-copies/${copyId}/reservations`);
