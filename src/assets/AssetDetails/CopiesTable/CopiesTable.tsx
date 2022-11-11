@@ -1,3 +1,4 @@
+import { Check } from "@mui/icons-material";
 import {
   Button,
   Paper,
@@ -29,11 +30,11 @@ const CopiesTable = ({ copies }: Props) => {
   const [choosenCopyId, setChoosenCopyId] = useState<string>();
 
   const closeReserveCopyDialogHandler = () => {
-    setOpenRentCopyDialog(false);
+    setOpenReserveCopyDialog(false);
   };
 
   const openReserveCopyDialogHandler = (id: string) => {
-    setOpenRentCopyDialog(true);
+    setOpenReserveCopyDialog(true);
     setChoosenCopyId(id);
   };
 
@@ -63,7 +64,7 @@ const CopiesTable = ({ copies }: Props) => {
     return setDisplayCopies((prevState) => [...prevState, item]);
   };
 
-  const showAccessInfo = (copy: AssetCopy) => {
+  const showStatusInfo = (copy: AssetCopy) => {
     if (copy.isFreeAccess) {
       return <div>Wolny dostęp</div>;
     } else if (copy.isRent) {
@@ -75,7 +76,13 @@ const CopiesTable = ({ copies }: Props) => {
           )}
         </div>
       );
-    } else if (copy.canRent) {
+    } else if (copy.canRent || copy.canReserve) {
+      return <div>Dostępny</div>;
+    }
+  };
+
+  const showUserAccess = (copy: AssetCopy) => {
+    if (copy.canRent) {
       return (
         <Button
           onClick={() => {
@@ -97,10 +104,19 @@ const CopiesTable = ({ copies }: Props) => {
           Zarezerwuj
         </Button>
       );
-    } else if (copy.isReserved) {
-      return <div>Zarezerwowana</div>;
-    } else {
-      return <div className="text-success">Dostępny</div>;
+    } else if (copy.isRentByCurrentUser) {
+      return (
+        <div className="text-secondary">
+          <span>Wypożyczyłeś/aś</span> <Check className="mb-2" />
+        </div>
+      );
+    } else if (copy.isReservedByCurrentUser) {
+      return (
+        <div className="text-secondary ">
+          <span>Zarezerwowałeś/aś </span>
+          <Check className="mb-2" />
+        </div>
+      );
     }
   };
 
@@ -108,7 +124,7 @@ const CopiesTable = ({ copies }: Props) => {
     <>
       <Card>
         <div className="d-flex justify-content-between align-items-center">
-          <h3>Dokumenty przeznaczone do wypożyczenia({displayCopies.length})</h3>
+          <h3>Dokumenty przeznaczone do wypożyczenia: ({displayCopies.length})</h3>
           <Button variant="contained" onClick={openAddCopyDialogHandler}>
             Dodaj egzemplarz
           </Button>
@@ -121,6 +137,7 @@ const CopiesTable = ({ copies }: Props) => {
                   <TableRow>
                     <TableCell>Nr inwentarza</TableCell>
                     <TableCell align="right">Ilość rezerwacji</TableCell>
+                    <TableCell align="right">Status</TableCell>
                     <TableCell align="right"></TableCell>
                   </TableRow>
                 </TableHead>
@@ -128,8 +145,9 @@ const CopiesTable = ({ copies }: Props) => {
                   {displayCopies.map((copy) => (
                     <TableRow key={copy.id}>
                       <TableCell component="th">{copy.inventoryNumber}</TableCell>
-                      <TableCell align="right">0</TableCell>
-                      <TableCell align="right">{showAccessInfo(copy)}</TableCell>
+                      <TableCell align="right">{copy.activeReservationsCount}</TableCell>
+                      <TableCell align="right">{showStatusInfo(copy)}</TableCell>
+                      <TableCell align="right">{showUserAccess(copy)}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
