@@ -68,16 +68,16 @@ const AssetsCategoriesTable = () => {
           <TableHead>
             <TableRow>
               <TableCell>Nazwa</TableCell>
-              <TableCell align="right">Ilość przypisanych</TableCell>
-              <TableCell align="right"></TableCell>
+              <TableCell>Ilość przypisanych</TableCell>
+              <TableCell></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {categories.map((category) => (
               <TableRow key={category.id}>
                 <TableCell component="th">{category.name}</TableCell>
-                <TableCell align="right">{category.assetsCount}</TableCell>
-                <TableCell align="right" scope="row">
+                <TableCell>{category.assetsCount}</TableCell>
+                <TableCell scope="row" align="right">
                   <Tooltip title="Edytuj">
                     <IconButton>
                       <Icons.Edit />

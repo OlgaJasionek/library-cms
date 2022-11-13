@@ -11,7 +11,7 @@ type PaginationValues = {
 
 export const usePagination = (): PaginationValues => {
   const [page, setPage] = useState<number>(0);
-  const [rowsPerPage, setRowsPerPage] = useState<number>(5);
+  const [rowsPerPage, setRowsPerPage] = useState<number>(10);
   const [totalRows, setTotalRows] = useState<number>(0);
 
   const _setRowsPerPage = (value: number) => {

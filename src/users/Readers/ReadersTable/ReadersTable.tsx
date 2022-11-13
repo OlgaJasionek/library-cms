@@ -11,7 +11,10 @@ import {
   TableCell,
   Paper,
   Button,
+  Tooltip,
+  IconButton,
 } from "@mui/material";
+import * as Icons from "@mui/icons-material";
 
 import Loader from "../../../common/components/Loader/Loader";
 import { getFullName } from "../../../common/utils/full-name";
@@ -55,9 +58,10 @@ const ReadersTable = () => {
           <TableHead>
             <TableRow>
               <TableCell>Nazwa</TableCell>
-              <TableCell align="right">Pesel</TableCell>
-              <TableCell align="right">Numer telefonu</TableCell>
-              <TableCell align="right">Status</TableCell>
+              <TableCell>Pesel</TableCell>
+              <TableCell>Numer telefonu</TableCell>
+              <TableCell>Status</TableCell>
+              <TableCell></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -72,14 +76,26 @@ const ReadersTable = () => {
                     </div>
                   </div>
                 </TableCell>
-                <TableCell align="right">{reader.pesel}</TableCell>
-                <TableCell align="right">{reader.phoneNumber}</TableCell>
-                <TableCell align="right">
+                <TableCell>{reader.pesel}</TableCell>
+                <TableCell>{reader.phoneNumber}</TableCell>
+                <TableCell>
                   {reader.isActive ? (
                     <Chip label="Aktywny" color="success" />
                   ) : (
                     <Chip label="Nieaktywny" color="error" />
                   )}
+                </TableCell>
+                <TableCell scope="row" align="right">
+                  <Tooltip title="Edytuj">
+                    <IconButton>
+                      <Icons.Edit />
+                    </IconButton>
+                  </Tooltip>
+                  <Tooltip title="Usuń">
+                    <IconButton>
+                      <Icons.Delete />
+                    </IconButton>
+                  </Tooltip>
                 </TableCell>
               </TableRow>
             ))}

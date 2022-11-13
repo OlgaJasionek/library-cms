@@ -136,18 +136,18 @@ const CopiesTable = ({ copies }: Props) => {
                 <TableHead>
                   <TableRow>
                     <TableCell>Nr inwentarza</TableCell>
-                    <TableCell align="right">Ilość rezerwacji</TableCell>
-                    <TableCell align="right">Status</TableCell>
-                    <TableCell align="right"></TableCell>
+                    <TableCell>Ilość rezerwacji</TableCell>
+                    <TableCell>Status</TableCell>
+                    <TableCell></TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   {displayCopies.map((copy) => (
                     <TableRow key={copy.id}>
                       <TableCell component="th">{copy.inventoryNumber}</TableCell>
-                      <TableCell align="right">{copy.activeReservationsCount}</TableCell>
-                      <TableCell align="right">{showStatusInfo(copy)}</TableCell>
-                      <TableCell align="right">{showUserAccess(copy)}</TableCell>
+                      <TableCell>{copy.activeReservationsCount}</TableCell>
+                      <TableCell>{showStatusInfo(copy)}</TableCell>
+                      <TableCell>{showUserAccess(copy)}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>

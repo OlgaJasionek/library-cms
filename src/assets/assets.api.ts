@@ -9,6 +9,7 @@ import {
   Asset,
   AddAssetFormValues,
   AssetCopy,
+  AssetRental,
 } from "./assets.types";
 
 export const getAssetsCategoriesData = (
@@ -75,3 +76,18 @@ export const rentCopy = (copyId: string): Promise<{ data: AssetCopy }> =>
 
 export const reserveCopy = (copyId: string): Promise<{ data: AssetCopy }> =>
   http.post(`/asset-copies/${copyId}/reservations`);
+
+export const getRentalsAssetsData = (
+  params: PaginationParams
+): Promise<{ items: AssetRental[]; total: number }> =>
+  http
+    .get("asset-rentals", {
+      params: {
+        page: params.page + 1,
+        perPage: params.rowsPerPage,
+      },
+    })
+    .then((res) => res.data);
+
+export const returnCopy = (rentalId: string): Promise<{ data: AssetRental }> =>
+  http.post(`/asset-rentals/${rentalId}/close`);
