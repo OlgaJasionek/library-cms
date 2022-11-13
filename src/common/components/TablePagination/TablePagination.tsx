@@ -24,7 +24,7 @@ const TablePagination = (props: Props) => {
     <TableFooter>
       <TableRow>
         <Pagination
-          rowsPerPageOptions={[5, 10, 25]}
+          rowsPerPageOptions={[10, 25, 50]}
           count={totalRows}
           rowsPerPage={rowsPerPage}
           page={page}

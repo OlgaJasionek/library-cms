@@ -1,18 +1,19 @@
 import { useRef, useState } from "react";
 import * as Icons from "@mui/icons-material";
 import classnames from "classnames";
+import { useNavigate } from "react-router-dom";
 
 import Logo from "../../../common/components/Logo/Logo";
 import { useClickOutside } from "../../../common/hooks/use-click-outside";
 
 import styles from "./SideBar.module.scss";
-import { useNavigate } from "react-router-dom";
 
 const links = [
   { id: 1, name: "Czytelnicy", icon: <Icons.Group />, chosen: false, path: "/users/readers" },
   { id: 2, name: "Kategorie", icon: <Icons.Book />, chosen: false, path: "/assets/categories" },
   { id: 3, name: "Autorzy", icon: <Icons.FolderShared />, chosen: false, path: "/assets/authors" },
   { id: 4, name: "Katalog Książek", icon: <Icons.MenuBook />, chosen: false, path: "/assets/list" },
+  { id: 5, name: "Wypożyczenia", icon: <Icons.AddCard />, chosen: false, path: "/assets/rentals" },
 ];
 
 type Props = {
@@ -58,4 +59,5 @@ const SideBar = ({ openSideBar, onCloseSideBar }: Props) => {
     </div>
   );
 };
+
 export default SideBar;

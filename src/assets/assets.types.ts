@@ -82,3 +82,28 @@ export type AddAssetFormValues = {
   title: string;
   type: AssetsTypes;
 };
+
+export type AssetRental = {
+  asset: {
+    id: string;
+    title: string;
+    author: {
+      firstName: string;
+      lastName: string;
+    };
+  };
+  copy: {
+    id: string;
+    inventoryNumber: string;
+  };
+  createdAt: string;
+  expiredAt: string | null;
+  id: string;
+  isReturned: boolean;
+  returnedAt: string | null;
+  user: {
+    id: string;
+    lastName: string;
+    firstName: string;
+  };
+};

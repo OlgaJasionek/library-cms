@@ -69,16 +69,16 @@ const AssetsAuthorsTable = () => {
           <TableHead>
             <TableRow>
               <TableCell>Nazwa</TableCell>
-              <TableCell align="right">Ilość przypisanych</TableCell>
-              <TableCell align="right"></TableCell>
+              <TableCell>Ilość przypisanych</TableCell>
+              <TableCell></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {authors.map((author) => (
               <TableRow key={author.id}>
                 <TableCell component="th">{getFullName(author)}</TableCell>
-                <TableCell align="right">{author.assetsCount}</TableCell>
-                <TableCell align="right" scope="row">
+                <TableCell>{author.assetsCount}</TableCell>
+                <TableCell scope="row" align="right">
                   <Tooltip title="Edytuj">
                     <IconButton>
                       <Icons.Edit />

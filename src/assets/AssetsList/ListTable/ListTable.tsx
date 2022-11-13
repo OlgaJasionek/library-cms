@@ -1,6 +1,17 @@
 import { useEffect, useState } from "react";
-import { Table, TableBody, TableHead, TableContainer, TableRow, TableCell, Paper } from "@mui/material";
+import {
+  Table,
+  TableBody,
+  TableHead,
+  TableContainer,
+  TableRow,
+  TableCell,
+  Paper,
+  Tooltip,
+  IconButton,
+} from "@mui/material";
 import { Link } from "react-router-dom";
+import * as Icons from "@mui/icons-material";
 
 import TablePagination from "../../../common/components/TablePagination/TablePagination";
 import { getAssetsListData } from "../../assets.api";
@@ -39,8 +50,9 @@ const AssetsListTable = () => {
         <TableHead>
           <TableRow>
             <TableCell>Tytuł</TableCell>
-            <TableCell align="right">Autor</TableCell>
-            <TableCell align="right">Typ</TableCell>
+            <TableCell>Autor</TableCell>
+            <TableCell>Typ</TableCell>
+            <TableCell></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -49,9 +61,21 @@ const AssetsListTable = () => {
               <TableCell component="th">
                 <Link to={`/assets/${asset.id}`}>{asset.title}</Link>
               </TableCell>
-              <TableCell align="right">{getFullName(asset.author)}</TableCell>
-              <TableCell align="right">
+              <TableCell>{getFullName(asset.author)}</TableCell>
+              <TableCell>
                 <AssetTypeLabel type={asset.type} />
+              </TableCell>
+              <TableCell scope="row" align="right">
+                <Tooltip title="Edytuj">
+                  <IconButton>
+                    <Icons.Edit />
+                  </IconButton>
+                </Tooltip>
+                <Tooltip title="Usuń">
+                  <IconButton>
+                    <Icons.Delete />
+                  </IconButton>
+                </Tooltip>
               </TableCell>
             </TableRow>
           ))}

@@ -5,6 +5,7 @@ import AssetDetails from "./AssetDetails/AssetDetails";
 import AssetsList from "./AssetsList/AssetsList";
 import AssetsAuthors from "./authors/Authors";
 import AssetsCategories from "./categories/Categories";
+import AssetsRentals from "./rentals/Rentals";
 
 const Assests = () => {
   return (
@@ -14,6 +15,7 @@ const Assests = () => {
       <Route path="/list" element={<AssetsList />}></Route>
       <Route path="/add" element={<AddAsset />} />
       <Route path="/:assetId" element={<AssetDetails />} />
+      <Route path="/rentals" element={<AssetsRentals />} />
     </Routes>
   );
 };
