@@ -9,6 +9,7 @@ import Loader from "../../common/components/Loader/Loader";
 
 import styles from "./Profile.module.scss";
 import { getCurrentUserData } from "../../users/users.api";
+import UserAssets from "./UserAssets/UserAssets";
 
 const Profile = () => {
   const [userData, setUserData] = useState<FullUserInfo | null>(null);
@@ -40,7 +41,7 @@ const Profile = () => {
       </div>
       <div className="row">
         <UserInformation user={userData} />
-        <div className="col-sm-12 col-lg-8"></div>
+        <UserAssets />
       </div>
     </div>
   );
