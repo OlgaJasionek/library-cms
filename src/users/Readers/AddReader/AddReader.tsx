@@ -5,15 +5,15 @@ import { Alert } from "@mui/material";
 
 import Card from "../../../common/components/Card/Card";
 import { addNewReader } from "../../users.api";
-import AddReaderForm from "./Form/Form";
-import { NewUserInfo } from "../../users.types";
+import ReaderForm from "../Form/Form";
 
 import styles from "./AddReader.module.scss";
+import { ReaderFormValues } from "../readers.types";
 
 const AddReader = () => {
   const [passwordForUser, setPasswordForUser] = useState<string>("");
 
-  const submitHandler = async (body: NewUserInfo): Promise<void> => {
+  const submitHandler = async (body: ReaderFormValues): Promise<void> => {
     try {
       const resp = await addNewReader(body);
       setPasswordForUser(resp.password);
@@ -37,7 +37,7 @@ const AddReader = () => {
         </Alert>
       ) : (
         <Card>
-          <AddReaderForm onSave={submitHandler} />
+          <ReaderForm onSave={submitHandler} actionType="add" />
         </Card>
       )}
     </div>

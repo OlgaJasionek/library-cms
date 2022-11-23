@@ -1,28 +1,28 @@
 import { useState } from "react";
 
+import ConfirmationDialog from "../../../common/components/ConfirmationDialog/ConfirmationDialog";
 import Snackbar from "../../../common/components/Snackbar/Snackbar";
-import { addAssetsAuthor } from "../../assets.api";
-import { AssetsAuthorFormValues } from "../../assets.types";
-import AssetsAuthorForm from "../AuthorFormDialog/AuthorFormDialog";
+import { deleteAssetsAuthor } from "../../assets.api";
 
 type Props = {
   open: boolean;
+  authorId: string | undefined;
   onClose: () => void;
   onSave: () => void;
 };
 
-const AddAssetsAuthor = ({ open, onClose, onSave }: Props) => {
-  const [loading, setLoading] = useState<boolean>(false);
+const DeleteAssetsAuthor = ({ open, onClose, onSave, authorId }: Props) => {
   const [openSuccessSnackbar, setOpenSuccessSnackbar] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const closeSuccessSnackbarHandler = () => {
     setOpenSuccessSnackbar(false);
   };
 
-  const submitHandler = async (body: AssetsAuthorFormValues) => {
+  const deleteAuthorHandler = async () => {
+    setLoading(true);
     try {
-      setLoading(true);
-      await addAssetsAuthor(body);
+      if (authorId) await deleteAssetsAuthor(authorId);
       onClose();
       onSave();
       setOpenSuccessSnackbar(true);
@@ -32,15 +32,16 @@ const AddAssetsAuthor = ({ open, onClose, onSave }: Props) => {
 
   return (
     <>
-      <AssetsAuthorForm
+      <ConfirmationDialog
         open={open}
+        text={"Czy na pewno chcesz usunąć tego autora?"}
         loading={loading}
-        title={"Dodaj nowego autora"}
-        onSubmit={submitHandler}
+        title={"Usuń autora"}
         onClose={onClose}
+        onAccept={deleteAuthorHandler}
       />
       <Snackbar
-        text="Pomyślnie dodano nowego autora"
+        text="Pomyślnie usunięto autora"
         color="success"
         open={openSuccessSnackbar}
         handleClose={closeSuccessSnackbarHandler}
@@ -49,4 +50,4 @@ const AddAssetsAuthor = ({ open, onClose, onSave }: Props) => {
   );
 };
 
-export default AddAssetsAuthor;
+export default DeleteAssetsAuthor;

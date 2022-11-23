@@ -16,8 +16,7 @@ const AssetCover = ({ onImageUpload }: Props) => {
 
     try {
       const resp = await addAssetCover(formData);
-      const imageID = resp.id;
-      onImageUpload(imageID);
+      onImageUpload(resp.id);
     } catch (err) {}
   };
 
@@ -31,7 +30,7 @@ const AssetCover = ({ onImageUpload }: Props) => {
           <input
             id="image"
             name="imageId"
-            accept="image/png, image/jpeg"
+            accept="image/png, image/jpeg, image/jpg"
             onChange={handleChange}
             type="file"
           ></input>

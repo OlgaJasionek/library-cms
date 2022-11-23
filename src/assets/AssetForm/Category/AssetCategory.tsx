@@ -4,7 +4,7 @@ import { Control } from "react-hook-form";
 import Card from "../../../common/components/Card/Card";
 import MultiSelect from "../../../common/components/MultiSelect/MultiSelect";
 import { SelectOption } from "../../../common/types/select-option";
-import { getAllCategoriesValues } from "../../assets.api";
+import { getAllAssetsCategoriesValues } from "../../assets.api";
 
 type Props = {
   control: Control<any> | undefined;
@@ -19,7 +19,7 @@ const AssetCategoryValue = ({ control }: Props) => {
 
   const getCategoriesData = async () => {
     try {
-      const resp = await getAllCategoriesValues();
+      const resp = await getAllAssetsCategoriesValues();
       setAllAssetCategories(resp);
     } catch (err) {}
   };

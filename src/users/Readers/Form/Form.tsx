@@ -1,18 +1,31 @@
 import { useForm } from "react-hook-form";
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
-import TextInput from "../../../../common/components/TextInput/TextInput";
-import { emailValidator, exactLengthValidator } from "../../../../common/utils/validators";
-import { NewUserInfo } from "../../../users.types";
+import TextInput from "../../../common/components/TextInput/TextInput";
+import { emailValidator, exactLengthValidator } from "../../../common/utils/validators";
+import { FullUserInfo } from "../../users.types";
+import { ReaderFormValues } from "../readers.types";
 
 type Props = {
-  onSave: (body: NewUserInfo) => Promise<void>;
+  actionType: "add" | "edit";
+  initData?: FullUserInfo;
+  onSave: (body: ReaderFormValues) => Promise<void>;
 };
 
-const AddReaderForm = ({ onSave }: Props) => {
-  const { handleSubmit, control } = useForm<NewUserInfo>();
+const ReaderForm = ({ onSave, actionType, initData }: Props) => {
+  const { handleSubmit, control, setValue, reset } = useForm<ReaderFormValues>();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (initData) {
+      setValue("firstName", initData.firstName);
+      setValue("lastName", initData.lastName);
+      setValue("pesel", initData.pesel.toString());
+      setValue("phoneNumber", initData.phoneNumber.toString());
+    }
+  }, []);
 
   return (
     <>
@@ -25,12 +38,14 @@ const AddReaderForm = ({ onSave }: Props) => {
             <TextInput name="lastName" control={control} rules={{ required: true }} label="Nazwisko" />
           </div>
           <div className="form-field">
-            <TextInput
-              name="email"
-              control={control}
-              rules={{ required: true, validate: { email: emailValidator } }}
-              label="Email"
-            />
+            {actionType === "add" && (
+              <TextInput
+                name="email"
+                control={control}
+                rules={{ required: true, validate: { email: emailValidator } }}
+                label="Email"
+              />
+            )}
           </div>
           <div className="form-field">
             <TextInput
@@ -75,4 +90,4 @@ const AddReaderForm = ({ onSave }: Props) => {
   );
 };
 
-export default AddReaderForm;
+export default ReaderForm;

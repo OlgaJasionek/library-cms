@@ -1,7 +1,7 @@
 import { PaginationParams } from "../common/types/pagination-params";
 import http from "../core/api/http";
-import { Readers } from "./Readers/readers.types";
-import { FullUserInfo, NewUserInfo } from "./users.types";
+import { ReaderFormValues, Readers } from "./Readers/readers.types";
+import { FullUserInfo } from "./users.types";
 
 export const getCurrentUserData = (): Promise<{ user: FullUserInfo }> =>
   http.get("users/me").then((res) => res.data);
@@ -19,7 +19,7 @@ export const getReadersData = (params: PaginationParams): Promise<{ items: Reade
     })
     .then((res) => res.data);
 
-export const addNewReader = (body: NewUserInfo): Promise<{ password: string }> =>
+export const addNewReader = (body: ReaderFormValues): Promise<{ password: string }> =>
   http
     .post("/users", {
       ...body,
@@ -27,3 +27,13 @@ export const addNewReader = (body: NewUserInfo): Promise<{ password: string }> =
       phoneNumber: parseInt(body.phoneNumber),
     })
     .then((res) => res.data);
+
+export const getReaderData = (readerId: string): Promise<{ data: FullUserInfo }> =>
+  http.get(`/users/${readerId}`);
+
+export const editReader = (body: ReaderFormValues, readerId: string): Promise<void> =>
+  http.put(`/users/${readerId}`, {
+    ...body,
+    pesel: parseInt(body.pesel),
+    phoneNumber: parseInt(body.phoneNumber),
+  });

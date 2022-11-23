@@ -22,17 +22,33 @@ import { Readers } from "../readers.types";
 import TablePagination from "../../../common/components/TablePagination/TablePagination";
 import { getReadersData } from "../../users.api";
 import { usePagination } from "../../../common/hooks/use-pagination";
+import DeleteReader from "../DeleteReader/DeleteReader";
 
 const ReadersTable = () => {
   const [initialLoading, setInitialLoading] = useState<boolean>(true);
   const { page, rowsPerPage, totalRows, setRowsPerPage, setPage, setTotalRows } = usePagination();
 
   const [readers, setReaders] = useState<Readers[]>([]);
+  const [selectedReaderId, setSelectedReaderId] = useState<string>();
+  const [openDeleteReaderDialog, setOpenDeleteReaderDialog] = useState<boolean>(false);
   const navigate = useNavigate();
 
   useEffect(() => {
     getData();
   }, [page, rowsPerPage]);
+
+  const openDeleteReaderDialogHandler = (id: string) => {
+    setOpenDeleteReaderDialog(true);
+    setSelectedReaderId(id);
+  };
+
+  const closeDeleteReaderDialogHandler = () => {
+    setOpenDeleteReaderDialog(false);
+  };
+
+  const saveHandler = () => {
+    page === 0 ? getData() : setPage(0);
+  };
 
   const getData = async () => {
     try {
@@ -41,6 +57,10 @@ const ReadersTable = () => {
       setTotalRows(resp.total);
     } catch (err) {}
     setInitialLoading(false);
+  };
+
+  const goToEditReaderForm = (id: string) => {
+    navigate(`${id}/edit`);
   };
 
   if (initialLoading) return <Loader />;
@@ -87,12 +107,20 @@ const ReadersTable = () => {
                 </TableCell>
                 <TableCell scope="row" align="right">
                   <Tooltip title="Edytuj">
-                    <IconButton>
+                    <IconButton
+                      onClick={() => {
+                        goToEditReaderForm(reader.id);
+                      }}
+                    >
                       <Icons.Edit />
                     </IconButton>
                   </Tooltip>
                   <Tooltip title="Usuń">
-                    <IconButton>
+                    <IconButton
+                      onClick={() => {
+                        openDeleteReaderDialogHandler(reader.id);
+                      }}
+                    >
                       <Icons.Delete />
                     </IconButton>
                   </Tooltip>
@@ -109,6 +137,12 @@ const ReadersTable = () => {
           />
         </Table>
       </TableContainer>
+      <DeleteReader
+        open={openDeleteReaderDialog}
+        readerId={selectedReaderId}
+        onClose={closeDeleteReaderDialogHandler}
+        onSave={saveHandler}
+      />
     </>
   );
 };

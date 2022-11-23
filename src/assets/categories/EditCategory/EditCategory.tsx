@@ -1,17 +1,19 @@
 import { useState } from "react";
 
 import Snackbar from "../../../common/components/Snackbar/Snackbar";
-import { addAssetsCategory } from "../../assets.api";
-import { AssetsCategoryFormValues } from "../../assets.types";
+import { editAssetsCategory } from "../../assets.api";
+import { AssetsCategoryFormValues, AssetsCategory } from "../../assets.types";
 import AssetsCategoryFormDialog from "../CategoryFormDialog/CategoryFormDialog";
 
 type Props = {
   open: boolean;
+  categoryId: string | undefined;
+  initData: AssetsCategory | undefined;
   onClose: () => void;
   onSave: () => void;
 };
 
-const AddAssetCategory = ({ open, onClose, onSave }: Props) => {
+const EditAssetsCategory = ({ open, onClose, onSave, categoryId, initData }: Props) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [openSuccessSnackbar, setOpenSuccessSnackbar] = useState<boolean>(false);
 
@@ -22,9 +24,8 @@ const AddAssetCategory = ({ open, onClose, onSave }: Props) => {
   const onSubmit = async (body: AssetsCategoryFormValues) => {
     try {
       setLoading(true);
-      await addAssetsCategory(body);
+      if (categoryId) await editAssetsCategory(body, categoryId);
       onClose();
-      setOpenSuccessSnackbar(true);
       onSave();
     } catch (err) {}
     setLoading(false);
@@ -35,12 +36,13 @@ const AddAssetCategory = ({ open, onClose, onSave }: Props) => {
       <AssetsCategoryFormDialog
         open={open}
         loading={loading}
-        title={"Dodaj nową kategorię"}
+        title={"Edycja istniejącej kategorii"}
         onSubmit={onSubmit}
         onClose={onClose}
+        initData={initData}
       />
       <Snackbar
-        text="Pomyślnie dodano nową kategorię"
+        text="Pomyślnie zedytowano kategorię"
         color="success"
         open={openSuccessSnackbar}
         handleClose={closeSuccessSnackbarHandler}
@@ -49,4 +51,4 @@ const AddAssetCategory = ({ open, onClose, onSave }: Props) => {
   );
 };
 
-export default AddAssetCategory;
+export default EditAssetsCategory;

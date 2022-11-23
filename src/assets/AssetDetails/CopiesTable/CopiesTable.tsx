@@ -13,20 +13,20 @@ import { useState } from "react";
 
 import Card from "../../../common/components/Card/Card";
 import { transformDate } from "../../../common/utils/transform-date";
-import { AssetCopy } from "../../assets.types";
+import { AssetsCopy } from "../../assets.types";
 import AddCopyDialog from "./AddCopyDialog/AddCopyDialog";
 import RentCopyDialog from "./RentCopyDialog/RentCopyDialog";
 import ReserveCopyDialog from "./ReserveCopyDialog/ReserveCopyDialog";
 
 type Props = {
-  copies: AssetCopy[];
+  copies: AssetsCopy[];
 };
 
 const CopiesTable = ({ copies }: Props) => {
   const [openAddCopyDialog, setOpenAddCopyDialog] = useState<boolean>(false);
   const [openRentCopyDialog, setOpenRentCopyDialog] = useState<boolean>(false);
   const [openReserveCopyDialog, setOpenReserveCopyDialog] = useState<boolean>(false);
-  const [displayCopies, setDisplayCopies] = useState<AssetCopy[]>(copies);
+  const [displayCopies, setDisplayCopies] = useState<AssetsCopy[]>(copies);
   const [choosenCopyId, setChoosenCopyId] = useState<string>();
 
   const closeReserveCopyDialogHandler = () => {
@@ -47,7 +47,7 @@ const CopiesTable = ({ copies }: Props) => {
     setChoosenCopyId(id);
   };
 
-  const changeCopiesHandler = (data: AssetCopy) => {
+  const changeCopiesHandler = (data: AssetsCopy) => {
     const copiesWithChangedCopy = displayCopies.map((copy) => (copy.id === data.id ? data : copy));
     setDisplayCopies(copiesWithChangedCopy);
   };
@@ -60,11 +60,11 @@ const CopiesTable = ({ copies }: Props) => {
     setOpenAddCopyDialog(false);
   };
 
-  const addNewCopyHandler = (item: AssetCopy) => {
+  const addNewCopyHandler = (item: AssetsCopy) => {
     return setDisplayCopies((prevState) => [...prevState, item]);
   };
 
-  const showStatusInfo = (copy: AssetCopy) => {
+  const showStatusInfo = (copy: AssetsCopy) => {
     if (copy.isFreeAccess) {
       return <div>Wolny dostęp</div>;
     } else if (copy.isRent) {
@@ -81,7 +81,7 @@ const CopiesTable = ({ copies }: Props) => {
     }
   };
 
-  const showUserAccess = (copy: AssetCopy) => {
+  const showUserAccess = (copy: AssetsCopy) => {
     if (copy.canRent) {
       return (
         <Button
