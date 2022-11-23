@@ -7,12 +7,12 @@ import { useParams } from "react-router-dom";
 import Snackbar from "../../../../common/components/Snackbar/Snackbar";
 import Switch from "../../../../common/components/Switch/Switch";
 import { addAssetCopy } from "../../../assets.api";
-import { AssetCopy } from "../../../assets.types";
+import { AssetsCopy } from "../../../assets.types";
 
 type Props = {
   open: boolean;
   onClose: () => void;
-  onAddCopy: (item: AssetCopy) => void;
+  onAddCopy: (item: AssetsCopy) => void;
 };
 
 type AddAssetCopyForm = {

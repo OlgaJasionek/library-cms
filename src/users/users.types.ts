@@ -15,11 +15,3 @@ export interface FullUserInfo extends BaseUserInfo {
   pesel: number;
   phoneNumber: number;
 }
-
-export type NewUserInfo = {
-  firstName: string;
-  lastName: string;
-  email: string;
-  pesel: string;
-  phoneNumber: string;
-};

@@ -18,13 +18,23 @@ import { getAssetsCategoriesData } from "../../assets.api";
 import { AssetsCategory } from "../../assets.types";
 import Loader from "../../../common/components/Loader/Loader";
 import { usePagination } from "../../../common/hooks/use-pagination";
-import AddAssetCategoryDialog from "../AddCategory/AddCategoryDialog";
+import AddAssetCategory from "../AddCategory/AddCategoryDialog";
+import EditAssetsCategory from "../EditCategory/EditCategory";
+import DeleteAssetsCategory from "../DeleteCategory/DeleteCategory";
 
 const AssetsCategoriesTable = () => {
   const [initialLoading, setInitialLoading] = useState(true);
-  const [categories, setCategories] = useState<AssetsCategory[]>([]);
   const { page, rowsPerPage, totalRows, setPage, setRowsPerPage, setTotalRows } = usePagination();
+
+  const [categories, setCategories] = useState<AssetsCategory[]>([]);
+  const [categoryId, setCategoryId] = useState<string>();
   const [openAddCategoryDialog, setOpenAddCategoryDialog] = useState<boolean>(false);
+  const [openEditCategoryDialog, setOpenEditCategoryDialog] = useState<boolean>(false);
+  const [openDeleteCategoryDialog, setOpenDeleteCategoryDialog] = useState<boolean>(false);
+
+  useEffect(() => {
+    getData();
+  }, [page, rowsPerPage]);
 
   const openAddCategoryDialogHandler = () => {
     setOpenAddCategoryDialog(true);
@@ -34,9 +44,27 @@ const AssetsCategoriesTable = () => {
     setOpenAddCategoryDialog(false);
   };
 
-  useEffect(() => {
-    getData();
-  }, [page, rowsPerPage]);
+  const openEditCategoryDialogHandler = (id: string) => {
+    setOpenEditCategoryDialog(true);
+    setCategoryId(id);
+  };
+
+  const closeEditCategoryDialogHandler = () => {
+    setOpenEditCategoryDialog(false);
+  };
+
+  const openDeleteCategoryDialogHandler = (id: string) => {
+    setOpenDeleteCategoryDialog(true);
+    setCategoryId(id);
+  };
+
+  const closeDeleteCategoryDialogHandler = () => {
+    setOpenDeleteCategoryDialog(false);
+  };
+
+  const getSelectedCategoryById = (): AssetsCategory | undefined => {
+    return categories.find((item) => item.id === categoryId);
+  };
 
   const getData = async () => {
     try {
@@ -79,12 +107,20 @@ const AssetsCategoriesTable = () => {
                 <TableCell>{category.assetsCount}</TableCell>
                 <TableCell scope="row" align="right">
                   <Tooltip title="Edytuj">
-                    <IconButton>
+                    <IconButton
+                      onClick={() => {
+                        openEditCategoryDialogHandler(category.id);
+                      }}
+                    >
                       <Icons.Edit />
                     </IconButton>
                   </Tooltip>
                   <Tooltip title="Usuń">
-                    <IconButton>
+                    <IconButton
+                      onClick={() => {
+                        openDeleteCategoryDialogHandler(category.id);
+                      }}
+                    >
                       <Icons.Delete />
                     </IconButton>
                   </Tooltip>
@@ -101,10 +137,23 @@ const AssetsCategoriesTable = () => {
           />
         </Table>
       </TableContainer>
-      <AddAssetCategoryDialog
+      <AddAssetCategory
         open={openAddCategoryDialog}
         onClose={closeAddCategoryDialogHandler}
         onSave={saveHandler}
+      />
+      <EditAssetsCategory
+        open={openEditCategoryDialog}
+        onClose={closeEditCategoryDialogHandler}
+        onSave={saveHandler}
+        categoryId={categoryId}
+        initData={getSelectedCategoryById()}
+      />
+      <DeleteAssetsCategory
+        open={openDeleteCategoryDialog}
+        onClose={closeDeleteCategoryDialogHandler}
+        onSave={saveHandler}
+        categoryId={categoryId}
       />
     </div>
   );

@@ -18,14 +18,24 @@ import { getAssetsAuthorsData } from "../../assets.api";
 import { AssetsAuthor } from "../../assets.types";
 import Loader from "../../../common/components/Loader/Loader";
 import { usePagination } from "../../../common/hooks/use-pagination";
-import AddAssetsAuthorDialog from "../AddAuthor/AddAuthor";
+import AddAssetsAuthor from "../AddAuthor/AddAuthor";
 import { getFullName } from "../../../common/utils/full-name";
+import EditAssetsAuthor from "../EditAuthor/EditAuthor";
+import DeleteAssetsAuthor from "../DeleteAuthor/DeleteAuthor";
 
 const AssetsAuthorsTable = () => {
   const [initialLoading, setInitialLoading] = useState(true);
-  const [authors, setAuthors] = useState<AssetsAuthor[]>([]);
   const { page, rowsPerPage, totalRows, setPage, setRowsPerPage, setTotalRows } = usePagination();
+
+  const [authors, setAuthors] = useState<AssetsAuthor[]>([]);
+  const [selectedAuthorId, setSelectedAuthorId] = useState<string>();
   const [openAddAuthorDialog, setOpenAddAuthorDialog] = useState<boolean>(false);
+  const [openEditAuthorDialog, setOpenEditAuthorDialog] = useState<boolean>(false);
+  const [openDeleteAuthorDialog, setOpenDeleteAuthorDialog] = useState<boolean>(false);
+
+  useEffect(() => {
+    getData();
+  }, [page, rowsPerPage]);
 
   const openAddAuthorDialogHandler = () => {
     setOpenAddAuthorDialog(true);
@@ -35,9 +45,27 @@ const AssetsAuthorsTable = () => {
     setOpenAddAuthorDialog(false);
   };
 
-  useEffect(() => {
-    getData();
-  }, [page, rowsPerPage]);
+  const openEditAuthorDialogHandler = (id: string) => {
+    setOpenEditAuthorDialog(true);
+    setSelectedAuthorId(id);
+  };
+
+  const closeEditAuthorDialogHandler = () => {
+    setOpenEditAuthorDialog(false);
+  };
+
+  const openDeleteAuthorDialogHandler = (id: string) => {
+    setOpenDeleteAuthorDialog(true);
+    setSelectedAuthorId(id);
+  };
+
+  const closeDeleteAuthorDialogHandler = () => {
+    setOpenDeleteAuthorDialog(false);
+  };
+
+  const getSelectedAuthorById = (): AssetsAuthor | undefined => {
+    return authors.find((item) => item.id === selectedAuthorId);
+  };
 
   const getData = async () => {
     try {
@@ -80,12 +108,20 @@ const AssetsAuthorsTable = () => {
                 <TableCell>{author.assetsCount}</TableCell>
                 <TableCell scope="row" align="right">
                   <Tooltip title="Edytuj">
-                    <IconButton>
+                    <IconButton
+                      onClick={() => {
+                        openEditAuthorDialogHandler(author.id);
+                      }}
+                    >
                       <Icons.Edit />
                     </IconButton>
                   </Tooltip>
                   <Tooltip title="Usuń">
-                    <IconButton>
+                    <IconButton
+                      onClick={() => {
+                        openDeleteAuthorDialogHandler(author.id);
+                      }}
+                    >
                       <Icons.Delete />
                     </IconButton>
                   </Tooltip>
@@ -102,10 +138,23 @@ const AssetsAuthorsTable = () => {
           />
         </Table>
       </TableContainer>
-      <AddAssetsAuthorDialog
+      <AddAssetsAuthor
         open={openAddAuthorDialog}
         onClose={closeAddAuthorDialogHandler}
         onSave={saveHandler}
+      />
+      <EditAssetsAuthor
+        open={openEditAuthorDialog}
+        onClose={closeEditAuthorDialogHandler}
+        onSave={saveHandler}
+        authorId={selectedAuthorId}
+        initData={getSelectedAuthorById()}
+      />
+      <DeleteAssetsAuthor
+        open={openDeleteAuthorDialog}
+        onClose={closeDeleteAuthorDialogHandler}
+        onSave={saveHandler}
+        authorId={selectedAuthorId}
       />
     </div>
   );

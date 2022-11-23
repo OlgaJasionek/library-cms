@@ -31,6 +31,7 @@ export type Asset = {
   id: string;
   image: {
     path: string;
+    id: string;
   };
   isbn: string;
   lubimyczytacLink: string;
@@ -39,10 +40,10 @@ export type Asset = {
   title: string;
   type: AssetsTypes;
   updatedAt: string;
-  copies: AssetCopy[];
+  copies: AssetsCopy[];
 };
 
-export type AssetCopy = {
+export type AssetsCopy = {
   activeReservationsCount: number;
   canRent: boolean;
   canReserve: boolean;
@@ -55,11 +56,11 @@ export type AssetCopy = {
   isReservedByCurrentUser: boolean;
 };
 
-export type AddAssetsCategoryValues = {
+export type AssetsCategoryFormValues = {
   name: string;
 };
 
-export type AddAssetsAuthorValues = {
+export type AssetsAuthorFormValues = {
   firstName: string;
   lastName: string;
 };
@@ -70,7 +71,7 @@ export enum AssetsTypes {
   Magazine = "MAGAZINE",
 }
 
-export type AddAssetFormValues = {
+export type AssetsFormValues = {
   imageId: string;
   authorId: string;
   categoryIds: string[];

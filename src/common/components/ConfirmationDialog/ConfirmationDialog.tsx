@@ -1,26 +1,16 @@
 import { LoadingButton } from "@mui/lab";
 import { Dialog, DialogActions, DialogContent, DialogTitle } from "@mui/material";
-import { useState } from "react";
-
-import Snackbar from "../Snackbar/Snackbar";
 
 type Props = {
   open: boolean;
   text: string;
   loading: boolean;
   title: string;
-  snackbarText: string;
   onClose: () => void;
   onAccept: () => void;
 };
 
-const ConfirmationDialog = ({ open, onClose, text, title, snackbarText, loading, onAccept }: Props) => {
-  const [openSuccessSnackbar, setOpenSuccessSnackbar] = useState<boolean>(false);
-
-  const closeSuccessSnackbarHandler = () => {
-    setOpenSuccessSnackbar(false);
-  };
-
+const ConfirmationDialog = ({ open, onClose, text, title, loading, onAccept }: Props) => {
   return (
     <>
       <Dialog open={open} fullWidth maxWidth="sm" onClose={onClose}>
@@ -37,12 +27,6 @@ const ConfirmationDialog = ({ open, onClose, text, title, snackbarText, loading,
           </DialogActions>
         </DialogContent>
       </Dialog>
-      <Snackbar
-        text={snackbarText}
-        color="success"
-        open={openSuccessSnackbar}
-        handleClose={closeSuccessSnackbarHandler}
-      />
     </>
   );
 };

@@ -1,28 +1,28 @@
 import { useState } from "react";
 
+import ConfirmationDialog from "../../../common/components/ConfirmationDialog/ConfirmationDialog";
 import Snackbar from "../../../common/components/Snackbar/Snackbar";
-import { addAssetsAuthor } from "../../assets.api";
-import { AssetsAuthorFormValues } from "../../assets.types";
-import AssetsAuthorForm from "../AuthorFormDialog/AuthorFormDialog";
+import { deleteAssetsCategory } from "../../assets.api";
 
 type Props = {
   open: boolean;
+  categoryId: string | undefined;
   onClose: () => void;
   onSave: () => void;
 };
 
-const AddAssetsAuthor = ({ open, onClose, onSave }: Props) => {
-  const [loading, setLoading] = useState<boolean>(false);
+const DeleteAssetsCategory = ({ open, onClose, onSave, categoryId }: Props) => {
   const [openSuccessSnackbar, setOpenSuccessSnackbar] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const closeSuccessSnackbarHandler = () => {
     setOpenSuccessSnackbar(false);
   };
 
-  const submitHandler = async (body: AssetsAuthorFormValues) => {
+  const deleteAuthorHandler = async () => {
+    setLoading(true);
     try {
-      setLoading(true);
-      await addAssetsAuthor(body);
+      if (categoryId) await deleteAssetsCategory(categoryId);
       onClose();
       onSave();
       setOpenSuccessSnackbar(true);
@@ -32,15 +32,16 @@ const AddAssetsAuthor = ({ open, onClose, onSave }: Props) => {
 
   return (
     <>
-      <AssetsAuthorForm
+      <ConfirmationDialog
         open={open}
+        text={"Czy na pewno chcesz usunąć tą kategorię?"}
         loading={loading}
-        title={"Dodaj nowego autora"}
-        onSubmit={submitHandler}
+        title={"Usuń kategorię"}
         onClose={onClose}
+        onAccept={deleteAuthorHandler}
       />
       <Snackbar
-        text="Pomyślnie dodano nowego autora"
+        text="Pomyślnie usunięto kategorię"
         color="success"
         open={openSuccessSnackbar}
         handleClose={closeSuccessSnackbarHandler}
@@ -49,4 +50,4 @@ const AddAssetsAuthor = ({ open, onClose, onSave }: Props) => {
   );
 };
 
-export default AddAssetsAuthor;
+export default DeleteAssetsCategory;

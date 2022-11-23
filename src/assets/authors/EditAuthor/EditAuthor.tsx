@@ -1,17 +1,19 @@
 import { useState } from "react";
 
 import Snackbar from "../../../common/components/Snackbar/Snackbar";
-import { addAssetsCategory } from "../../assets.api";
-import { AssetsCategoryFormValues } from "../../assets.types";
-import AssetsCategoryFormDialog from "../CategoryFormDialog/CategoryFormDialog";
+import { editAssetsAuthor } from "../../assets.api";
+import { AssetsAuthorFormValues, AssetsAuthor } from "../../assets.types";
+import AssetsAuthorForm from "../AuthorFormDialog/AuthorFormDialog";
 
 type Props = {
   open: boolean;
+  authorId: string | undefined;
+  initData: AssetsAuthor | undefined;
   onClose: () => void;
   onSave: () => void;
 };
 
-const AddAssetCategory = ({ open, onClose, onSave }: Props) => {
+const EditAssetsAuthor = ({ open, onClose, onSave, authorId, initData }: Props) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [openSuccessSnackbar, setOpenSuccessSnackbar] = useState<boolean>(false);
 
@@ -19,28 +21,29 @@ const AddAssetCategory = ({ open, onClose, onSave }: Props) => {
     setOpenSuccessSnackbar(false);
   };
 
-  const onSubmit = async (body: AssetsCategoryFormValues) => {
+  const sumbitHandler = async (body: AssetsAuthorFormValues) => {
     try {
       setLoading(true);
-      await addAssetsCategory(body);
+      if (authorId) await editAssetsAuthor(body, authorId);
       onClose();
-      setOpenSuccessSnackbar(true);
       onSave();
+      setOpenSuccessSnackbar(true);
     } catch (err) {}
     setLoading(false);
   };
 
   return (
     <>
-      <AssetsCategoryFormDialog
+      <AssetsAuthorForm
         open={open}
         loading={loading}
-        title={"Dodaj nową kategorię"}
-        onSubmit={onSubmit}
+        title={"Edycja istniejącego autora"}
+        onSubmit={sumbitHandler}
         onClose={onClose}
+        initData={initData}
       />
       <Snackbar
-        text="Pomyślnie dodano nową kategorię"
+        text="Pomyślnie zedytowano istniejącego autora"
         color="success"
         open={openSuccessSnackbar}
         handleClose={closeSuccessSnackbarHandler}
@@ -49,4 +52,4 @@ const AddAssetCategory = ({ open, onClose, onSave }: Props) => {
   );
 };
 
-export default AddAssetCategory;
+export default EditAssetsAuthor;
