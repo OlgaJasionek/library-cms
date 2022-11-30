@@ -3,11 +3,15 @@ import { useForm } from "react-hook-form";
 import classnames from "classnames";
 import { LoadingButton } from "@mui/lab";
 import { useNavigate } from "react-router-dom";
+import jwtDecode from "jwt-decode";
+import { useDispatch } from "react-redux";
 
 import TextInput from "../common/components/TextInput/TextInput";
 import Logo from "../common/components/Logo/Logo";
 import { emailValidator } from "../common/utils/validators";
 import { login } from "./login.api";
+import { DecodedToken } from "../common/types/jwt";
+import { setData } from "../core/store/current-user";
 
 import styles from "./Login.module.scss";
 
@@ -20,6 +24,7 @@ const Login = () => {
   const { handleSubmit, control } = useForm<FormValues>();
   const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const onSubmit = async (body: FormValues) => {
     try {
@@ -27,6 +32,9 @@ const Login = () => {
       const resp = await login(body);
       const token = resp.token;
       localStorage.setItem("token", token);
+      const decodedToken = jwtDecode<DecodedToken>(token || "") || null;
+      dispatch(setData(decodedToken.user));
+
       navigate("/");
     } catch (err) {}
 

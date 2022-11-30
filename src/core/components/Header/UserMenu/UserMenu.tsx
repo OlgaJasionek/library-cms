@@ -1,18 +1,17 @@
 import * as Icons from "@mui/icons-material";
 import { Avatar } from "@mui/material";
 import { Link } from "react-router-dom";
-import classNames from "classnames";
 
 import { getFullName } from "../../../../common/utils/full-name";
-import { BaseUserInfo } from "../../../../users/users.types";
+
+import { useSelector } from "react-redux";
+import { selectCurrentUser } from "../../../store/current-user";
 
 import styles from "./UserMenu.module.scss";
 
-type Props = {
-  user: BaseUserInfo;
-};
+const UserMenu = () => {
+  const user = useSelector(selectCurrentUser);
 
-const UserMenu = ({ user }: Props) => {
   const logOutHandler = () => {
     localStorage.removeItem("token");
   };
@@ -45,4 +44,5 @@ const UserMenu = ({ user }: Props) => {
     </div>
   );
 };
+
 export default UserMenu;
