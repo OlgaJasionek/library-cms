@@ -1,2 +1,7 @@
-export const getFullName = ({ firstName, lastName }: { firstName: string; lastName: string }): string =>
-  `${firstName} ${lastName}`;
+export const getFullName = ({
+  firstName,
+  lastName,
+}: {
+  firstName: string | null;
+  lastName: string | null;
+}): string => `${firstName || ""} ${lastName || ""}`;
