@@ -1,0 +1,16 @@
+@import "../../../scss/main.scss";
+
+.title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100px;
+}
+
+.contactsList {
+  flex: 1;
+  height: 100%;
+  overflow: auto;
+}
+
+

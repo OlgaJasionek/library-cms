@@ -1,0 +1,42 @@
+@import "../../../scss/main.scss";
+
+.messages {
+  flex: 1;
+  width: 100%;
+  overflow: auto;
+  padding: 30px;
+}
+
+.sentMessage {
+  margin-top: 10px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+}
+
+.receivedMessage {
+  margin-top: 10px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  margin: 0 10px;
+  padding: 10px 20px;
+  border-radius: 10px;
+  max-width: 70%;
+  word-wrap: break-word;
+}
+
+.send {
+  color: white;
+  background-color: $main-color;
+}
+
+.receive {
+  background-color: white;
+  box-shadow: $box-shadow-color;
+}

@@ -1,4 +1,5 @@
 import { PaginationParams } from "../common/types/pagination-params";
+import { SelectOption } from "../common/types/select-option";
 import http from "../core/api/http";
 import { ReaderFormValues, Readers } from "./Readers/readers.types";
 import { FullUserInfo } from "./users.types";
@@ -28,6 +29,15 @@ export const addNewReader = (body: ReaderFormValues): Promise<{ password: string
     })
     .then((res) => res.data);
 
+export const getUsersOptions = (q: string): Promise<SelectOption[]> =>
+  http
+    .get("users/all", {
+      params: {
+        q,
+      },
+    })
+    .then((res) => res.data);
+    
 export const getReaderData = (readerId: string): Promise<{ data: FullUserInfo }> =>
   http.get(`/users/${readerId}`);
 
