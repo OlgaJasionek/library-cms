@@ -7,7 +7,7 @@ import UserAssetsRentals from "./UserRentals/UserRentals";
 import UserAssetsReservations from "./UserReservations/UserReservations";
 
 const UserAssets = () => {
-  const [tabValue, setTabValue] = useState<string>("notifications");
+  const [tabValue, setTabValue] = useState<string>("rentals");
 
   const changeTabValueHandler = (event: React.SyntheticEvent, newValue: string) => {
     setTabValue(newValue);

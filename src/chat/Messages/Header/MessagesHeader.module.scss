@@ -1,0 +1,9 @@
+@import "../../../scss/main.scss";
+
+.header {
+  display: flex;
+  align-items: center;
+  height: 100px;
+  background-color: white;
+  border-bottom: 0.5px solid $border-gray-color;
+}

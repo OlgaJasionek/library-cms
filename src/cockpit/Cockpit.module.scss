@@ -14,7 +14,9 @@
 
 .cockpitItem {
   width: 100%;
-  margin-top: 128px;
+  min-height: calc(100vh - 64px);
+  margin-top: 64px;
+  padding-top: 64px;
   margin-left: 280px;
 }
 

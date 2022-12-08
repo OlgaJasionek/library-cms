@@ -1,0 +1,14 @@
+.title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100px;
+}
+
+.closeBtn {
+  visibility: hidden;
+
+  @media (max-width: 768px) {
+    visibility: visible;
+  }
+}

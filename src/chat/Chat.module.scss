@@ -1,0 +1,44 @@
+@import "../scss/main.scss";
+
+.root {
+  position: relative;
+  display: flex;
+  margin-top: -64px;
+  height: calc(100vh - 64px);
+  width: 100%;
+}
+
+.room {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border-right: 0.5px solid $border-gray-color;
+  transform: all 0.5s;
+  height: 100%;
+
+  &::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
+
+  &--open {
+    display: flex;
+    @media (max-width: 768px) {
+      min-width: 260px;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 2;
+    }
+  }
+
+  &:not(&--open) {
+    display: none;
+  }
+}
+
+.messages {
+  display: flex;
+  flex-direction: column;
+}
