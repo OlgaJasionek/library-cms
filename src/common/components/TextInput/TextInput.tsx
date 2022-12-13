@@ -5,22 +5,11 @@ import { BaseCustomControlProps } from "../../types/form";
 import ValidateMesage from "../ValidationMessage/ValidateMessage";
 
 type Props = {
-  InputLabelProps?: {
-    shrink: boolean;
-  };
   type?: string;
   multiline?: boolean;
 } & BaseCustomControlProps;
 
-export default function TextInput({
-  name,
-  control,
-  rules,
-  multiline,
-  label,
-  type = "text",
-  InputLabelProps,
-}: Props) {
+export default function TextInput({ name, control, rules, multiline, label, type = "text" }: Props) {
   const {
     field: { onChange, value },
     formState: { errors },
@@ -43,7 +32,6 @@ export default function TextInput({
         type={type}
         multiline={multiline}
         rows={multiline ? 5 : 0}
-        InputLabelProps={InputLabelProps}
       />
       <ValidateMesage error={error} rules={rules} label={label} />
     </div>

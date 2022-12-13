@@ -16,7 +16,7 @@ export const usePagination = (): PaginationValues => {
 
   const _setRowsPerPage = (value: number) => {
     setPage(0);
-    setRowsPerPage(value);
+    setRowsPerPage(value); 
   };
 
   return {

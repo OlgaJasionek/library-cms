@@ -3,7 +3,7 @@ export type Readers = {
   firstName: string;
   lastName: string;
   email: string;
-  pesel: number;
+  pesel: string;
   phoneNumber: number;
   isActive: boolean;
 };

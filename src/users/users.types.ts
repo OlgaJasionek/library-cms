@@ -12,6 +12,6 @@ export enum UserRole {
 
 export interface FullUserInfo extends BaseUserInfo {
   createdAt: string;
-  pesel: number;
+  pesel: string;
   phoneNumber: number;
 }
