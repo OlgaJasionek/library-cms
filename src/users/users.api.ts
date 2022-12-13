@@ -1,5 +1,6 @@
 import { PaginationParams } from "../common/types/pagination-params";
 import { SelectOption } from "../common/types/select-option";
+import { SortParams } from "../common/types/sort-params";
 import http from "../core/api/http";
 import { ReaderFormValues, Readers } from "./Readers/readers.types";
 import { FullUserInfo } from "./users.types";
@@ -10,12 +11,18 @@ export const getCurrentUserData = (): Promise<{ user: FullUserInfo }> =>
 export const editUserPassword = (body: { newPassword: string; repeatedNewPassword: string }): Promise<void> =>
   http.post("users/change-password", body).then((res) => res.data);
 
-export const getReadersData = (params: PaginationParams): Promise<{ items: Readers[]; total: number }> =>
+export const getReadersData = (
+  params: PaginationParams & SortParams & { q?: string; onlyActive?: boolean }
+): Promise<{ items: Readers[]; total: number }> =>
   http
     .get("users/readers", {
       params: {
         page: params.page + 1,
         perPage: params.rowsPerPage,
+        sortBy: params.sortBy,
+        sortOrder: params.sortOrder,
+        q: params.q,
+        onlyActive: params.onlyActive,
       },
     })
     .then((res) => res.data);

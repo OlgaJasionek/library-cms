@@ -14,13 +14,16 @@ import {
 } from "./assets.types";
 
 export const getAssetsCategoriesData = (
-  params: PaginationParams
+  params: PaginationParams & SortParams & { q?: string }
 ): Promise<{ items: AssetsCategory[]; total: number }> =>
   http
     .get("asset-categories", {
       params: {
         page: params.page + 1,
         perPage: params.rowsPerPage,
+        sortBy: params.sortBy,
+        sortOrder: params.sortOrder,
+        q: params.q,
       },
     })
     .then((res) => res.data);

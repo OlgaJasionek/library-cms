@@ -10,6 +10,7 @@ import {
   Tooltip,
   IconButton,
   Button,
+  TableSortLabel,
 } from "@mui/material";
 import * as Icons from "@mui/icons-material";
 
@@ -21,11 +22,29 @@ import { usePagination } from "../../../common/hooks/use-pagination";
 import AddAssetCategory from "../AddCategory/AddCategoryDialog";
 import EditAssetsCategory from "../EditCategory/EditCategory";
 import DeleteAssetsCategory from "../DeleteCategory/DeleteCategory";
+import { TableHeadCell } from "../../../common/types/table-head-cell";
+import { useSort } from "../../../common/hooks/use-sort";
+import CategoriesSearchBar from "../CategoriesSearchBar/CategoriesSearchBar";
+
+const headCells: TableHeadCell[] = [
+  {
+    id: "name",
+    label: "Nazwa",
+  },
+  {
+    id: "assetsCount",
+    label: "Ilość przypisanych",
+  },
+];
 
 const AssetsCategoriesTable = () => {
   const [initialLoading, setInitialLoading] = useState(true);
   const { page, rowsPerPage, totalRows, setPage, setRowsPerPage, setTotalRows } = usePagination();
 
+  const { sortBy, sortOrder, changeSort } = useSort();
+  const [searchCategoryValue, setSearchCategoryValue] = useState<string>("");
+  const [searchCategoryLoading, setSearchCategoryLoading] = useState<boolean>(false);
+  
   const [categories, setCategories] = useState<AssetsCategory[]>([]);
   const [categoryId, setCategoryId] = useState<string>();
   const [openAddCategoryDialog, setOpenAddCategoryDialog] = useState<boolean>(false);
@@ -34,7 +53,15 @@ const AssetsCategoriesTable = () => {
 
   useEffect(() => {
     getData();
-  }, [page, rowsPerPage]);
+  }, [page, rowsPerPage, sortBy, sortOrder, searchCategoryValue]);
+
+  useEffect(() => {
+    setSearchCategoryLoading(true);
+  }, [searchCategoryValue]);
+
+  const changeSearchCategoryHandler = (value: string) => {
+    setSearchCategoryValue(value);
+  };
 
   const openAddCategoryDialogHandler = () => {
     setOpenAddCategoryDialog(true);
@@ -68,11 +95,18 @@ const AssetsCategoriesTable = () => {
 
   const getData = async () => {
     try {
-      const resp = await getAssetsCategoriesData({ page, rowsPerPage });
+      const resp = await getAssetsCategoriesData({
+        page,
+        rowsPerPage,
+        sortBy,
+        sortOrder,
+        q: searchCategoryValue,
+      });
       setCategories(resp.items);
       setTotalRows(resp.total);
     } catch (err) {}
     setInitialLoading(false);
+    setSearchCategoryLoading(false);
   };
 
   const saveHandler = () => {
@@ -91,52 +125,70 @@ const AssetsCategoriesTable = () => {
           Dodaj kategorię
         </Button>
       </div>
-      <TableContainer component={Paper}>
-        <Table aria-label="categories pagination table">
-          <TableHead>
-            <TableRow>
-              <TableCell>Nazwa</TableCell>
-              <TableCell>Ilość przypisanych</TableCell>
-              <TableCell></TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {categories.map((category) => (
-              <TableRow key={category.id}>
-                <TableCell component="th">{category.name}</TableCell>
-                <TableCell>{category.assetsCount}</TableCell>
-                <TableCell scope="row" align="right">
-                  <Tooltip title="Edytuj">
-                    <IconButton
+      <div>
+        <CategoriesSearchBar onChangeValue={changeSearchCategoryHandler} loading={searchCategoryLoading} />
+      </div>
+      {categories.length === 0 ? (
+        <p>Brak rekordów</p>
+      ) : (
+        <TableContainer component={Paper}>
+          <Table aria-label="categories pagination table">
+            <TableHead>
+              <TableRow>
+                {headCells.map((headCell) => (
+                  <TableCell key={headCell.id}>
+                    <TableSortLabel
+                      active={headCell.id === sortBy}
+                      direction={headCell.id === sortBy ? sortOrder : "asc"}
                       onClick={() => {
-                        openEditCategoryDialogHandler(category.id);
+                        changeSort(headCell.id);
                       }}
                     >
-                      <Icons.Edit />
-                    </IconButton>
-                  </Tooltip>
-                  <Tooltip title="Usuń">
-                    <IconButton
-                      onClick={() => {
-                        openDeleteCategoryDialogHandler(category.id);
-                      }}
-                    >
-                      <Icons.Delete />
-                    </IconButton>
-                  </Tooltip>
-                </TableCell>
+                      {headCell.label}
+                    </TableSortLabel>
+                  </TableCell>
+                ))}
+                <TableCell />
               </TableRow>
-            ))}
-          </TableBody>
-          <TablePagination
-            page={page}
-            rowsPerPage={rowsPerPage}
-            totalRows={totalRows}
-            onPageChange={setPage}
-            onPerPageChange={setRowsPerPage}
-          />
-        </Table>
-      </TableContainer>
+            </TableHead>
+            <TableBody>
+              {categories.map((category) => (
+                <TableRow key={category.id}>
+                  <TableCell component="th">{category.name}</TableCell>
+                  <TableCell>{category.assetsCount}</TableCell>
+                  <TableCell scope="row" align="right">
+                    <Tooltip title="Edytuj">
+                      <IconButton
+                        onClick={() => {
+                          openEditCategoryDialogHandler(category.id);
+                        }}
+                      >
+                        <Icons.Edit />
+                      </IconButton>
+                    </Tooltip>
+                    <Tooltip title="Usuń">
+                      <IconButton
+                        onClick={() => {
+                          openDeleteCategoryDialogHandler(category.id);
+                        }}
+                      >
+                        <Icons.Delete />
+                      </IconButton>
+                    </Tooltip>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+            <TablePagination
+              page={page}
+              rowsPerPage={rowsPerPage}
+              totalRows={totalRows}
+              onPageChange={setPage}
+              onPerPageChange={setRowsPerPage}
+            />
+          </Table>
+        </TableContainer>
+      )}
       <AddAssetCategory
         open={openAddCategoryDialog}
         onClose={closeAddCategoryDialogHandler}
