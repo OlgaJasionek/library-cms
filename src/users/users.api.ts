@@ -24,7 +24,6 @@ export const addNewReader = (body: ReaderFormValues): Promise<{ password: string
   http
     .post("/users", {
       ...body,
-      pesel: parseInt(body.pesel),
       phoneNumber: parseInt(body.phoneNumber),
     })
     .then((res) => res.data);
@@ -37,13 +36,12 @@ export const getUsersOptions = (q: string): Promise<SelectOption[]> =>
       },
     })
     .then((res) => res.data);
-    
+
 export const getReaderData = (readerId: string): Promise<{ data: FullUserInfo }> =>
   http.get(`/users/${readerId}`);
 
 export const editReader = (body: ReaderFormValues, readerId: string): Promise<void> =>
   http.put(`/users/${readerId}`, {
     ...body,
-    pesel: parseInt(body.pesel),
     phoneNumber: parseInt(body.phoneNumber),
   });

@@ -1,5 +1,6 @@
 import { PaginationParams } from "../common/types/pagination-params";
 import { SelectOption } from "../common/types/select-option";
+import { SortParams } from "../common/types/sort-params";
 import http from "../core/api/http";
 import {
   AssetsCategoryFormValues,
@@ -37,13 +38,16 @@ export const getAllAssetsCategoriesValues = (): Promise<SelectOption[]> =>
   http.get("/asset-categories/all").then((res) => res.data);
 
 export const getAssetsAuthorsData = (
-  params: PaginationParams
+  params: PaginationParams & SortParams & { q?: string }
 ): Promise<{ items: AssetsAuthor[]; total: number }> =>
   http
     .get("asset-authors", {
       params: {
         page: params.page + 1,
         perPage: params.rowsPerPage,
+        sortBy: params.sortBy,
+        sortOrder: params.sortOrder,
+        q: params.q,
       },
     })
     .then((res) => res.data);

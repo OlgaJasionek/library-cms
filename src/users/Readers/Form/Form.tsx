@@ -15,14 +15,14 @@ type Props = {
 };
 
 const ReaderForm = ({ onSave, actionType, initData }: Props) => {
-  const { handleSubmit, control, setValue, reset } = useForm<ReaderFormValues>();
+  const { handleSubmit, control, setValue } = useForm<ReaderFormValues>();
   const navigate = useNavigate();
 
   useEffect(() => {
     if (initData) {
       setValue("firstName", initData.firstName);
       setValue("lastName", initData.lastName);
-      setValue("pesel", initData.pesel.toString());
+      setValue("pesel", initData.pesel);
       setValue("phoneNumber", initData.phoneNumber.toString());
     }
   }, []);
