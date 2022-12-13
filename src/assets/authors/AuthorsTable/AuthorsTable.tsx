@@ -24,11 +24,10 @@ import { getFullName } from "../../../common/utils/full-name";
 import EditAssetsAuthor from "../EditAuthor/EditAuthor";
 import DeleteAssetsAuthor from "../DeleteAuthor/DeleteAuthor";
 import AuthorsSearchBar from "../AuthorsSearchBar/AuthorsSearchBar";
-import { HeadCell } from "../../../common/types/table-head-cell";
-import { SortOrder } from "../../../common/types/sort-params";
+import { TableHeadCell } from "../../../common/types/table-head-cell";
 import { useSort } from "../../../common/hooks/use-sort";
 
-const headCells: HeadCell[] = [
+const headCells: TableHeadCell[] = [
   {
     id: "name",
     label: "Nazwa",
@@ -50,19 +49,19 @@ const AssetsAuthorsTable = () => {
   const [openEditAuthorDialog, setOpenEditAuthorDialog] = useState<boolean>(false);
   const [openDeleteAuthorDialog, setOpenDeleteAuthorDialog] = useState<boolean>(false);
   const { sortBy, sortOrder, changeSort } = useSort();
-  const [searchValue, setSearchValue] = useState<string>();
+  const [searchAuthorValue, setSearchAuthorValue] = useState<string>();
 
   useEffect(() => {
     getData();
-  }, [page, rowsPerPage, sortBy, sortOrder, searchValue]);
+  }, [page, rowsPerPage, sortBy, sortOrder, searchAuthorValue]);
 
   useEffect(() => {
     setSearchValueLoading(true);
-  }, [searchValue]);
+  }, [searchAuthorValue]);
 
   const getData = async () => {
     try {
-      const resp = await getAssetsAuthorsData({ page, rowsPerPage, sortBy, sortOrder, q: searchValue });
+      const resp = await getAssetsAuthorsData({ page, rowsPerPage, sortBy, sortOrder, q: searchAuthorValue });
       setAuthors(resp.items);
       setTotalRows(resp.total);
     } catch (err) {}
@@ -71,7 +70,7 @@ const AssetsAuthorsTable = () => {
   };
 
   const changeSearchAuthorHandler = (value: string) => {
-    setSearchValue(value);
+    setSearchAuthorValue(value);
   };
 
   const openAddAuthorDialogHandler = () => {

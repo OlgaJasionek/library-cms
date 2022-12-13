@@ -6,6 +6,7 @@ export type Readers = {
   pesel: string;
   phoneNumber: number;
   isActive: boolean;
+  disabled: boolean;
 };
 
 export type ReaderFormValues = {

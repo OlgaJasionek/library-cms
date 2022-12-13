@@ -29,9 +29,11 @@ const Switch = ({ name, label, control }: Props) => {
           checked={value}
           onChange={onChange}
         />
-        <label htmlFor="switch">
-          <div className={classnames(styles.thumb, { [styles.movethumb]: value })}></div>
-          <div className={classnames(styles.track, { [styles.changetrack]: value })}></div>
+        <label htmlFor="switch" className="d-flex">
+          <div>
+            <div className={classnames(styles.thumb, { [styles.movethumb]: value })}></div>
+            <div className={classnames(styles.track, { [styles.changetrack]: value })}></div>
+          </div>
           <span className={styles.labelText}>{label}</span>
         </label>
       </div>

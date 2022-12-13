@@ -1,4 +1,4 @@
-export type HeadCell = {
+export type TableHeadCell = {
   id: string;
   label: string;
 };
