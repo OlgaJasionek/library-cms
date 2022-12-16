@@ -40,7 +40,7 @@ const headCells: TableHeadCell[] = [
 
 const AssetsAuthorsTable = () => {
   const [initialLoading, setInitialLoading] = useState(true);
-  const { page, rowsPerPage, totalRows, setPage, setRowsPerPage, setTotalRows } = usePagination();
+  const { page, perPage, totalRows, setPage, setPerPage, setTotalRows } = usePagination();
   const [searchValueLoading, setSearchValueLoading] = useState<boolean>(false);
 
   const [authors, setAuthors] = useState<AssetsAuthor[]>([]);
@@ -53,7 +53,7 @@ const AssetsAuthorsTable = () => {
 
   useEffect(() => {
     getData();
-  }, [page, rowsPerPage, sortBy, sortOrder, searchAuthorValue]);
+  }, [page, perPage, sortBy, sortOrder, searchAuthorValue]);
 
   useEffect(() => {
     setSearchValueLoading(true);
@@ -61,7 +61,13 @@ const AssetsAuthorsTable = () => {
 
   const getData = async () => {
     try {
-      const resp = await getAssetsAuthorsData({ page, rowsPerPage, sortBy, sortOrder, q: searchAuthorValue });
+      const resp = await getAssetsAuthorsData({
+        page,
+        perPage,
+        sortBy,
+        sortOrder,
+        q: searchAuthorValue,
+      });
       setAuthors(resp.items);
       setTotalRows(resp.total);
     } catch (err) {}
@@ -175,10 +181,10 @@ const AssetsAuthorsTable = () => {
             </TableBody>
             <TablePagination
               page={page}
-              rowsPerPage={rowsPerPage}
+              perPage={perPage}
               totalRows={totalRows}
               onPageChange={setPage}
-              onPerPageChange={setRowsPerPage}
+              onPerPageChange={setPerPage}
             />
           </Table>
         </TableContainer>

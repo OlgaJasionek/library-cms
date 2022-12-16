@@ -12,15 +12,15 @@ import { UserAssetRental } from "../../../user-account.types";
 const UserAssetsRentals = () => {
   const [initialLoading, setInitialLoading] = useState<boolean>(true);
   const [userRentals, setUserRentals] = useState<UserAssetRental[]>([]);
-  const { page, rowsPerPage, totalRows, setRowsPerPage, setPage, setTotalRows } = usePagination();
+  const { page, perPage, totalRows, setPerPage, setPage, setTotalRows } = usePagination();
 
   useEffect(() => {
     getData();
-  }, [page, rowsPerPage]);
+  }, [page, perPage]);
 
   const getData = async () => {
     try {
-      const resp = await getUserAssetsRentals({ page, rowsPerPage });
+      const resp = await getUserAssetsRentals({ page, perPage });
       setTotalRows(resp.total);
       setUserRentals(resp.items);
     } catch (err) {}
@@ -55,10 +55,10 @@ const UserAssetsRentals = () => {
           </TableBody>
           <TablePagination
             page={page}
-            rowsPerPage={rowsPerPage}
+            perPage={perPage}
             totalRows={totalRows}
             onPageChange={setPage}
-            onPerPageChange={setRowsPerPage}
+            onPerPageChange={setPerPage}
           />
         </Table>
       </TableContainer>

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   Table,
   TableBody,
@@ -9,31 +9,46 @@ import {
   Paper,
   Tooltip,
   IconButton,
+  TableSortLabel,
 } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import * as Icons from "@mui/icons-material";
 
 import TablePagination from "../../../common/components/TablePagination/TablePagination";
-import { getAssetsListData } from "../../assets.api";
 import { Asset } from "../../assets.types";
-import Loader from "../../../common/components/Loader/Loader";
-import { usePagination } from "../../../common/hooks/use-pagination";
 import { getFullName } from "../../../common/utils/full-name";
 import AssetTypeLabel from "../../AssetTypeLabel/AssetTypeLabel";
 import DeleteAsset from "../../DeleteAsset/DeleteAsset";
+import { SortOrder } from "../../../common/types/sort-params";
 
-const AssetsListTable = () => {
-  const [initialLoading, setInitialLoading] = useState(true);
-  const { page, rowsPerPage, totalRows, setPage, setRowsPerPage, setTotalRows } = usePagination();
+type Props = {
+  assetsList: Asset[];
+  page: number;
+  perPage: number;
+  totalRows: number;
+  sortBy: string;
+  sortOrder: SortOrder;
+  onChangeSort: (id: string) => void;
+  onSave: () => void;
+  setPage: (value: number) => void;
+  setPerPage: (value: number) => void;
+};
 
-  const [assetsList, setAssetsList] = useState<Asset[]>([]);
+const AssetsListTable = ({
+  assetsList,
+  page,
+  perPage,
+  totalRows,
+  sortBy,
+  sortOrder,
+  onChangeSort,
+  onSave,
+  setPage,
+  setPerPage,
+}: Props) => {
   const [selectedAssetId, setSelectedAssetId] = useState<string>();
   const [openDeleteAssetDialog, setOpenDeleteAssetDialog] = useState<boolean>(false);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    getData();
-  }, [page, rowsPerPage]);
 
   const openDeleteAssetDialogHandler = (id: string) => {
     setOpenDeleteAssetDialog(true);
@@ -44,31 +59,34 @@ const AssetsListTable = () => {
     setOpenDeleteAssetDialog(false);
   };
 
-  const saveHandler = () => {
-    page === 0 ? getData() : setPage(0);
-  };
-
-  const getData = async () => {
-    try {
-      const resp = await getAssetsListData({ page, rowsPerPage });
-      setAssetsList(resp.items);
-      setTotalRows(resp.total);
-    } catch (err) {}
-    setInitialLoading(false);
-  };
-
-  if (initialLoading) {
-    return <Loader />;
-  }
-
   return (
     <>
       <TableContainer component={Paper}>
         <Table aria-label="assets-list pagination table">
           <TableHead>
             <TableRow>
-              <TableCell>Tytuł</TableCell>
-              <TableCell>Autor</TableCell>
+              <TableCell>
+                <TableSortLabel
+                  active={"title" === sortBy}
+                  direction={"title" === sortBy ? sortOrder : "asc"}
+                  onClick={() => {
+                    onChangeSort("title");
+                  }}
+                >
+                  Tytuł
+                </TableSortLabel>
+              </TableCell>
+              <TableCell>
+                <TableSortLabel
+                  active={"author" === sortBy}
+                  direction={"author" === sortBy ? sortOrder : "asc"}
+                  onClick={() => {
+                    onChangeSort("author");
+                  }}
+                >
+                  Autor
+                </TableSortLabel>
+              </TableCell>
               <TableCell>Typ</TableCell>
               <TableCell></TableCell>
             </TableRow>
@@ -104,10 +122,10 @@ const AssetsListTable = () => {
           </TableBody>
           <TablePagination
             page={page}
-            rowsPerPage={rowsPerPage}
+            perPage={perPage}
             totalRows={totalRows}
             onPageChange={setPage}
-            onPerPageChange={setRowsPerPage}
+            onPerPageChange={setPerPage}
           />
         </Table>
       </TableContainer>
@@ -115,7 +133,7 @@ const AssetsListTable = () => {
         open={openDeleteAssetDialog}
         assetId={selectedAssetId}
         onClose={closeDeleteAssetDialogHandler}
-        onSave={saveHandler}
+        onSave={onSave}
       />
     </>
   );

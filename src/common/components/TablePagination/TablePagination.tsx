@@ -4,13 +4,13 @@ import TablePaginationActions from "./Actions/Actions.module";
 type Props = {
   totalRows: number;
   page: number;
-  rowsPerPage: number;
+  perPage: number;
   onPageChange: (value: number) => void;
   onPerPageChange: (value: number) => void;
 };
 
 const TablePagination = (props: Props) => {
-  const { page, rowsPerPage, totalRows, onPageChange, onPerPageChange } = props;
+  const { page, perPage, totalRows, onPageChange, onPerPageChange } = props;
 
   const handleChangePage = (event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => {
     onPageChange(newPage);
@@ -26,7 +26,7 @@ const TablePagination = (props: Props) => {
         <Pagination
           rowsPerPageOptions={[10, 25, 50]}
           count={totalRows}
-          rowsPerPage={rowsPerPage}
+          rowsPerPage={perPage}
           page={page}
           SelectProps={{
             inputProps: {

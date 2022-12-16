@@ -11,6 +11,7 @@ import {
   AssetsFormValues,
   AssetsCopy,
   AssetRental,
+  AssetsTypes,
 } from "./assets.types";
 
 export const getAssetsCategoriesData = (
@@ -18,13 +19,7 @@ export const getAssetsCategoriesData = (
 ): Promise<{ items: AssetsCategory[]; total: number }> =>
   http
     .get("asset-categories", {
-      params: {
-        page: params.page + 1,
-        perPage: params.rowsPerPage,
-        sortBy: params.sortBy,
-        sortOrder: params.sortOrder,
-        q: params.q,
-      },
+      params: { ...params, page: params.page + 1 },
     })
     .then((res) => res.data);
 
@@ -45,13 +40,7 @@ export const getAssetsAuthorsData = (
 ): Promise<{ items: AssetsAuthor[]; total: number }> =>
   http
     .get("asset-authors", {
-      params: {
-        page: params.page + 1,
-        perPage: params.rowsPerPage,
-        sortBy: params.sortBy,
-        sortOrder: params.sortOrder,
-        q: params.q,
-      },
+      params: { ...params, page: params.page + 1 },
     })
     .then((res) => res.data);
 
@@ -67,13 +56,13 @@ export const deleteAssetsAuthor = (authorId: string): Promise<void> =>
 export const getAllAssetsAuthors = (): Promise<SelectOption[]> =>
   http.get("/asset-authors/all").then((res) => res.data);
 
-export const getAssetsListData = (params: PaginationParams): Promise<{ items: Asset[]; total: number }> =>
+export const getAssetsListData = (
+  params: PaginationParams &
+    SortParams & { title?: string; type?: AssetsTypes[]; author?: string[]; category?: string[] }
+): Promise<{ items: Asset[]; total: number }> =>
   http
     .get("assets", {
-      params: {
-        page: params.page + 1,
-        perPage: params.rowsPerPage,
-      },
+      params: { ...params, page: params.page + 1 },
     })
     .then((res) => res.data);
 
@@ -100,10 +89,7 @@ export const getRentalsAssetsData = (
 ): Promise<{ items: AssetRental[]; total: number }> =>
   http
     .get("asset-rentals", {
-      params: {
-        page: params.page + 1,
-        perPage: params.rowsPerPage,
-      },
+      params: { ...params, page: params.page + 1 },
     })
     .then((res) => res.data);
 
