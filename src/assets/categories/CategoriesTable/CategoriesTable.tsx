@@ -39,12 +39,12 @@ const headCells: TableHeadCell[] = [
 
 const AssetsCategoriesTable = () => {
   const [initialLoading, setInitialLoading] = useState(true);
-  const { page, rowsPerPage, totalRows, setPage, setRowsPerPage, setTotalRows } = usePagination();
+  const { page, perPage, totalRows, setPage, setPerPage, setTotalRows } = usePagination();
 
   const { sortBy, sortOrder, changeSort } = useSort();
   const [searchCategoryValue, setSearchCategoryValue] = useState<string>("");
   const [searchCategoryLoading, setSearchCategoryLoading] = useState<boolean>(false);
-  
+
   const [categories, setCategories] = useState<AssetsCategory[]>([]);
   const [categoryId, setCategoryId] = useState<string>();
   const [openAddCategoryDialog, setOpenAddCategoryDialog] = useState<boolean>(false);
@@ -53,7 +53,7 @@ const AssetsCategoriesTable = () => {
 
   useEffect(() => {
     getData();
-  }, [page, rowsPerPage, sortBy, sortOrder, searchCategoryValue]);
+  }, [page, perPage, sortBy, sortOrder, searchCategoryValue]);
 
   useEffect(() => {
     setSearchCategoryLoading(true);
@@ -97,7 +97,7 @@ const AssetsCategoriesTable = () => {
     try {
       const resp = await getAssetsCategoriesData({
         page,
-        rowsPerPage,
+        perPage,
         sortBy,
         sortOrder,
         q: searchCategoryValue,
@@ -181,10 +181,10 @@ const AssetsCategoriesTable = () => {
             </TableBody>
             <TablePagination
               page={page}
-              rowsPerPage={rowsPerPage}
+              perPage={perPage}
               totalRows={totalRows}
               onPageChange={setPage}
-              onPerPageChange={setRowsPerPage}
+              onPerPageChange={setPerPage}
             />
           </Table>
         </TableContainer>

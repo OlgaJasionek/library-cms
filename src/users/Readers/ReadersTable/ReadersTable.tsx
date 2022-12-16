@@ -16,7 +16,6 @@ import {
   TableSortLabel,
 } from "@mui/material";
 import * as Icons from "@mui/icons-material";
-import { useForm } from "react-hook-form";
 
 import Loader from "../../../common/components/Loader/Loader";
 import { getFullName } from "../../../common/utils/full-name";
@@ -30,7 +29,7 @@ import ReadersFilters from "../ReadersFilters/ReadersFilters";
 
 const ReadersTable = () => {
   const [initialLoading, setInitialLoading] = useState<boolean>(true);
-  const { page, rowsPerPage, totalRows, setRowsPerPage, setPage, setTotalRows } = usePagination();
+  const { page, perPage, totalRows, setPerPage, setPage, setTotalRows } = usePagination();
 
   const { sortBy, sortOrder, changeSort } = useSort();
   const [searchReaderValue, setSearchReaderValue] = useState<string>();
@@ -44,7 +43,7 @@ const ReadersTable = () => {
 
   useEffect(() => {
     getData();
-  }, [page, rowsPerPage, sortBy, sortOrder, searchReaderValue, showOnlyActiveReaders]);
+  }, [page, perPage, sortBy, sortOrder, searchReaderValue, showOnlyActiveReaders]);
 
   useEffect(() => {
     setSearchReaderLoading(true);
@@ -63,7 +62,7 @@ const ReadersTable = () => {
   const closeDeleteReaderDialogHandler = () => {
     setOpenDeleteReaderDialog(false);
   };
-  
+
   const saveHandler = () => {
     page === 0 ? getData() : setPage(0);
   };
@@ -72,7 +71,7 @@ const ReadersTable = () => {
     try {
       const resp = await getReadersData({
         page,
-        rowsPerPage,
+        perPage,
         sortBy,
         sortOrder,
         q: searchReaderValue,
@@ -185,10 +184,10 @@ const ReadersTable = () => {
             </TableBody>
             <TablePagination
               page={page}
-              rowsPerPage={rowsPerPage}
+              perPage={perPage}
               totalRows={totalRows}
               onPageChange={setPage}
-              onPerPageChange={setRowsPerPage}
+              onPerPageChange={setPerPage}
             />
           </Table>
         </TableContainer>

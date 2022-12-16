@@ -108,3 +108,10 @@ export type AssetRental = {
     firstName: string;
   };
 };
+
+export type AssetFilters = {
+  title?: string;
+  type?: AssetsTypes[];
+  category?: string[];
+  author?: string[];
+};

@@ -16,14 +16,7 @@ export const getReadersData = (
 ): Promise<{ items: Readers[]; total: number }> =>
   http
     .get("users/readers", {
-      params: {
-        page: params.page + 1,
-        perPage: params.rowsPerPage,
-        sortBy: params.sortBy,
-        sortOrder: params.sortOrder,
-        q: params.q,
-        onlyActive: params.onlyActive,
-      },
+      params: { ...params, page: params.page + 1 },
     })
     .then((res) => res.data);
 

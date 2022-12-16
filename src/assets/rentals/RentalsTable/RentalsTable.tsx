@@ -22,17 +22,17 @@ import ReturnCopyDialog from "../ReturnCopy/ReturnCopyDialog";
 const AssetsRentalsTable = () => {
   const [initialLoading, setInitialLoading] = useState(true);
   const [rentals, setRentals] = useState<AssetRental[]>([]);
-  const { page, rowsPerPage, totalRows, setPage, setRowsPerPage, setTotalRows } = usePagination();
+  const { page, perPage, totalRows, setPage, setPerPage, setTotalRows } = usePagination();
   const [choosenItemId, setChoosenItemId] = useState<string>();
   const [openReturnCopyDialog, setOpenReturnCopyDialog] = useState<boolean>(false);
 
   useEffect(() => {
     getData();
-  }, [page, rowsPerPage]);
+  }, [page, perPage]);
 
   const getData = async () => {
     try {
-      const resp = await getRentalsAssetsData({ page, rowsPerPage });
+      const resp = await getRentalsAssetsData({ page, perPage });
       setRentals(resp.items);
       setTotalRows(resp.total);
     } catch (err) {}
@@ -106,10 +106,10 @@ const AssetsRentalsTable = () => {
           </TableBody>
           <TablePagination
             page={page}
-            rowsPerPage={rowsPerPage}
+            perPage={perPage}
             totalRows={totalRows}
             onPageChange={setPage}
-            onPerPageChange={setRowsPerPage}
+            onPerPageChange={setPerPage}
           />
         </Table>
       </TableContainer>

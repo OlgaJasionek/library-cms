@@ -7,10 +7,7 @@ export const getUserAssetsRentals = (
 ): Promise<{ items: UserAssetRental[]; total: number }> =>
   http
     .get("/asset-rentals/me", {
-      params: {
-        page: params.page + 1,
-        perPage: params.rowsPerPage,
-      },
+      params: { ...params, page: params.page + 1 },
     })
     .then((res) => res.data);
 
@@ -19,9 +16,6 @@ export const getUserAssetsReservations = (
 ): Promise<{ items: UserAssetReservation[]; total: number }> =>
   http
     .get("/asset-reservations/me", {
-      params: {
-        page: params.page + 1,
-        perPage: params.rowsPerPage,
-      },
+      params: { ...params, page: params.page + 1 },
     })
     .then((res) => res.data);

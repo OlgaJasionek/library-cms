@@ -1,0 +1,15 @@
+.assets {
+  width: 100%;
+  transition: all 0.5s;
+
+  @media (min-width: 1200px) {
+    transform: translateX(300px);
+    width: calc(100% - 300px);
+    height: 100vh;
+
+    &--open {
+      transform: translateX(0px);
+      width: 100%;
+    }
+  }
+}

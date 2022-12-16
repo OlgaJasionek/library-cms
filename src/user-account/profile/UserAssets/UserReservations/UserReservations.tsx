@@ -13,16 +13,23 @@ const UserAssetsReservations = () => {
   const [initialLoading, setInitialLoading] = useState<boolean>(true);
   const [userReservations, setUserReservations] = useState<UserAssetReservation[]>([]);
   const [openRentCopyDialog, setOpenRentCopyDialog] = useState<boolean>(false);
-  const { page, rowsPerPage, totalRows, setRowsPerPage, setPage, setTotalRows } = usePagination();
+  const {
+    page,
+    perPage,
+    totalRows,
+    setPerPage,
+    setPage,
+    setTotalRows,
+  } = usePagination();
   const [choosenCopyId, setChoosenCopyId] = useState<string>();
 
   useEffect(() => {
     getData();
-  }, [page, rowsPerPage]);
+  }, [page, perPage]);
 
   const getData = async () => {
     try {
-      const resp = await getUserAssetsReservations({ page, rowsPerPage });
+      const resp = await getUserAssetsReservations({ page, perPage });
       setTotalRows(resp.total);
       setUserReservations(resp.items);
     } catch (err) {}
@@ -89,10 +96,10 @@ const UserAssetsReservations = () => {
           </TableBody>
           <TablePagination
             page={page}
-            rowsPerPage={rowsPerPage}
+            perPage={perPage}
             totalRows={totalRows}
             onPageChange={setPage}
-            onPerPageChange={setRowsPerPage}
+            onPerPageChange={setPerPage}
           />
         </Table>
       </TableContainer>
