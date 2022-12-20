@@ -61,6 +61,7 @@ const AssetsCategoriesTable = () => {
 
   const changeSearchCategoryHandler = (value: string) => {
     setSearchCategoryValue(value);
+    setPage(0);
   };
 
   const openAddCategoryDialogHandler = () => {

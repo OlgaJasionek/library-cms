@@ -9,7 +9,6 @@ import {
   Paper,
   Tooltip,
   IconButton,
-  TableSortLabel,
 } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import * as Icons from "@mui/icons-material";
@@ -20,6 +19,7 @@ import { getFullName } from "../../../common/utils/full-name";
 import AssetTypeLabel from "../../AssetTypeLabel/AssetTypeLabel";
 import DeleteAsset from "../../DeleteAsset/DeleteAsset";
 import { SortOrder } from "../../../common/types/sort-params";
+import TabelSort from "../../../common/components/TabelSort/TabelSort";
 
 type Props = {
   assetsList: Asset[];
@@ -66,26 +66,22 @@ const AssetsListTable = ({
           <TableHead>
             <TableRow>
               <TableCell>
-                <TableSortLabel
-                  active={"title" === sortBy}
-                  direction={"title" === sortBy ? sortOrder : "asc"}
-                  onClick={() => {
-                    onChangeSort("title");
-                  }}
-                >
-                  Tytuł
-                </TableSortLabel>
+                <TabelSort
+                  sortBy={sortBy}
+                  sortOrder={sortOrder}
+                  name="title"
+                  label=" Tytuł"
+                  onChangeSort={onChangeSort}
+                />
               </TableCell>
               <TableCell>
-                <TableSortLabel
-                  active={"author" === sortBy}
-                  direction={"author" === sortBy ? sortOrder : "asc"}
-                  onClick={() => {
-                    onChangeSort("author");
-                  }}
-                >
-                  Autor
-                </TableSortLabel>
+                <TabelSort
+                  sortBy={sortBy}
+                  sortOrder={sortOrder}
+                  name="author"
+                  label=" Autor"
+                  onChangeSort={onChangeSort}
+                />
               </TableCell>
               <TableCell>Typ</TableCell>
               <TableCell></TableCell>

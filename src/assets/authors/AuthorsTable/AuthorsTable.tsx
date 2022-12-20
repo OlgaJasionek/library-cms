@@ -77,6 +77,7 @@ const AssetsAuthorsTable = () => {
 
   const changeSearchAuthorHandler = (value: string) => {
     setSearchAuthorValue(value);
+    setPage(0);
   };
 
   const openAddAuthorDialogHandler = () => {

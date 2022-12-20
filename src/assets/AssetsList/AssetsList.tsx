@@ -13,8 +13,6 @@ import FiltersPanel from "./FiltersPanel/FiltersPanel";
 import { SelectOption } from "../../common/types/select-option";
 import { useSort } from "../../common/hooks/use-sort";
 
-import styles from "./AssetsList.module.scss";
-
 const AssestsList = () => {
   const navigate = useNavigate();
   const [initialLoading, setInitialLoading] = useState(true);
@@ -28,8 +26,6 @@ const AssestsList = () => {
   const [openSideFilterPanel, setOpenSideFilterPanel] = useState<boolean>(false);
   const [searchAssetValueLoading, setSearchAssetValueLoading] = useState<boolean>(false);
   const [filters, setFilters] = useState<AssetFilters>({});
-
-  const { title, author, category, type } = filters;
 
   useEffect(() => {
     getCategoriesList();
@@ -72,6 +68,7 @@ const AssestsList = () => {
 
   const changeAssetFiltersHandler = (values: AssetFilters) => {
     setFilters(values);
+    setPage(0);
   };
 
   const getData = async () => {
@@ -104,10 +101,14 @@ const AssestsList = () => {
         onCloseSidePanel={closeSideFilterPanelHandler}
         onChangeValue={changeAssetFiltersHandler}
       />
-      <div className={classnames(styles.assets, { [styles["assets--open"]]: openSideFilterPanel })}>
+      <div
+        className={classnames("wrapper-with-side-panel", {
+          "wrapper-with-side-panel--open": openSideFilterPanel,
+        })}
+      >
         <div className="page-header-with-button">
           <h2>Katalog książek</h2>
-          <div className={styles.mainButtons}>
+          <div>
             <Button className="me-2" variant="outlined" onClick={toggleSideFilterPanel}>
               Filtry <IconFilter />
             </Button>

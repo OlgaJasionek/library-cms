@@ -12,6 +12,7 @@ import {
   AssetsCopy,
   AssetRental,
   AssetsTypes,
+  RentalsFilters,
 } from "./assets.types";
 
 export const getAssetsCategoriesData = (
@@ -85,7 +86,7 @@ export const addAssetCopy = (
 ): Promise<{ data: AssetsCopy }> => http.post(`/assets/${assetId}/copies`, body);
 
 export const getRentalsAssetsData = (
-  params: PaginationParams
+  params: PaginationParams & SortParams & RentalsFilters
 ): Promise<{ items: AssetRental[]; total: number }> =>
   http
     .get("asset-rentals", {
