@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   Table,
   TableBody,
@@ -11,33 +11,40 @@ import {
 } from "@mui/material";
 
 import TablePagination from "../../../common/components/TablePagination/TablePagination";
-import Loader from "../../../common/components/Loader/Loader";
-import { usePagination } from "../../../common/hooks/use-pagination";
-import { getRentalsAssetsData } from "../../assets.api";
 import { AssetRental } from "../../assets.types";
 import { getFullName } from "../../../common/utils/full-name";
 import { transformDate } from "../../../common/utils/transform-date";
 import ReturnCopyDialog from "../ReturnCopy/ReturnCopyDialog";
+import { SortOrder } from "../../../common/types/sort-params";
+import TabelSort from "../../../common/components/TabelSort/TabelSort";
 
-const AssetsRentalsTable = () => {
-  const [initialLoading, setInitialLoading] = useState(true);
-  const [rentals, setRentals] = useState<AssetRental[]>([]);
-  const { page, perPage, totalRows, setPage, setPerPage, setTotalRows } = usePagination();
+type Props = {
+  rentals: AssetRental[];
+  page: number;
+  perPage: number;
+  totalRows: number;
+  sortBy: string;
+  sortOrder: SortOrder;
+  onChangeSort: (id: string) => void;
+  setPage: (value: number) => void;
+  setPerPage: (value: number) => void;
+  onReturnRental: (data: AssetRental) => void;
+};
+
+const AssetsRentalsTable = ({
+  rentals,
+  page,
+  perPage,
+  totalRows,
+  sortBy,
+  sortOrder,
+  onChangeSort,
+  setPage,
+  setPerPage,
+  onReturnRental,
+}: Props) => {
   const [choosenItemId, setChoosenItemId] = useState<string>();
   const [openReturnCopyDialog, setOpenReturnCopyDialog] = useState<boolean>(false);
-
-  useEffect(() => {
-    getData();
-  }, [page, perPage]);
-
-  const getData = async () => {
-    try {
-      const resp = await getRentalsAssetsData({ page, perPage });
-      setRentals(resp.items);
-      setTotalRows(resp.total);
-    } catch (err) {}
-    setInitialLoading(false);
-  };
 
   const closeReturnCopyDialogHandler = () => {
     setOpenReturnCopyDialog(false);
@@ -48,31 +55,75 @@ const AssetsRentalsTable = () => {
     setChoosenItemId(id);
   };
 
-  const changeRentalsHandler = (data: AssetRental) => {
-    const rentalsWithReturnedCopy = rentals.map((rental) => (rental.id === data.id ? data : rental));
-    setRentals(rentalsWithReturnedCopy);
-  };
-
-  if (initialLoading) {
-    return <Loader />;
-  }
-
   return (
-    <div className="container">
-      <div className="page-header-with-link ">
-        <h2>Lista wypożyczeń</h2>
-      </div>
+    <>
       <TableContainer component={Paper}>
         <Table aria-label="rentals pagination table">
           <TableHead>
             <TableRow>
-              <TableCell>Tytuł i autor</TableCell>
-              <TableCell>Nr. inwentarza</TableCell>
-              <TableCell>Czytelnik</TableCell>
-              <TableCell>Data wypożyczenia</TableCell>
-              <TableCell>Data końca wypożyczenia</TableCell>
-              <TableCell>Data zwrotu</TableCell>
-              <TableCell></TableCell>
+              <TableCell>
+                <TabelSort
+                  sortBy={sortBy}
+                  sortOrder={sortOrder}
+                  name="title"
+                  label="Tytuł i autor"
+                  onChangeSort={onChangeSort}
+                />
+              </TableCell>
+              <TableCell>
+                <TabelSort
+                  sortBy={sortBy}
+                  sortOrder={sortOrder}
+                  name="inventoryNumber"
+                  label=" Nr inwentarza "
+                  onChangeSort={onChangeSort}
+                />
+              </TableCell>
+              <TableCell>
+                <TabelSort
+                  sortBy={sortBy}
+                  sortOrder={sortOrder}
+                  name="user"
+                  label=" Czytelnik"
+                  onChangeSort={onChangeSort}
+                />
+              </TableCell>
+              <TableCell>
+                <TabelSort
+                  sortBy={sortBy}
+                  sortOrder={sortOrder}
+                  name="createdAt"
+                  label="Data wypożyczenia"
+                  onChangeSort={onChangeSort}
+                />
+              </TableCell>
+              <TableCell>
+                <TabelSort
+                  sortBy={sortBy}
+                  sortOrder={sortOrder}
+                  name="expiredAt"
+                  label="Data końca wypożyczenia"
+                  onChangeSort={onChangeSort}
+                />
+              </TableCell>
+              <TableCell>
+                <TabelSort
+                  sortBy={sortBy}
+                  sortOrder={sortOrder}
+                  name="returnedAt"
+                  label="Data zwrotu"
+                  onChangeSort={onChangeSort}
+                />
+              </TableCell>
+              <TableCell>
+                <TabelSort
+                  sortBy={sortBy}
+                  sortOrder={sortOrder}
+                  name="isReturned"
+                  label="Status"
+                  onChangeSort={onChangeSort}
+                />
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -117,9 +168,9 @@ const AssetsRentalsTable = () => {
         open={openReturnCopyDialog}
         rentalId={choosenItemId}
         onClose={closeReturnCopyDialogHandler}
-        onReturn={changeRentalsHandler}
+        onReturn={onReturnRental}
       />
-    </div>
+    </>
   );
 };
 

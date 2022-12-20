@@ -13,7 +13,6 @@ import {
   Button,
   Tooltip,
   IconButton,
-  TableSortLabel,
 } from "@mui/material";
 import * as Icons from "@mui/icons-material";
 
@@ -26,6 +25,7 @@ import { usePagination } from "../../../common/hooks/use-pagination";
 import DeleteReader from "../DeleteReader/DeleteReader";
 import { useSort } from "../../../common/hooks/use-sort";
 import ReadersFilters from "../ReadersFilters/ReadersFilters";
+import TabelSort from "../../../common/components/TabelSort/TabelSort";
 
 const ReadersTable = () => {
   const [initialLoading, setInitialLoading] = useState<boolean>(true);
@@ -52,6 +52,7 @@ const ReadersTable = () => {
   const changeReaderFiltersHandler = (values: { searchReader?: string; onlyActive?: boolean }) => {
     setSearchReaderValue(values.searchReader);
     setShowOnlyActiverReaders(!!values.onlyActive);
+    setPage(0);
   };
 
   const openDeleteReaderDialogHandler = (id: string) => {
@@ -108,28 +109,24 @@ const ReadersTable = () => {
             <TableHead>
               <TableRow>
                 <TableCell>
-                  <TableSortLabel
-                    active={"name" === sortBy}
-                    direction={"name" === sortBy ? sortOrder : "asc"}
-                    onClick={() => {
-                      changeSort("name");
-                    }}
-                  >
-                    Nazwa
-                  </TableSortLabel>
+                  <TabelSort
+                    sortBy={sortBy}
+                    sortOrder={sortOrder}
+                    name="name"
+                    label=" Nazwa"
+                    onChangeSort={changeSort}
+                  />
                 </TableCell>
                 <TableCell>Pesel</TableCell>
                 <TableCell>Numer telefonu</TableCell>
                 <TableCell>
-                  <TableSortLabel
-                    active={"status" === sortBy}
-                    direction={"status" === sortBy ? sortOrder : "asc"}
-                    onClick={() => {
-                      changeSort("status");
-                    }}
-                  >
-                    Status
-                  </TableSortLabel>
+                  <TabelSort
+                    sortBy={sortBy}
+                    sortOrder={sortOrder}
+                    name="status"
+                    label=" Status"
+                    onChangeSort={changeSort}
+                  />
                 </TableCell>
                 <TableCell></TableCell>
               </TableRow>

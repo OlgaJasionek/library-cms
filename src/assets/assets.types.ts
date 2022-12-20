@@ -115,3 +115,21 @@ export type AssetFilters = {
   category?: string[];
   author?: string[];
 };
+
+export type RentalsFilters = {
+  title?: string;
+  inventoryNumber?: string;
+  reader?: string;
+  status?: "Returned" | "NotReturned";
+  startDateFrom?: string;
+  startDateTo?: string;
+  endDateFrom?: string;
+  endDateTo?: string;
+  returnedDateFrom?: string;
+  returnedDateTo?: string;
+};
+
+export enum AssetsStatus {
+  Returned = "Returned",
+  NotReturned = "NotReturned",
+}
