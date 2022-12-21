@@ -8,8 +8,10 @@ import Cockpit from "./cockpit/Cockpit";
 import Snackbar from "./common/components/Snackbar/Snackbar";
 import { DecodedToken } from "./common/types/jwt";
 import { setData } from "./core/store/current-user";
+import { setUnreadMessagesCount } from "./core/store/chat";
 
 import Login from "./login/Login";
+import { getUnreadMessagesNumber } from "./login/login.api";
 
 function App() {
   const [error, setError] = useState<string | null | undefined>(null);
@@ -23,6 +25,7 @@ function App() {
     if (token) {
       const decodedToken = jwtDecode<DecodedToken>(token || "") || null;
       dispatch(setData(decodedToken.user));
+      getUnreadMessagesCount();
     }
 
     axios.interceptors.response.use(
@@ -47,6 +50,14 @@ function App() {
       }
     );
   }, []);
+
+  const getUnreadMessagesCount = async () => {
+    try {
+      const resp = await getUnreadMessagesNumber();
+
+      dispatch(setUnreadMessagesCount(resp));
+    } catch (err) {}
+  };
 
   const handleCloseErrorSnackbar = () => {
     setOpenErrorSnackbar(false);

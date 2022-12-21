@@ -5,6 +5,9 @@ import { Avatar, Badge, Popover } from "@mui/material";
 import UserMenu from "./UserMenu/UserMenu";
 
 import styles from "./Header.module.scss";
+import { useSelector } from "react-redux";
+import { unreadMessagesNumber } from "../../store/chat";
+import { useNavigate } from "react-router-dom";
 
 type Props = {
   onOpenSidebar: () => void;
@@ -12,6 +15,8 @@ type Props = {
 
 const Header = ({ onOpenSidebar }: Props) => {
   const [menuPopoverAnchorEl, setMenuPopoverAnchorEl] = useState<HTMLElement | null>(null);
+  const currentUnreadMessages = useSelector(unreadMessagesNumber);
+  const navigate = useNavigate();
 
   const isMenuPopoverOpen = !!menuPopoverAnchorEl;
 
@@ -31,8 +36,16 @@ const Header = ({ onOpenSidebar }: Props) => {
         </div>
         <div className="wrapper d-flex align-items-center">
           <div className={styles.notifications}>
-            <Badge badgeContent={2} color="primary">
-              <Icons.Notifications className={styles.icon} />
+            <Badge
+              onClick={() => navigate("chat")}
+              badgeContent={
+                currentUnreadMessages.unreadMessagesCount === 0
+                  ? null
+                  : currentUnreadMessages.unreadMessagesCount
+              }
+              color="primary"
+            >
+              <Icons.Email fontSize="medium" className={styles.icon} />
             </Badge>
           </div>
           <Avatar className={styles.avatar} onClick={handleAvatarClick} />

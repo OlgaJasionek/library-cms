@@ -9,6 +9,7 @@ export type ChatRoom = {
   members: ChatRoomMember[];
   messages: ChatMessage[];
   updatedAt?: string;
+  unreadMessagesCount: number;
 };
 
 export type ChatMessage = {

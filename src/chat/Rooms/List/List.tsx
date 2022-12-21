@@ -18,7 +18,6 @@ const ChatRoomsList = ({ chatRooms, onSelectChatRoom, selectedChatRoom }: Props)
         <div
           key={contact.id}
           className={classnames(styles.contact, { [styles.active]: contact.id === selectedChatRoom?.id })}
-          onClick={() => onSelectChatRoom(contact.id!)}
         >
           <ChatRoomListItem
             contact={contact}

@@ -5,14 +5,18 @@ import { SelectOption } from "../common/types/select-option";
 import { ChatRoom } from "./chat.types";
 import ChatRooms from "./Rooms/ChatRooms";
 import ChatMessages from "./Messages/ChatMessages";
+import { getChatRooms, markAsRead } from "./chat.api";
+import http from "../core/api/http";
+import { useDispatch } from "react-redux";
+import { decreaseUnreadMessagesCount } from "../core/store/chat";
 
 import styles from "./Chat.module.scss";
-import { getChatRooms } from "./chat.api";
 
 const Chat = () => {
   const [showChatRooms, setShowChatRooms] = useState<boolean>(true);
   const [selectedChatRoom, setSelectedChatRoom] = useState<ChatRoom>();
   const [chatRooms, setChatRooms] = useState<ChatRoom[]>([]);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     getData();
@@ -22,6 +26,21 @@ const Chat = () => {
     try {
       const resp = await getChatRooms();
       setChatRooms(resp);
+    } catch (err) {}
+  };
+
+  const markMessagesAsRead = async (chatRoom: ChatRoom) => {
+    try {
+      if (chatRoom.id) {
+        await markAsRead(chatRoom.id);
+        dispatch(decreaseUnreadMessagesCount(chatRoom.unreadMessagesCount));
+
+        const chatRoomsWithReadMessages = chatRooms.map((room) =>
+          room.id === chatRoom.id ? { ...room, unreadMessagesCount: 0 } : room
+        );
+
+        setChatRooms(chatRoomsWithReadMessages);
+      }
     } catch (err) {}
   };
 
@@ -36,7 +55,11 @@ const Chat = () => {
       if (roomWithSelectedUserExist) {
         setSelectedChatRoom(roomWithSelectedUserExist);
       } else {
-        setSelectedChatRoom({ members: [{ id: user.value as string, firstName, lastName }], messages: [] });
+        setSelectedChatRoom({
+          members: [{ id: user.value as string, firstName, lastName }],
+          messages: [],
+          unreadMessagesCount: 0,
+        });
       }
     }
   };
@@ -52,6 +75,10 @@ const Chat = () => {
   const selectChatRoomHandler = (id: string) => {
     const selectedRoom = chatRooms.find((room) => room.id === id);
     setSelectedChatRoom(selectedRoom);
+
+    if (selectedRoom) {
+      markMessagesAsRead(selectedRoom);
+    }
   };
 
   const createNewChatRoomHandler = (room: ChatRoom) => {

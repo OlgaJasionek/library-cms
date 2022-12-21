@@ -9,9 +9,10 @@ import { useDispatch } from "react-redux";
 import TextInput from "../common/components/TextInput/TextInput";
 import Logo from "../common/components/Logo/Logo";
 import { emailValidator } from "../common/utils/validators";
-import { login } from "./login.api";
+import { getUnreadMessagesNumber, login } from "./login.api";
 import { DecodedToken } from "../common/types/jwt";
 import { setData } from "../core/store/current-user";
+import { setUnreadMessagesCount } from "../core/store/chat";
 
 import styles from "./Login.module.scss";
 
@@ -26,6 +27,13 @@ const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const getUnreadMessagesCount = async () => {
+    try {
+      const resp = await getUnreadMessagesNumber();
+      dispatch(setUnreadMessagesCount(resp));
+    } catch (err) {}
+  };
+
   const onSubmit = async (body: FormValues) => {
     try {
       setLoading(true);
@@ -36,6 +44,7 @@ const Login = () => {
       dispatch(setData(decodedToken.user));
 
       navigate("/");
+      getUnreadMessagesCount();
     } catch (err) {}
 
     setLoading(false);
