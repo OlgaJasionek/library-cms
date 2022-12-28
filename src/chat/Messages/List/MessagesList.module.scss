@@ -3,8 +3,8 @@
 .messages {
   flex: 1;
   width: 100%;
-  overflow: auto;
   padding: 30px;
+  overflow: auto;
 }
 
 .sentMessage {
@@ -27,7 +27,7 @@
   margin: 0 10px;
   padding: 10px 20px;
   border-radius: 10px;
-  max-width: 70%;
+  max-width: 300px;
   word-wrap: break-word;
 }
 

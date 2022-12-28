@@ -17,7 +17,7 @@ type Props = {
 
 const ChatRoomListItem = ({ contact, onSelectChatRoom, selectedChatRoom }: Props) => {
   const currentUser = useSelector(selectCurrentUser);
-  const roomPartner = contact.members.find((member) => member.id !== currentUser.id);
+  const roomPartner = contact.members.find((member) => member.id !== currentUser?.id);
 
   return (
     <>
@@ -35,10 +35,10 @@ const ChatRoomListItem = ({ contact, onSelectChatRoom, selectedChatRoom }: Props
                 return (
                   <div key={msg.id} className="d-flex">
                     <div className="d-flex">
-                      <span className="text-secondary">{msg.senderId === currentUser.id && "Ty: "}</span>
+                      <span className="text-secondary">{msg.senderId === currentUser?.id && "Ty: "}</span>
                       <span
-                        className={classnames("ms-2", {
-                          [styles.newMessage]: contact.unreadMessagesCount > 0,
+                        className={classnames("ms-2", styles.textMessage, {
+                          [styles.newTextMessage]: contact.unreadMessagesCount > 0,
                         })}
                       >
                         {msg.content}

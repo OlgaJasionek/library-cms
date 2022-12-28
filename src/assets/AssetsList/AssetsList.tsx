@@ -3,7 +3,9 @@ import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import classnames from "classnames";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
+import { UserRole } from "../../users/users.types";
 import AssetsListTable from "./ListTable/ListTable";
 import { usePagination } from "../../common/hooks/use-pagination";
 import { Asset, AssetFilters } from "../assets.types";
@@ -12,12 +14,14 @@ import Loader from "../../common/components/Loader/Loader";
 import FiltersPanel from "./FiltersPanel/FiltersPanel";
 import { SelectOption } from "../../common/types/select-option";
 import { useSort } from "../../common/hooks/use-sort";
+import { selectCurrentUser } from "../../core/store/current-user";
 
 const AssestsList = () => {
   const navigate = useNavigate();
   const [initialLoading, setInitialLoading] = useState(true);
   const { page, perPage, totalRows, setPage, setPerPage, setTotalRows } = usePagination();
   const { sortBy, sortOrder, changeSort } = useSort();
+  const currentUser = useSelector(selectCurrentUser);
 
   const [assetsList, setAssetsList] = useState<Asset[]>([]);
   const [assetCategoriesList, setAssetCategoriesList] = useState<SelectOption[]>([]);
@@ -112,9 +116,11 @@ const AssestsList = () => {
             <Button className="me-2" variant="outlined" onClick={toggleSideFilterPanel}>
               Filtry <IconFilter />
             </Button>
-            <Button variant="contained" onClick={() => navigate("/assets/add")}>
-              Dodaj książkę
-            </Button>
+            {currentUser?.role === UserRole.Librarian && (
+              <Button variant="contained" onClick={() => navigate("/assets/add")}>
+                Dodaj książkę
+              </Button>
+            )}
           </div>
         </div>
         {assetsList.length === 0 ? (

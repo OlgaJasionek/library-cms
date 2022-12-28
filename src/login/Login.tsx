@@ -13,6 +13,7 @@ import { getUnreadMessagesNumber, login } from "./login.api";
 import { DecodedToken } from "../common/types/jwt";
 import { setData } from "../core/store/current-user";
 import { setUnreadMessagesCount } from "../core/store/chat";
+import { UserRole } from "../users/users.types";
 
 import styles from "./Login.module.scss";
 
@@ -41,9 +42,10 @@ const Login = () => {
       const token = resp.token;
       localStorage.setItem("token", token);
       const decodedToken = jwtDecode<DecodedToken>(token || "") || null;
-      dispatch(setData(decodedToken.user));
 
-      navigate("/");
+      dispatch(setData(decodedToken.user));
+      navigate(decodedToken.user.role === UserRole.Librarian ? "/assets/rentals" : "/assets/list");
+
       getUnreadMessagesCount();
     } catch (err) {}
 

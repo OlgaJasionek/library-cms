@@ -1,21 +1,22 @@
 import axios, { AxiosError } from "axios";
 import jwtDecode from "jwt-decode";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Route, Routes, useNavigate } from "react-router-dom";
 
 import Cockpit from "./cockpit/Cockpit";
 import Snackbar from "./common/components/Snackbar/Snackbar";
 import { DecodedToken } from "./common/types/jwt";
-import { setData } from "./core/store/current-user";
+import {  selectIsInitialLoaded, setData } from "./core/store/current-user";
 import { setUnreadMessagesCount } from "./core/store/chat";
-
 import Login from "./login/Login";
 import { getUnreadMessagesNumber } from "./login/login.api";
+
 
 function App() {
   const [error, setError] = useState<string | null | undefined>(null);
   const [openErrorSnackbar, setOpenErrorSnackbar] = useState<boolean>(false);
+  const isCurrentUserInitialLoaded = useSelector(selectIsInitialLoaded);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -69,7 +70,7 @@ function App() {
       <Snackbar open={openErrorSnackbar} text={error} handleClose={handleCloseErrorSnackbar} color="error" />
       <Routes>
         <Route path="/login" element={<Login />}></Route>
-        <Route path="*" element={<Cockpit />}></Route>
+        {isCurrentUserInitialLoaded && <Route path="*" element={<Cockpit />}></Route>}
       </Routes>
     </div>
   );

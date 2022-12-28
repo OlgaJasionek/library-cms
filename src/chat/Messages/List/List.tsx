@@ -28,7 +28,7 @@ const ChatMessagesList = ({ chatMessages }: Props) => {
   return (
     <div className={styles.messages}>
       {chatMessages.map((message) =>
-        message.senderId === currentUser.id ? (
+        message.senderId === currentUser?.id ? (
           <div key={message.id} className={styles.sentMessage} ref={messagesEndRef}>
             <div className={classnames(styles.text, styles.send)}>
               <span>{message.content}</span>

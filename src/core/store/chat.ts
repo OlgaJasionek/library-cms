@@ -24,6 +24,6 @@ export const chatSlice = createSlice({
 
 export const { setUnreadMessagesCount, decreaseUnreadMessagesCount } = chatSlice.actions;
 
-export const unreadMessagesNumber = (state: RootState) => state.chat;
+export const selectUnreadMessagesNumber = (state: RootState) => state.chat;
 
 export default chatSlice.reducer;

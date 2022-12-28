@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import * as Icons from "@mui/icons-material";
+import { useSelector } from "react-redux";
 
 import TablePagination from "../../../common/components/TablePagination/TablePagination";
 import { Asset } from "../../assets.types";
@@ -20,6 +21,8 @@ import AssetTypeLabel from "../../AssetTypeLabel/AssetTypeLabel";
 import DeleteAsset from "../../DeleteAsset/DeleteAsset";
 import { SortOrder } from "../../../common/types/sort-params";
 import TabelSort from "../../../common/components/TabelSort/TabelSort";
+import { selectCurrentUser } from "../../../core/store/current-user";
+import { UserRole } from "../../../users/users.types";
 
 type Props = {
   assetsList: Asset[];
@@ -48,6 +51,7 @@ const AssetsListTable = ({
 }: Props) => {
   const [selectedAssetId, setSelectedAssetId] = useState<string>();
   const [openDeleteAssetDialog, setOpenDeleteAssetDialog] = useState<boolean>(false);
+  const currentUser = useSelector(selectCurrentUser);
   const navigate = useNavigate();
 
   const openDeleteAssetDialogHandler = (id: string) => {
@@ -97,22 +101,24 @@ const AssetsListTable = ({
                 <TableCell>
                   <AssetTypeLabel type={asset.type} />
                 </TableCell>
-                <TableCell scope="row" align="right">
-                  <Tooltip title="Edytuj">
-                    <IconButton onClick={() => navigate(`${asset.id}/edit`)}>
-                      <Icons.Edit />
-                    </IconButton>
-                  </Tooltip>
-                  <Tooltip title="Usuń">
-                    <IconButton
-                      onClick={() => {
-                        openDeleteAssetDialogHandler(asset.id);
-                      }}
-                    >
-                      <Icons.Delete />
-                    </IconButton>
-                  </Tooltip>
-                </TableCell>
+                {currentUser?.role === UserRole.Librarian && (
+                  <TableCell scope="row" align="right">
+                    <Tooltip title="Edytuj">
+                      <IconButton onClick={() => navigate(`${asset.id}/edit`)}>
+                        <Icons.Edit />
+                      </IconButton>
+                    </Tooltip>
+                    <Tooltip title="Usuń">
+                      <IconButton
+                        onClick={() => {
+                          openDeleteAssetDialogHandler(asset.id);
+                        }}
+                      >
+                        <Icons.Delete />
+                      </IconButton>
+                    </Tooltip>
+                  </TableCell>
+                )}
               </TableRow>
             ))}
           </TableBody>

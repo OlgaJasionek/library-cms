@@ -1,19 +1,56 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import * as Icons from "@mui/icons-material";
 import classnames from "classnames";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
+import { selectCurrentUser } from "../../store/current-user";
 import Logo from "../../../common/components/Logo/Logo";
 import { useClickOutside } from "../../../common/hooks/use-click-outside";
+import { UserRole } from "../../../users/users.types";
 
 import styles from "./SideBar.module.scss";
 
-const links = [
-  { id: 1, name: "Czytelnicy", icon: <Icons.Group />, chosen: false, path: "/users/readers" },
-  { id: 2, name: "Kategorie", icon: <Icons.Book />, chosen: false, path: "/assets/categories" },
-  { id: 3, name: "Autorzy", icon: <Icons.FolderShared />, chosen: false, path: "/assets/authors" },
-  { id: 4, name: "Katalog Książek", icon: <Icons.MenuBook />, chosen: false, path: "/assets/list" },
-  { id: 5, name: "Wypożyczenia", icon: <Icons.AddCard />, chosen: false, path: "/assets/rentals" },
+const linksForLibrarian = [
+  {
+    id: 1,
+    name: "Czytelnicy",
+    icon: <Icons.Group />,
+    path: "/users/readers",
+  },
+  {
+    id: 2,
+    name: "Kategorie",
+    icon: <Icons.Book />,
+    path: "/assets/categories",
+  },
+  {
+    id: 3,
+    name: "Autorzy",
+    icon: <Icons.FolderShared />,
+    path: "/assets/authors",
+  },
+  {
+    id: 4,
+    name: "Katalog Książek",
+    icon: <Icons.MenuBook />,
+    path: "/assets/list",
+  },
+  {
+    id: 5,
+    name: "Wypożyczenia",
+    icon: <Icons.AddCard />,
+    path: "/assets/rentals",
+  },
+];
+
+const linksForReader = [
+  {
+    id: 4,
+    name: "Katalog Książek",
+    icon: <Icons.MenuBook />,
+    path: "/assets/list",
+  },
 ];
 
 type Props = {
@@ -21,20 +58,33 @@ type Props = {
   onCloseSideBar: () => void;
 };
 
+type SideBarItem = {
+  id: number;
+  name: string;
+  icon: JSX.Element;
+  path: string;
+};
+
 const SideBar = ({ openSideBar, onCloseSideBar }: Props) => {
-  const [sideBarItems, setSideBarItems] = useState(links);
+  const [sideBarItems, setSideBarItems] = useState<SideBarItem[]>([]);
   const sideBarRef = useRef<HTMLDivElement | null>(null);
   const navigate = useNavigate();
+  const currentUser = useSelector(selectCurrentUser);
+  const location = useLocation();
 
   useClickOutside(sideBarRef, () => onCloseSideBar());
 
-  const chooseHandler = (id: number, path: string) => {
-    const chosenItems = sideBarItems.map((item) => ({
-      ...item,
-      chosen: item.id === id,
-    }));
+  useEffect(() => {
+    showLinksWithIncludeAccess();
+  }, [currentUser]);
 
-    setSideBarItems(chosenItems);
+  const showLinksWithIncludeAccess = () => {
+    if (currentUser) {
+      setSideBarItems(currentUser.role === UserRole.Librarian ? linksForLibrarian : linksForReader);
+    }
+  };
+
+  const chooseHandler = (path: string) => {
     navigate(path);
   };
 
@@ -44,10 +94,10 @@ const SideBar = ({ openSideBar, onCloseSideBar }: Props) => {
       <hr className={styles.separator} />
       <ul className={styles.list}>
         {sideBarItems.map((link) => (
-          <li key={link.id} onClick={() => chooseHandler(link.id, link.path)}>
+          <li key={link.id} onClick={() => chooseHandler(link.path)}>
             <a
               className={classnames(styles.link, {
-                [styles.active]: link.chosen,
+                [styles.active]: link.path === location.pathname,
               })}
             >
               {link.icon}

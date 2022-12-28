@@ -1,13 +1,13 @@
 import * as Icons from "@mui/icons-material";
 import { Avatar } from "@mui/material";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
+import { selectCurrentUser } from "../../../store/current-user";
 import { getFullName } from "../../../../common/utils/full-name";
 
-import { useSelector } from "react-redux";
-import { selectCurrentUser } from "../../../store/current-user";
-
 import styles from "./UserMenu.module.scss";
+
 
 const UserMenu = () => {
   const user = useSelector(selectCurrentUser);
@@ -21,10 +21,12 @@ const UserMenu = () => {
       <div className={styles.menu}>
         <div className={styles.avatar}>
           <Avatar />
-          <div className={styles.userInfo}>
-            <span>{getFullName(user)}</span>
-            <span className={styles.email}>{user.email}</span>
-          </div>
+          {user && (
+            <div className={styles.userInfo}>
+              <span>{getFullName(user)}</span>
+              <span className={styles.email}>{user.email}</span>
+            </div>
+          )}
         </div>
         <hr className={styles.separator} />
         <Link to="user-account/profile" className={styles.link}>
