@@ -10,9 +10,12 @@ import {
   TableRow,
 } from "@mui/material";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 import Card from "../../../common/components/Card/Card";
 import { transformDate } from "../../../common/utils/transform-date";
+import { selectCurrentUser } from "../../../core/store/current-user";
+import { UserRole } from "../../../users/users.types";
 import { AssetsCopy } from "../../assets.types";
 import AddCopyDialog from "./AddCopyDialog/AddCopyDialog";
 import RentCopyDialog from "./RentCopyDialog/RentCopyDialog";
@@ -28,6 +31,7 @@ const CopiesTable = ({ copies }: Props) => {
   const [openReserveCopyDialog, setOpenReserveCopyDialog] = useState<boolean>(false);
   const [displayCopies, setDisplayCopies] = useState<AssetsCopy[]>(copies);
   const [choosenCopyId, setChoosenCopyId] = useState<string>();
+  const currentUser = useSelector(selectCurrentUser);
 
   const closeReserveCopyDialogHandler = () => {
     setOpenReserveCopyDialog(false);
@@ -125,9 +129,11 @@ const CopiesTable = ({ copies }: Props) => {
       <Card>
         <div className="d-flex justify-content-between align-items-center">
           <h3>Dokumenty przeznaczone do wypożyczenia: ({displayCopies.length})</h3>
-          <Button variant="contained" onClick={openAddCopyDialogHandler}>
-            Dodaj egzemplarz
-          </Button>
+          {currentUser?.role === UserRole.Librarian && (
+            <Button variant="contained" onClick={openAddCopyDialogHandler}>
+              Dodaj egzemplarz
+            </Button>
+          )}
         </div>
         {displayCopies.length ? (
           <div className="mt-4">
