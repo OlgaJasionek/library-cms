@@ -1,20 +1,22 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "./store";
 
+type CurrentUser = {
+  firstName: string;
+  lastName: string;
+  id: string;
+  role: string;
+  email: string;
+};
+
 export interface CurrentUserState {
-  firstName: string | null;
-  lastName: string | null;
-  id: string | null;
-  role: string | null;
-  email: string | null;
+  data: CurrentUser | null;
+  isInitialLoaded: boolean;
 }
 
 const initialState: CurrentUserState = {
-  firstName: null,
-  lastName: null,
-  id: null,
-  role: null,
-  email: null,
+  data: null,
+  isInitialLoaded: false,
 };
 
 export const currentUserSlice = createSlice({
@@ -22,17 +24,22 @@ export const currentUserSlice = createSlice({
   initialState,
   reducers: {
     setData: (state, action) => {
-      state.id = action.payload.id;
-      state.firstName = action.payload.firstName;
-      state.lastName = action.payload.lastName;
-      state.email = action.payload.email;
-      state.role = action.payload.role;
+      state.data = {
+        id: action.payload.id,
+        firstName: action.payload.firstName,
+        lastName: action.payload.lastName,
+        email: action.payload.email,
+        role: action.payload.role,
+      };
+      state.isInitialLoaded = true;
     },
   },
 });
 
 export const { setData } = currentUserSlice.actions;
 
-export const selectCurrentUser = (state: RootState) => state.currentUser;
+export const selectCurrentUser = (state: RootState) => state.currentUser.data;
+
+export const selectIsInitialLoaded = (state: RootState) => state.currentUser.isInitialLoaded;
 
 export default currentUserSlice.reducer;

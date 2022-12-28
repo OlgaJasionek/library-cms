@@ -1,13 +1,12 @@
 import { useState } from "react";
 import * as Icons from "@mui/icons-material";
 import { Avatar, Badge, Popover } from "@mui/material";
-
-import UserMenu from "./UserMenu/UserMenu";
-
-import styles from "./Header.module.scss";
-import { useSelector } from "react-redux";
-import { unreadMessagesNumber } from "../../store/chat";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+
+import { selectUnreadMessagesNumber } from "../../store/chat";
+import UserMenu from "./UserMenu/UserMenu";
+import styles from "./Header.module.scss";
 
 type Props = {
   onOpenSidebar: () => void;
@@ -15,7 +14,7 @@ type Props = {
 
 const Header = ({ onOpenSidebar }: Props) => {
   const [menuPopoverAnchorEl, setMenuPopoverAnchorEl] = useState<HTMLElement | null>(null);
-  const currentUnreadMessages = useSelector(unreadMessagesNumber);
+  const currentUnreadMessages = useSelector(selectUnreadMessagesNumber);
   const navigate = useNavigate();
 
   const isMenuPopoverOpen = !!menuPopoverAnchorEl;

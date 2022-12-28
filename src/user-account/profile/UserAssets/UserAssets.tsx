@@ -14,7 +14,7 @@ const UserAssets = () => {
   };
 
   return (
-    <div className="col-sm-12 col-lg-8">
+    <div className="col-sm-12 col-lg-8 ">
       <Card>
         <TabContext value={tabValue}>
           <TabList onChange={changeTabValueHandler} aria-label="user-assets-tabs">

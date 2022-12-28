@@ -1,14 +1,13 @@
 import classnames from "classnames";
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 
 import { SelectOption } from "../common/types/select-option";
 import { ChatRoom } from "./chat.types";
 import ChatRooms from "./Rooms/ChatRooms";
+import { decreaseUnreadMessagesCount } from "../core/store/chat";
 import ChatMessages from "./Messages/ChatMessages";
 import { getChatRooms, markAsRead } from "./chat.api";
-import http from "../core/api/http";
-import { useDispatch } from "react-redux";
-import { decreaseUnreadMessagesCount } from "../core/store/chat";
 
 import styles from "./Chat.module.scss";
 
@@ -91,7 +90,7 @@ const Chat = () => {
 
   return (
     <div className={styles.root}>
-      <div className={classnames("col-4", styles.room, { [styles["room--open"]]: showChatRooms })}>
+      <div className={classnames("col-3", styles.room, { [styles["room--open"]]: showChatRooms })}>
         <ChatRooms
           chatRooms={chatRooms}
           selectedChatRoom={selectedChatRoom}
@@ -101,7 +100,7 @@ const Chat = () => {
         />
       </div>
       <div
-        className={classnames("col-12", "col-md-8", styles.messages, {
+        className={classnames("col-12", "col-md-9", styles.messages, {
           ["col-md-12"]: !showChatRooms,
         })}
       >

@@ -23,7 +23,7 @@ const ChatMessagesHeader = ({ onShowChatRoom, currentRoom }: Props) => {
           <DragHandleRounded />
         </IconButton>
         {currentRoom?.members.map((member) => {
-          if (member.id !== currentUser.id) {
+          if (member.id !== currentUser?.id) {
             return (
               <div key={member.id} className="d-flex align-items-center ms-3">
                 <Avatar />

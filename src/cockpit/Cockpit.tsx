@@ -6,9 +6,11 @@ import SideBar from "../core/components/SideBar/SideBar";
 import Users from "../users/Users";
 import UserAccount from "../user-account/UserAccount";
 import Assests from "../assets/Assets";
+import Chat from "../chat/Chat";
+import PrivateRoute from "../common/components/PrivateRoute/PrivateRoute";
+import { UserRole } from "../users/users.types";
 
 import styles from "./Cockpit.module.scss";
-import Chat from "../chat/Chat";
 
 const Cockpit = () => {
   const [openSideBar, setOpenSideBar] = useState(false);
@@ -31,8 +33,15 @@ const Cockpit = () => {
                 <div className="container pb-5">
                   <Routes>
                     <Route path="/user-account/*" element={<UserAccount />}></Route>
-                    <Route path="/users/*" element={<Users />}></Route>
-                    <Route path="/assets/*" element={<Assests />}></Route>notifications
+                    <Route
+                      path="/users/*"
+                      element={
+                        <PrivateRoute requiredUserRole={UserRole.Librarian}>
+                          <Users />
+                        </PrivateRoute>
+                      }
+                    ></Route>
+                    <Route path="/assets/*" element={<Assests />}></Route>
                   </Routes>
                 </div>
               }

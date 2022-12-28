@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as Icons from "@mui/icons-material";
 
-import { FullUserInfo } from "../../users/users.types";
+import { FullUserInfo, UserRole } from "../../users/users.types";
 import { getFullName } from "../../common/utils/full-name";
 import { userRoleTranslations } from "../../common/utils/translations";
 import UserInformation from "./UserInformation/UserInformation";
@@ -55,7 +55,7 @@ const Profile = () => {
       </div>
       <div className="row">
         <UserInformation user={userData} />
-        <UserAssets />
+        {userData.role === UserRole.Reader && <UserAssets />}
       </div>
     </div>
   );
