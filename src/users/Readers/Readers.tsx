@@ -1,10 +1,18 @@
 import { Route, Routes } from "react-router-dom";
+import { useEffect } from "react";
 
 import ReadersTable from "./ReadersTable/ReadersTable";
 import AddReader from "./AddReader/AddReader";
 import EditReader from "./EditReader/EditReader";
+import { useDocumentTitle } from "../../common/hooks/use-document-title";
 
 const Readers = () => {
+  const [setDocumentTitle] = useDocumentTitle();
+
+  useEffect(() => {
+    setDocumentTitle("Czytelnicy");
+  }, []);
+
   return (
     <div>
       <Routes>

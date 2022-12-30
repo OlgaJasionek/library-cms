@@ -10,12 +10,20 @@ import Loader from "../../common/components/Loader/Loader";
 import { getFullName } from "../../common/utils/full-name";
 import CopiesTable from "./CopiesTable/CopiesTable";
 import { getAssetData } from "../assets.api";
+import { useDocumentTitle } from "../../common/hooks/use-document-title";
 
 import styles from "./AssetDetails.module.scss";
 
 const AssetDetails = () => {
   const [assetData, setAssetData] = useState<Asset | undefined>();
   const { assetId } = useParams<string>();
+  const [setDocumentTitle] = useDocumentTitle();
+
+  useEffect(() => {
+    if (assetData) {
+      setDocumentTitle(assetData?.title);
+    }
+  }, [assetData?.title]);
 
   useEffect(() => {
     if (assetId) {

@@ -8,6 +8,7 @@ import ChatRooms from "./Rooms/ChatRooms";
 import { decreaseUnreadMessagesCount } from "../core/store/chat";
 import ChatMessages from "./Messages/ChatMessages";
 import { getChatRooms, markAsRead } from "./chat.api";
+import { useDocumentTitle } from "../common/hooks/use-document-title";
 
 import styles from "./Chat.module.scss";
 
@@ -16,6 +17,11 @@ const Chat = () => {
   const [selectedChatRoom, setSelectedChatRoom] = useState<ChatRoom>();
   const [chatRooms, setChatRooms] = useState<ChatRoom[]>([]);
   const dispatch = useDispatch();
+  const [setDocumentTitle] = useDocumentTitle();
+
+  useEffect(() => {
+    setDocumentTitle("Chat");
+  }, []);
 
   useEffect(() => {
     getData();

@@ -2,16 +2,16 @@ import axios, { AxiosError } from "axios";
 import jwtDecode from "jwt-decode";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 
 import Cockpit from "./cockpit/Cockpit";
 import Snackbar from "./common/components/Snackbar/Snackbar";
 import { DecodedToken } from "./common/types/jwt";
-import {  selectIsInitialLoaded, setData } from "./core/store/current-user";
+import { selectCurrentUser, selectIsInitialLoaded, setData } from "./core/store/current-user";
 import { setUnreadMessagesCount } from "./core/store/chat";
 import Login from "./login/Login";
 import { getUnreadMessagesNumber } from "./login/login.api";
-
+import { useDocumentTitle } from "./common/hooks/use-document-title";
 
 function App() {
   const [error, setError] = useState<string | null | undefined>(null);
@@ -19,6 +19,12 @@ function App() {
   const isCurrentUserInitialLoaded = useSelector(selectIsInitialLoaded);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [setDocumentTitle] = useDocumentTitle();
+  const currentUser = useSelector(selectCurrentUser);
+
+  useEffect(() => {
+    setDocumentTitle("Biblioteka");
+  }, []);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -69,6 +75,13 @@ function App() {
     <div className="h-100">
       <Snackbar open={openErrorSnackbar} text={error} handleClose={handleCloseErrorSnackbar} color="error" />
       <Routes>
+        <Route
+          path="/"
+          element={
+            <Navigate to={isCurrentUserInitialLoaded && currentUser ? "/assets/list" : "/login"} replace />
+          }
+        />
+
         <Route path="/login" element={<Login />}></Route>
         {isCurrentUserInitialLoaded && <Route path="*" element={<Cockpit />}></Route>}
       </Routes>

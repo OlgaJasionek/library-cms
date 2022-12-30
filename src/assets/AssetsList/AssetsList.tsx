@@ -15,6 +15,7 @@ import FiltersPanel from "./FiltersPanel/FiltersPanel";
 import { SelectOption } from "../../common/types/select-option";
 import { useSort } from "../../common/hooks/use-sort";
 import { selectCurrentUser } from "../../core/store/current-user";
+import { useDocumentTitle } from "../../common/hooks/use-document-title";
 
 const AssestsList = () => {
   const navigate = useNavigate();
@@ -30,6 +31,11 @@ const AssestsList = () => {
   const [openSideFilterPanel, setOpenSideFilterPanel] = useState<boolean>(false);
   const [searchAssetValueLoading, setSearchAssetValueLoading] = useState<boolean>(false);
   const [filters, setFilters] = useState<AssetFilters>({});
+  const [setDocumentTitle] = useDocumentTitle();
+
+  useEffect(() => {
+    setDocumentTitle("Katalog książek");
+  }, []);
 
   useEffect(() => {
     getCategoriesList();
