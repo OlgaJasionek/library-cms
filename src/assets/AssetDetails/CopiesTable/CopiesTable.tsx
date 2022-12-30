@@ -144,7 +144,7 @@ const CopiesTable = ({ copies }: Props) => {
                     <TableCell>Nr inwentarza</TableCell>
                     <TableCell>Ilość rezerwacji</TableCell>
                     <TableCell>Status</TableCell>
-                    <TableCell></TableCell>
+                    {currentUser?.role === UserRole.Reader && <TableCell></TableCell>}
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -153,7 +153,7 @@ const CopiesTable = ({ copies }: Props) => {
                       <TableCell component="th">{copy.inventoryNumber}</TableCell>
                       <TableCell>{copy.activeReservationsCount}</TableCell>
                       <TableCell>{showStatusInfo(copy)}</TableCell>
-                      <TableCell>{showUserAccess(copy)}</TableCell>
+                      {currentUser?.role === UserRole.Reader && <TableCell>{showUserAccess(copy)}</TableCell>}
                     </TableRow>
                   ))}
                 </TableBody>

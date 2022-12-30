@@ -10,12 +10,18 @@ import UserInformation from "./UserInformation/UserInformation";
 import Loader from "../../common/components/Loader/Loader";
 import { getCurrentUserData } from "../../users/users.api";
 import UserAssets from "./UserAssets/UserAssets";
+import { useDocumentTitle } from "../../common/hooks/use-document-title";
 
 import styles from "./Profile.module.scss";
 
 const Profile = () => {
   const [userData, setUserData] = useState<FullUserInfo | null>(null);
   const navigate = useNavigate();
+  const [setDocumentTitle] = useDocumentTitle();
+
+  useEffect(() => {
+    setDocumentTitle("Twój profil");
+  }, []);
 
   useEffect(() => {
     getData();

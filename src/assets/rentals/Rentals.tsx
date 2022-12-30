@@ -4,6 +4,7 @@ import classnames from "classnames";
 import { useEffect, useState } from "react";
 
 import Loader from "../../common/components/Loader/Loader";
+import { useDocumentTitle } from "../../common/hooks/use-document-title";
 import { usePagination } from "../../common/hooks/use-pagination";
 import { useSort } from "../../common/hooks/use-sort";
 import { getRentalsAssetsData } from "../assets.api";
@@ -19,6 +20,11 @@ const AssetsRentals = () => {
   const [openFilterPanel, setOpenFilterPanel] = useState<boolean>(false);
   const [initialLoading, setInitialLoading] = useState<boolean>(true);
   const [filters, setFilters] = useState<RentalsFilters>();
+  const [setDocumentTitle] = useDocumentTitle();
+
+  useEffect(() => {
+    setDocumentTitle("Wypożyczenia");
+  }, []);
 
   useEffect(() => {
     getData();

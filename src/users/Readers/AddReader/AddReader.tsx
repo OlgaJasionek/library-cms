@@ -6,9 +6,10 @@ import { Alert } from "@mui/material";
 import Card from "../../../common/components/Card/Card";
 import { addNewReader } from "../../users.api";
 import ReaderForm from "../Form/Form";
+import { ReaderFormValues } from "../readers.types";
+
 
 import styles from "./AddReader.module.scss";
-import { ReaderFormValues } from "../readers.types";
 
 const AddReader = () => {
   const [passwordForUser, setPasswordForUser] = useState<string>("");
