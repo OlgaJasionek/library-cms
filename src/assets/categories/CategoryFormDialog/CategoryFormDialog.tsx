@@ -41,7 +41,7 @@ const AssetsCategoryFormDialog = ({ open, onClose, onSubmit, loading, title, ini
               <LoadingButton onClick={onClose} loading={loading} loadingIndicator="Anuluj">
                 Anuluj
               </LoadingButton>
-              <LoadingButton type="submit" variant="text" role="progressbar" loading={loading}>
+              <LoadingButton type="submit" variant="contained" role="progressbar" loading={loading}>
                 Zapisz
               </LoadingButton>
             </DialogActions>

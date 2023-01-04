@@ -20,7 +20,7 @@ type Props = {
 };
 
 const ChangePasswordDialog = ({ open, onClose }: Props) => {
-  const { handleSubmit, control } = useForm<FormValues>();
+  const { handleSubmit, control, reset } = useForm<FormValues>();
   const [loading, setLoading] = useState<boolean>(false);
   const [openSuccessSnackbar, setOpenSuccesSnackbar] = useState<boolean>(false);
 
@@ -28,8 +28,9 @@ const ChangePasswordDialog = ({ open, onClose }: Props) => {
     try {
       setLoading(true);
       await editUserPassword(body);
-      setOpenSuccesSnackbar(true);
       onClose();
+      reset();
+      setOpenSuccesSnackbar(true);
     } catch (err) {}
     setLoading(false);
   };

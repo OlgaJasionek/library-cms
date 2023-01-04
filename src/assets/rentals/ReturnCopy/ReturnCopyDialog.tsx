@@ -28,6 +28,7 @@ const ReturnCopyDialog = ({ open, onClose, rentalId, onReturn }: Props) => {
         const resp = await returnCopy(rentalId);
         onClose();
         onReturn(resp.data);
+        setOpenSuccessSnackbar(true);
       }
     } catch (err) {}
 

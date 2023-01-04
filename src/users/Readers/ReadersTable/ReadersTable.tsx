@@ -27,6 +27,8 @@ import { useSort } from "../../../common/hooks/use-sort";
 import ReadersFilters from "../ReadersFilters/ReadersFilters";
 import TabelSort from "../../../common/components/TabelSort/TabelSort";
 
+import styles from "./ReadersTable.module.scss";
+
 const ReadersTable = () => {
   const [initialLoading, setInitialLoading] = useState<boolean>(true);
   const { page, perPage, totalRows, setPerPage, setPage, setTotalRows } = usePagination();
@@ -93,7 +95,7 @@ const ReadersTable = () => {
   if (initialLoading) return <Loader />;
 
   return (
-    <div className="d-flex-column">
+    <div className={styles.root}>
       <div className="page-header-with-button ">
         <h2>Czytelnicy</h2>
         <Button variant="contained" onClick={() => navigate("add")}>
@@ -152,7 +154,7 @@ const ReadersTable = () => {
                       <Chip label="Aktywny" color="success" />
                     )}
                   </TableCell>
-                  <TableCell scope="row" align="right">
+                  <TableCell className="d-flex" align="right">
                     {!reader.disabled && (
                       <>
                         <Tooltip title="Edytuj">

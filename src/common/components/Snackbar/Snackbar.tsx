@@ -1,4 +1,5 @@
 import { Alert, AlertColor, Snackbar as MuiSnackbar } from "@mui/material";
+import ReactDOM from "react-dom";
 
 type Props = {
   open: boolean;
@@ -8,7 +9,7 @@ type Props = {
 };
 
 const Snackbar = ({ open, handleClose, text, color }: Props) => {
-  return (
+  return ReactDOM.createPortal(
     <MuiSnackbar
       anchorOrigin={{ vertical: "top", horizontal: "right" }}
       open={open}
@@ -18,7 +19,8 @@ const Snackbar = ({ open, handleClose, text, color }: Props) => {
       <Alert onClose={handleClose} severity={color} sx={{ width: "100%" }}>
         {text}
       </Alert>
-    </MuiSnackbar>
+    </MuiSnackbar>,
+    document.body
   );
 };
 export default Snackbar;

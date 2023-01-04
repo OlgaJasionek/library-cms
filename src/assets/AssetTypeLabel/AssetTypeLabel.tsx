@@ -11,21 +11,21 @@ const AssetTypeLabel = ({ type }: Props) => {
   switch (type) {
     case AssetsTypes.Book:
       return (
-        <div>
+        <div className="d-flex">
           <Icons.AutoStories className="icon" />
           <span className="ms-2">{assetsTypesTranslations[type]}</span>
         </div>
       );
     case AssetsTypes.Magazine:
       return (
-        <div>
+        <div className="d-flex">
           <Icons.Article className="icon" />
           <span className="ms-2">{assetsTypesTranslations[type]}</span>
         </div>
       );
     case AssetsTypes.Audiobook:
       return (
-        <div>
+        <div className="d-flex">
           <Icons.Headphones className="icon" />
           <span className="ms-2">{assetsTypesTranslations[type]}</span>
         </div>

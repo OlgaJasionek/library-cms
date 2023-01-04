@@ -33,6 +33,8 @@ function App() {
       const decodedToken = jwtDecode<DecodedToken>(token || "") || null;
       dispatch(setData(decodedToken.user));
       getUnreadMessagesCount();
+    } else {
+      dispatch(setData(null));
     }
 
     axios.interceptors.response.use(
@@ -68,8 +70,11 @@ function App() {
 
   const handleCloseErrorSnackbar = () => {
     setOpenErrorSnackbar(false);
-    setError(null);
   };
+
+  if (!isCurrentUserInitialLoaded) {
+    return null;
+  }
 
   return (
     <div className="h-100">
@@ -83,7 +88,7 @@ function App() {
         />
 
         <Route path="/login" element={<Login />}></Route>
-        {isCurrentUserInitialLoaded && <Route path="*" element={<Cockpit />}></Route>}
+        <Route path="*" element={<Cockpit />}></Route>
       </Routes>
     </div>
   );

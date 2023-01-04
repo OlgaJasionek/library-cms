@@ -102,7 +102,7 @@ const AssetsListTable = ({
                   <AssetTypeLabel type={asset.type} />
                 </TableCell>
                 {currentUser?.role === UserRole.Librarian && (
-                  <TableCell scope="row" align="right">
+                  <TableCell className="d-flex" align="right">
                     <Tooltip title="Edytuj">
                       <IconButton onClick={() => navigate(`${asset.id}/edit`)}>
                         <Icons.Edit />

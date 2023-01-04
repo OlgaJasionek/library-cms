@@ -37,7 +37,7 @@ const ChatRoomListItem = ({ contact, onSelectChatRoom, selectedChatRoom }: Props
                     <div className="d-flex">
                       <span className="text-secondary">{msg.senderId === currentUser?.id && "Ty: "}</span>
                       <span
-                        className={classnames("ms-2", styles.textMessage, {
+                        className={classnames(styles.textMessage, {
                           [styles.newTextMessage]: contact.unreadMessagesCount > 0,
                         })}
                       >

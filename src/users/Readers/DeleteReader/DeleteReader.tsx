@@ -22,7 +22,10 @@ const DeleteReader = ({ open, onClose, onSave, readerId }: Props) => {
   const deleteAuthorHandler = async () => {
     setLoading(true);
     try {
-      if (readerId) await http.delete(`users/${readerId}`);
+      if (readerId) {
+        await http.delete(`users/${readerId}`);
+      }
+
       onClose();
       onSave();
       setOpenSuccessSnackbar(true);

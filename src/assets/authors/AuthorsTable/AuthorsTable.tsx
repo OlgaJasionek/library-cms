@@ -157,7 +157,7 @@ const AssetsAuthorsTable = () => {
                 <TableRow key={author.id}>
                   <TableCell component="th">{getFullName(author)}</TableCell>
                   <TableCell>{author.assetsCount}</TableCell>
-                  <TableCell scope="row" align="right">
+                  <TableCell className="d-flex" align="right">
                     <Tooltip title="Edytuj">
                       <IconButton
                         onClick={() => {

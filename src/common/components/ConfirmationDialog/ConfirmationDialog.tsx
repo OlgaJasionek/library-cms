@@ -21,7 +21,7 @@ const ConfirmationDialog = ({ open, onClose, text, title, loading, onAccept }: P
             <LoadingButton onClick={onClose} loading={loading} loadingIndicator="Anuluj">
               Nie
             </LoadingButton>
-            <LoadingButton variant="text" role="progressbar" loading={loading} onClick={onAccept}>
+            <LoadingButton variant="contained" role="progressbar" loading={loading} onClick={onAccept}>
               Tak
             </LoadingButton>
           </DialogActions>

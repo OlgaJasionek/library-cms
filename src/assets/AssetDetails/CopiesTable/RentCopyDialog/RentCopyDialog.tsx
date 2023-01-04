@@ -28,9 +28,9 @@ const RentCopyDialog = ({ open, onClose, copyId, onRent }: Props) => {
         const resp = await rentCopy(copyId);
         onClose();
         onRent(resp.data);
+        setOpenSuccessSnackbar(true);
       }
     } catch (err) {}
-
     setLoading(false);
   };
 
