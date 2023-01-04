@@ -24,8 +24,8 @@ const AddAssetCategory = ({ open, onClose, onSave }: Props) => {
       setLoading(true);
       await addAssetsCategory(body);
       onClose();
-      setOpenSuccessSnackbar(true);
       onSave();
+      setOpenSuccessSnackbar(true);
     } catch (err) {}
     setLoading(false);
   };

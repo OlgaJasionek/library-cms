@@ -15,7 +15,7 @@ const PrivateRoute = ({ children, requiredUserRole }: Props): JSX.Element => {
   if (!currentUser) {
     return <Navigate to="/login" />;
   }
-  
+
   if (requiredUserRole) {
     if (currentUser.role !== requiredUserRole) {
       return <Navigate to="/login" />;

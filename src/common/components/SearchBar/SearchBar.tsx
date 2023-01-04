@@ -3,7 +3,6 @@ import { CircularProgress, debounce, InputAdornment, TextField } from "@mui/mate
 import { Fragment, useEffect, useMemo, useState } from "react";
 import { Control, useController } from "react-hook-form";
 
-
 type Props = {
   loading: boolean;
   name: string;
@@ -41,7 +40,9 @@ const SearchBar = ({ loading, name, control, label }: Props) => {
             <Search />
           </InputAdornment>
         ),
-        endAdornment: <Fragment>{loading && <CircularProgress color="inherit" size={20} />}</Fragment>,
+        endAdornment: (
+          <Fragment>{inputValue && loading && <CircularProgress color="inherit" size={20} />}</Fragment>
+        ),
       }}
     />
   );

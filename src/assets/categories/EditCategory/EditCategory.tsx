@@ -27,6 +27,7 @@ const EditAssetsCategory = ({ open, onClose, onSave, categoryId, initData }: Pro
       if (categoryId) await editAssetsCategory(body, categoryId);
       onClose();
       onSave();
+      setOpenSuccessSnackbar(true);
     } catch (err) {}
     setLoading(false);
   };

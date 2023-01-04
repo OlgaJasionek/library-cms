@@ -4,6 +4,8 @@ import { useForm, useWatch } from "react-hook-form";
 import SearchBar from "../../../common/components/SearchBar/SearchBar";
 import Switch from "../../../common/components/Switch/Switch";
 
+import styles from "./ReadersFilters.module.scss";
+
 type FormValues = {
   searchReader: string;
   onlyActive: boolean;
@@ -24,8 +26,8 @@ const ReadersFilters = ({ onChangeValue, loading }: Props) => {
 
   return (
     <>
-      <form className="d-flex justify-content-between mb-5">
-        <div className="w-100 me-4">
+      <form className={styles.root}>
+        <div className={styles.searchInput}>
           <SearchBar name="searchReader" label="Wyszukaj czytelnika" control={control} loading={loading} />
         </div>
         <Switch name="onlyActive" label="Pokaż tylko aktywnych" control={control} />

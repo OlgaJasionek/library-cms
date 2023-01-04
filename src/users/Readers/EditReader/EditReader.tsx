@@ -26,26 +26,33 @@ const EditReader = () => {
     } catch (err) {}
   };
 
-  const submitHandler = async (body: ReaderFormValues) => {
+  const editReaderHandler = async (body: ReaderFormValues) => {
     try {
-      if (readerId) await editReader(body, readerId);
+      if (readerId) {
+        await editReader(body, readerId);
+      }
+
       navigate("/users/readers");
     } catch (err) {}
   };
 
   return (
-    <div className="container--sm">
-      <div className="mb-5">
-        <h2>Edytuj czytelnika</h2>
-      </div>
-      <Card>
+    <>
+      <div className="container--sm">
         {readerData ? (
-          <ReaderForm onSave={submitHandler} actionType="edit" initData={readerData} />
+          <>
+            <div className="mb-5">
+              <h2>Edytuj czytelnika</h2>
+            </div>
+            <Card>
+              <ReaderForm onSave={editReaderHandler} actionType="edit" initData={readerData} />
+            </Card>
+          </>
         ) : (
           <Loader />
         )}
-      </Card>
-    </div>
+      </div>
+    </>
   );
 };
 

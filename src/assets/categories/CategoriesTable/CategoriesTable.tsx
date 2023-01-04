@@ -157,7 +157,7 @@ const AssetsCategoriesTable = () => {
                 <TableRow key={category.id}>
                   <TableCell component="th">{category.name}</TableCell>
                   <TableCell>{category.assetsCount}</TableCell>
-                  <TableCell scope="row" align="right">
+                  <TableCell className="d-flex" align="right">
                     <Tooltip title="Edytuj">
                       <IconButton
                         onClick={() => {

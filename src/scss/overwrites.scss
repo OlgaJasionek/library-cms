@@ -8,6 +8,13 @@
   }
 }
 
+.MuiChip-root {
+  &.MuiChip-colorSuccess {
+    background-color: $green-success-background-color;
+    color: $green-text-color;
+  }
+}
+
 .container {
   padding: 0 24px;
 }

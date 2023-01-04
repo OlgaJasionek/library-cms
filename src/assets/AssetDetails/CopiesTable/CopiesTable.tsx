@@ -21,6 +21,8 @@ import AddCopyDialog from "./AddCopyDialog/AddCopyDialog";
 import RentCopyDialog from "./RentCopyDialog/RentCopyDialog";
 import ReserveCopyDialog from "./ReserveCopyDialog/ReserveCopyDialog";
 
+import styles from "./CopiesTable.module.scss";
+
 type Props = {
   copies: AssetsCopy[];
 };
@@ -80,7 +82,7 @@ const CopiesTable = ({ copies }: Props) => {
           )}
         </div>
       );
-    } else if (copy.canRent || copy.canReserve) {
+    } else if (!copy.isRent || !copy.canReserve) {
       return <div>Dostępny</div>;
     }
   };
@@ -127,10 +129,10 @@ const CopiesTable = ({ copies }: Props) => {
   return (
     <>
       <Card>
-        <div className="d-flex justify-content-between align-items-center">
-          <h3>Dokumenty przeznaczone do wypożyczenia: ({displayCopies.length})</h3>
+        <div className={styles.copiesRoot}>
+          <h3>Dokumenty przeznaczone do wypożyczenia ({displayCopies.length})</h3>
           {currentUser?.role === UserRole.Librarian && (
-            <Button variant="contained" onClick={openAddCopyDialogHandler}>
+            <Button className={styles.addCopyBtn} variant="contained" onClick={openAddCopyDialogHandler}>
               Dodaj egzemplarz
             </Button>
           )}

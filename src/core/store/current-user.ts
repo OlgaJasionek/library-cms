@@ -24,13 +24,7 @@ export const currentUserSlice = createSlice({
   initialState,
   reducers: {
     setData: (state, action) => {
-      state.data = {
-        id: action.payload.id,
-        firstName: action.payload.firstName,
-        lastName: action.payload.lastName,
-        email: action.payload.email,
-        role: action.payload.role,
-      };
+      state.data = action.payload;
       state.isInitialLoaded = true;
     },
   },

@@ -86,8 +86,13 @@ const AssetDetails = () => {
                   <dt className={styles.head}>Kategoria:</dt>
                   <dd className={styles.body}>
                     {assetData.categories.map((category) => (
-                      <span key={category.id} className="me-2">
-                        <Chip label={category.name} color="primary" variant="outlined" />
+                      <span key={category.id}>
+                        <Chip
+                          label={category.name}
+                          color="primary"
+                          variant="outlined"
+                          className={styles.categoriesChip}
+                        />
                       </span>
                     ))}
                   </dd>

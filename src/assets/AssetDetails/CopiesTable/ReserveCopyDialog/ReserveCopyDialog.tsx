@@ -28,6 +28,7 @@ const ReserveCopyDialog = ({ open, onClose, copyId, onReserve }: Props) => {
         const resp = await reserveCopy(copyId);
         onClose();
         onReserve(resp.data);
+        setOpenSuccessSnackbar(true);
       }
     } catch (err) {}
 
