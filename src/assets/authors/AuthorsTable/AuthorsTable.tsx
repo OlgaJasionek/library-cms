@@ -157,25 +157,27 @@ const AssetsAuthorsTable = () => {
                 <TableRow key={author.id}>
                   <TableCell component="th">{getFullName(author)}</TableCell>
                   <TableCell>{author.assetsCount}</TableCell>
-                  <TableCell className="d-flex" align="right">
-                    <Tooltip title="Edytuj">
-                      <IconButton
-                        onClick={() => {
-                          openEditAuthorDialogHandler(author.id);
-                        }}
-                      >
-                        <Icons.Edit />
-                      </IconButton>
-                    </Tooltip>
-                    <Tooltip title="Usuń">
-                      <IconButton
-                        onClick={() => {
-                          openDeleteAuthorDialogHandler(author.id);
-                        }}
-                      >
-                        <Icons.Delete />
-                      </IconButton>
-                    </Tooltip>
+                  <TableCell>
+                    <div className="d-flex justify-content-end">
+                      <Tooltip title="Edytuj">
+                        <IconButton
+                          onClick={() => {
+                            openEditAuthorDialogHandler(author.id);
+                          }}
+                        >
+                          <Icons.Edit />
+                        </IconButton>
+                      </Tooltip>
+                      <Tooltip title="Usuń">
+                        <IconButton
+                          onClick={() => {
+                            openDeleteAuthorDialogHandler(author.id);
+                          }}
+                        >
+                          <Icons.Delete />
+                        </IconButton>
+                      </Tooltip>
+                    </div>
                   </TableCell>
                 </TableRow>
               ))}

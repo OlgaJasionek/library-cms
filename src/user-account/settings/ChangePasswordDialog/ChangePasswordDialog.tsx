@@ -29,9 +29,11 @@ const ChangePasswordDialog = ({ open, onClose }: Props) => {
       setLoading(true);
       await editUserPassword(body);
       onClose();
-      reset();
       setOpenSuccesSnackbar(true);
-    } catch (err) {}
+      reset();
+    } catch (err) {
+      reset();
+    }
     setLoading(false);
   };
 
@@ -69,7 +71,7 @@ const ChangePasswordDialog = ({ open, onClose }: Props) => {
               <LoadingButton onClick={onClose} loading={loading} loadingIndicator="Anuluj">
                 Anuluj
               </LoadingButton>
-              <LoadingButton type="submit" variant="text" role="progressbar" loading={loading}>
+              <LoadingButton type="submit" variant="contained" role="progressbar" loading={loading}>
                 Zapisz
               </LoadingButton>
             </DialogActions>

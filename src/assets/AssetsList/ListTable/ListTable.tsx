@@ -102,21 +102,23 @@ const AssetsListTable = ({
                   <AssetTypeLabel type={asset.type} />
                 </TableCell>
                 {currentUser?.role === UserRole.Librarian && (
-                  <TableCell className="d-flex" align="right">
-                    <Tooltip title="Edytuj">
-                      <IconButton onClick={() => navigate(`${asset.id}/edit`)}>
-                        <Icons.Edit />
-                      </IconButton>
-                    </Tooltip>
-                    <Tooltip title="Usuń">
-                      <IconButton
-                        onClick={() => {
-                          openDeleteAssetDialogHandler(asset.id);
-                        }}
-                      >
-                        <Icons.Delete />
-                      </IconButton>
-                    </Tooltip>
+                  <TableCell>
+                    <div className="d-flex justify-content-end">
+                      <Tooltip title="Edytuj">
+                        <IconButton onClick={() => navigate(`${asset.id}/edit`)}>
+                          <Icons.Edit />
+                        </IconButton>
+                      </Tooltip>
+                      <Tooltip title="Usuń">
+                        <IconButton
+                          onClick={() => {
+                            openDeleteAssetDialogHandler(asset.id);
+                          }}
+                        >
+                          <Icons.Delete />
+                        </IconButton>
+                      </Tooltip>
+                    </div>
                   </TableCell>
                 )}
               </TableRow>

@@ -61,19 +61,19 @@ const AssetDetails = () => {
             <div>
               <dl className="d-flex-wrap p-3">
                 <div className={styles.listItem}>
-                  <dt className={styles.head}>Wydawnictwo: </dt>
+                  <dt className={styles.head}>Wydawnictwo</dt>
                   <dd className={styles.body}>{assetData.publisher}</dd>
                 </div>
                 <div className={styles.listItem}>
-                  <dt className={styles.head}>Data wydania:</dt>
+                  <dt className={styles.head}>Data wydania</dt>
                   <dd className={styles.body}>{assetData.publicationYear}</dd>
                 </div>
                 <div className={styles.listItem}>
-                  <dt className={styles.head}>Opis:</dt>
+                  <dt className={styles.head}>Opis</dt>
                   <dd className={styles.body}>{assetData.description}</dd>
                 </div>
                 <div className={styles.listItem}>
-                  <dt className={styles.head}>ISBN:</dt>
+                  <dt className={styles.head}>ISBN</dt>
                   <dd className={styles.body}>{assetData.isbn}</dd>
                 </div>
                 <div className={styles.listItem}>
