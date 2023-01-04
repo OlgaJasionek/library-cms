@@ -106,8 +106,8 @@ const Chat = () => {
         />
       </div>
       <div
-        className={classnames("col-12", "col-md-9", styles.messages, {
-          ["col-md-12"]: !showChatRooms,
+        className={classnames("col-12", "col-xl-9", styles.messages, {
+          ["col-xl-12"]: !showChatRooms,
         })}
       >
         <ChatMessages

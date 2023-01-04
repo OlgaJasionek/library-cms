@@ -20,16 +20,9 @@
   max-width: 100px;
   text-overflow: ellipsis;
   overflow: hidden;
+  white-space: nowrap;
 }
 
 .newTextMessage {
   color: $main-color;
-}
-
-.closeBtn {
-  visibility: hidden;
-
-  @media (max-width: 768px) {
-    visibility: visible;
-  }
 }

@@ -157,25 +157,27 @@ const AssetsCategoriesTable = () => {
                 <TableRow key={category.id}>
                   <TableCell component="th">{category.name}</TableCell>
                   <TableCell>{category.assetsCount}</TableCell>
-                  <TableCell className="d-flex" align="right">
-                    <Tooltip title="Edytuj">
-                      <IconButton
-                        onClick={() => {
-                          openEditCategoryDialogHandler(category.id);
-                        }}
-                      >
-                        <Icons.Edit />
-                      </IconButton>
-                    </Tooltip>
-                    <Tooltip title="Usuń">
-                      <IconButton
-                        onClick={() => {
-                          openDeleteCategoryDialogHandler(category.id);
-                        }}
-                      >
-                        <Icons.Delete />
-                      </IconButton>
-                    </Tooltip>
+                  <TableCell>
+                    <div className="d-flex justify-content-end">
+                      <Tooltip title="Edytuj">
+                        <IconButton
+                          onClick={() => {
+                            openEditCategoryDialogHandler(category.id);
+                          }}
+                        >
+                          <Icons.Edit />
+                        </IconButton>
+                      </Tooltip>
+                      <Tooltip title="Usuń">
+                        <IconButton
+                          onClick={() => {
+                            openDeleteCategoryDialogHandler(category.id);
+                          }}
+                        >
+                          <Icons.Delete />
+                        </IconButton>
+                      </Tooltip>
+                    </div>
                   </TableCell>
                 </TableRow>
               ))}

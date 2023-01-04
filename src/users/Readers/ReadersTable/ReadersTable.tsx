@@ -154,9 +154,9 @@ const ReadersTable = () => {
                       <Chip label="Aktywny" color="success" />
                     )}
                   </TableCell>
-                  <TableCell className="d-flex" align="right">
+                  <TableCell>
                     {!reader.disabled && (
-                      <>
+                      <div className="d-flex justify-content-end">
                         <Tooltip title="Edytuj">
                           <IconButton
                             onClick={() => {
@@ -175,7 +175,7 @@ const ReadersTable = () => {
                             <Icons.Delete />
                           </IconButton>
                         </Tooltip>
-                      </>
+                      </div>
                     )}
                   </TableCell>
                 </TableRow>
