@@ -29,8 +29,8 @@ const users = [
   { type: UserRole.Librarian, email: "janina@gmail.com", password: "nowe1234", label: "Bibliotekarz" },
   {
     type: UserRole.Reader,
-    email: "mateusz@gmail.com",
-    password: "mateusz1234",
+    email: "zywiolek@gmail.com",
+    password: "zywiolek1234",
     label: "Czytelnik",
   },
 ];
