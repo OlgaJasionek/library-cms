@@ -50,9 +50,7 @@ const ChatRoomListItem = ({ contact, onSelectChatRoom, selectedChatRoom }: Props
             </div>
           )}
         </div>
-        {contact.unreadMessagesCount > 0 && (
-          <Icons.FiberManualRecord color="primary" fontSize="medium" className="m-3" />
-        )}
+        {contact.unreadMessagesCount > 0 && <Icons.FiberManualRecord color="primary" fontSize="medium" />}
       </div>
     </>
   );
